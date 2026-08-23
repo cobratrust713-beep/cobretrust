@@ -1,0 +1,2232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="description"
+    content="Learn about CobraTrust, business trust profiles, verification, analytics, subscriptions, privacy and terms of use."
+  >
+
+  <meta name="theme-color" content="#0b1220">
+
+  <title>About CobraTrust — Business Trust Before Business Begins</title>
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --text: #101828;
+      --text-soft: #344054;
+      --muted: #667085;
+      --line: #e4e7ec;
+      --dark: #0b1220;
+      --dark-2: #111827;
+      --green: #16a34a;
+      --green-dark: #15803d;
+      --green-soft: #ecfdf3;
+      --blue-soft: #eff6ff;
+      --blue: #2563eb;
+      --danger-soft: #fff7ed;
+      --max-width: 1120px;
+      --radius: 20px;
+      --shadow: 0 12px 35px rgba(15, 23, 42, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    /* =========================
+       NAVIGATION
+    ========================= */
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: var(--max-width);
+      min-height: 70px;
+
+      margin: auto;
+      padding: 0 22px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+
+      white-space: nowrap;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+
+      border-radius: 11px;
+
+      background: var(--dark);
+      color: white;
+
+      display: grid;
+      place-items: center;
+
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-links::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-links a {
+      padding: 8px 11px;
+
+      border-radius: 9px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+      font-weight: 650;
+
+      white-space: nowrap;
+
+      transition: 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      background: #f2f4f7;
+      color: var(--text);
+    }
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+
+      background:
+        radial-gradient(
+          circle at 80% 15%,
+          rgba(22, 163, 74, 0.11),
+          transparent 30%
+        ),
+        radial-gradient(
+          circle at 15% 5%,
+          rgba(37, 99, 235, 0.08),
+          transparent 30%
+        ),
+        white;
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-inner {
+      max-width: var(--max-width);
+
+      margin: auto;
+
+      padding: 85px 22px 80px;
+
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 13px;
+
+      border-radius: 999px;
+
+      background: var(--green-soft);
+      border: 1px solid #bbf7d0;
+
+      color: var(--green-dark);
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: var(--green);
+    }
+
+    .hero h1 {
+      max-width: 820px;
+
+      margin: 20px auto 15px;
+
+      font-size: clamp(38px, 6vw, 68px);
+
+      line-height: 1.03;
+
+      letter-spacing: -0.06em;
+    }
+
+    .hero-description {
+      max-width: 720px;
+
+      margin: auto;
+
+      color: var(--muted);
+
+      font-size: clamp(16px, 2vw, 19px);
+    }
+
+    .hero-buttons {
+      margin-top: 31px;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      gap: 12px;
+
+      flex-wrap: wrap;
+    }
+
+    .button {
+      min-height: 46px;
+
+      padding: 0 19px;
+
+      border-radius: 12px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 14px;
+      font-weight: 750;
+
+      border: 1px solid var(--line);
+
+      background: white;
+
+      transition: 0.2s ease;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow);
+    }
+
+    .button-primary {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: white;
+    }
+
+    /* =========================
+       MAIN LAYOUT
+    ========================= */
+
+    .main {
+      max-width: var(--max-width);
+
+      margin: auto;
+
+      padding: 52px 22px 80px;
+    }
+
+    .layout {
+      display: grid;
+
+      grid-template-columns: 235px minmax(0, 1fr);
+
+      gap: 28px;
+
+      align-items: start;
+    }
+
+    /* =========================
+       TABLE OF CONTENTS
+    ========================= */
+
+    .toc {
+      position: sticky;
+      top: 90px;
+
+      background: white;
+
+      border: 1px solid var(--line);
+
+      border-radius: 16px;
+
+      padding: 11px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .toc-title {
+      padding: 8px 10px 9px;
+
+      color: #98a2b3;
+
+      font-size: 11px;
+      font-weight: 800;
+
+      letter-spacing: 0.07em;
+
+      text-transform: uppercase;
+    }
+
+    .toc a {
+      display: block;
+
+      padding: 9px 10px;
+
+      border-radius: 9px;
+
+      color: var(--text-soft);
+
+      font-size: 13px;
+      font-weight: 600;
+
+      transition: 0.2s ease;
+    }
+
+    .toc a:hover {
+      background: var(--surface-soft);
+      color: var(--text);
+    }
+
+    /* =========================
+       CONTENT SECTIONS
+    ========================= */
+
+    .content {
+      min-width: 0;
+    }
+
+    .section {
+      scroll-margin-top: 90px;
+
+      background: white;
+
+      border: 1px solid var(--line);
+
+      border-radius: var(--radius);
+
+      padding: clamp(25px, 4vw, 39px);
+
+      margin-bottom: 20px;
+
+      box-shadow: var(--shadow);
+    }
+
+    .section h2 {
+      margin-bottom: 11px;
+
+      font-size: clamp(25px, 3vw, 33px);
+
+      line-height: 1.15;
+
+      letter-spacing: -0.04em;
+    }
+
+    .section h3 {
+      margin-top: 28px;
+      margin-bottom: 7px;
+
+      font-size: 18px;
+
+      line-height: 1.25;
+
+      letter-spacing: -0.02em;
+    }
+
+    .section p {
+      margin: 10px 0;
+
+      color: var(--text-soft);
+    }
+
+    .section ul {
+      margin: 12px 0;
+
+      padding-left: 22px;
+
+      color: var(--text-soft);
+    }
+
+    .section li {
+      margin: 5px 0;
+    }
+
+    .lead {
+      color: #344054 !important;
+
+      font-size: 17px;
+    }
+
+    /* =========================
+       FEATURE CARDS
+    ========================= */
+
+    .cards {
+      margin-top: 23px;
+
+      display: grid;
+
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      gap: 14px;
+    }
+
+    .card {
+      padding: 20px;
+
+      border: 1px solid var(--line);
+
+      background: var(--surface-soft);
+
+      border-radius: 15px;
+    }
+
+    .card-icon {
+      width: 39px;
+      height: 39px;
+
+      margin-bottom: 12px;
+
+      border-radius: 11px;
+
+      display: grid;
+      place-items: center;
+
+      background: var(--blue-soft);
+
+      color: var(--blue);
+
+      font-size: 14px;
+      font-weight: 900;
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+
+      font-size: 16px;
+    }
+
+    .card p {
+      margin: 0;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    /* =========================
+       CALLOUTS
+    ========================= */
+
+    .callout {
+      margin: 22px 0;
+
+      padding: 18px 20px;
+
+      border-radius: 14px;
+
+      background: var(--blue-soft);
+
+      border: 1px solid #bfdbfe;
+
+      color: #1e3a8a;
+    }
+
+    .callout-success {
+      background: var(--green-soft);
+
+      border-color: #bbf7d0;
+
+      color: #166534;
+    }
+
+    .notice {
+      margin-top: 20px;
+
+      padding: 15px 17px;
+
+      border-left: 4px solid var(--green);
+
+      border-radius: 0 12px 12px 0;
+
+      background: #f8fafc;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    /* =========================
+       PLANS
+    ========================= */
+
+    .plans {
+      margin-top: 21px;
+
+      display: grid;
+
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+
+      gap: 15px;
+    }
+
+    .plan {
+      padding: 22px;
+
+      border: 1px solid var(--line);
+
+      border-radius: 16px;
+
+      background: white;
+    }
+
+    .plan-price {
+      display: block;
+
+      font-size: 25px;
+
+      font-weight: 850;
+
+      letter-spacing: -0.035em;
+    }
+
+    .plan-title {
+      margin-top: 3px;
+
+      color: var(--text-soft);
+
+      font-weight: 700;
+
+      font-size: 14px;
+    }
+
+    .plan-description {
+      margin-top: 7px;
+
+      color: var(--muted);
+
+      font-size: 13px;
+    }
+
+    /* =========================
+       FAQ
+    ========================= */
+
+    .faq {
+      margin-top: 22px;
+
+      border-top: 1px solid var(--line);
+    }
+
+    .faq details {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq summary {
+      cursor: pointer;
+
+      padding: 17px 0;
+
+      list-style: none;
+
+      color: var(--text);
+
+      font-size: 15px;
+      font-weight: 750;
+    }
+
+    .faq summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq summary::after {
+      content: "+";
+
+      float: right;
+
+      color: #98a2b3;
+
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    .faq details[open] summary::after {
+      content: "−";
+    }
+
+    .faq-answer {
+      padding: 0 25px 18px 0;
+
+      color: var(--muted);
+
+      font-size: 14px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+      background: var(--dark);
+
+      color: #d0d5dd;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+
+      margin: auto;
+
+      padding: 48px 22px 27px;
+    }
+
+    .footer-grid {
+      display: grid;
+
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+
+      gap: 30px;
+    }
+
+    .footer .brand {
+      color: white;
+    }
+
+    .footer-description {
+      max-width: 360px;
+
+      margin-top: 14px;
+
+      color: #98a2b3;
+
+      font-size: 14px;
+    }
+
+    .footer-heading {
+      margin-bottom: 12px;
+
+      color: white;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .footer-links a {
+      display: block;
+
+      margin: 7px 0;
+
+      color: #98a2b3;
+
+      font-size: 13px;
+    }
+
+    .footer-links a:hover {
+      color: white;
+    }
+
+    .copyright {
+      margin-top: 37px;
+
+      padding-top: 20px;
+
+      border-top: 1px solid #1f2937;
+
+      display: flex;
+
+      justify-content: space-between;
+
+      gap: 15px;
+
+      flex-wrap: wrap;
+
+      color: #667085;
+
+      font-size: 12px;
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 850px) {
+      .nav {
+        min-height: 64px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .toc {
+        position: static;
+
+        display: flex;
+
+        gap: 4px;
+
+        overflow-x: auto;
+
+        padding: 8px;
+      }
+
+      .toc-title {
+        display: none;
+      }
+
+      .toc a {
+        white-space: nowrap;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero-inner {
+        padding: 60px 18px 55px;
+      }
+
+      .hero h1 {
+        font-size: 42px;
+      }
+
+      .main {
+        padding: 30px 14px 55px;
+      }
+
+      .section {
+        padding: 23px 19px;
+
+        border-radius: 17px;
+      }
+
+      .cards,
+      .plans {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        padding: 38px 18px 25px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+      }
+
+      .hero-buttons .button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       NAVIGATION
+  ========================= -->
+
+  <header class="topbar">
+    <nav class="nav">
+
+      <a href="index.html" class="brand">
+
+        <span class="brand-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 3.2L19 6v5.5c0 4.3-2.8 7.5-7 9.3-4.2-1.8-7-5-7-9.3V6l7-2.8Z"/>
+            <path d="m8.5 12 2.2 2.2 4.8-5"/>
+          </svg>
+        </span>
+
+        <span>CobraTrust</span>
+
+      </a>
+
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#verification">Verification</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#privacy">Privacy</a>
+        <a href="#terms">Terms</a>
+      </div>
+
+    </nav>
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="hero">
+
+    <div class="hero-inner">
+
+      <div class="eyebrow">
+        <span class="eyebrow-dot"></span>
+        Business trust, made visible
+      </div>
+
+      <h1>
+        Build trust before business begins.
+      </h1>
+
+      <p class="hero-description">
+        CobraTrust helps businesses create a professional public trust profile
+        where customers can learn about the business, review available proof,
+        explore its work and connect with it with greater confidence.
+      </p>
+
+      <div class="hero-buttons">
+
+        <a href="index.html" class="button button-primary">
+          Create a trust profile
+        </a>
+
+        <a href="#how-it-works" class="button">
+          Learn how CobraTrust works
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       MAIN
+  ========================= -->
+
+  <main class="main">
+
+    <div class="layout">
+
+
+      <!-- TABLE OF CONTENTS -->
+
+      <aside class="toc">
+
+        <div class="toc-title">
+          On this page
+        </div>
+
+        <a href="#about">About CobraTrust</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#profile">Trust profiles</a>
+        <a href="#verification">Verification</a>
+        <a href="#analytics">Analytics</a>
+        <a href="#payments">Payments</a>
+        <a href="#security">Security</a>
+        <a href="#privacy">Privacy Policy</a>
+        <a href="#terms">Terms of Use</a>
+        <a href="#faq">FAQ</a>
+
+      </aside>
+
+
+      <!-- CONTENT -->
+
+      <div class="content">
+
+
+        <!-- ABOUT -->
+
+        <section class="section" id="about">
+
+          <h2>
+            About CobraTrust
+          </h2>
+
+          <p class="lead">
+            CobraTrust is a business trust-profile platform created to help
+            businesses present themselves professionally online and give
+            potential customers useful information before they decide to
+            contact or do business with them.
+          </p>
+
+          <p>
+            Businesses today often communicate with customers through social
+            media, messaging apps, websites and other online channels.
+            However, customers may still have difficulty determining who they
+            are dealing with, what the business does, what work it has completed
+            and what information they can rely on.
+          </p>
+
+          <p>
+            CobraTrust brings important business information together into one
+            professional public profile.
+          </p>
+
+          <p>
+            Our goal is straightforward:
+            <strong>help businesses communicate trust more clearly before
+            business begins.</strong>
+          </p>
+
+
+          <div class="cards">
+
+            <article class="card">
+
+              <div class="card-icon">
+                ✓
+              </div>
+
+              <h3>
+                Professional presence
+              </h3>
+
+              <p>
+                Businesses can create a dedicated public trust profile that
+                presents important business information in one place.
+              </p>
+
+            </article>
+
+
+            <article class="card">
+
+              <div class="card-icon">
+                ◈
+              </div>
+
+              <h3>
+                Trust proof
+              </h3>
+
+              <p>
+                Businesses can present relevant proof and information that
+                potential customers can review before making a decision.
+              </p>
+
+            </article>
+
+
+            <article class="card">
+
+              <div class="card-icon">
+                ↗
+              </div>
+
+              <h3>
+                Direct connections
+              </h3>
+
+              <p>
+                Customers can use available WhatsApp, phone, email, website
+                and social links to connect with the business.
+              </p>
+
+            </article>
+
+
+            <article class="card">
+
+              <div class="card-icon">
+                ◎
+              </div>
+
+              <h3>
+                Real engagement insights
+              </h3>
+
+              <p>
+                Businesses can see how visitors interact with their public
+                profile through available analytics.
+              </p>
+
+            </article>
+
+          </div>
+
+        </section>
+
+
+        <!-- HOW IT WORKS -->
+
+        <section class="section" id="how-it-works">
+
+          <h2>
+            How CobraTrust works
+          </h2>
+
+          <p class="lead">
+            CobraTrust is designed around a simple journey: create your profile,
+            build trust, share it and understand how customers interact with it.
+          </p>
+
+
+          <h3>
+            1. Create your account
+          </h3>
+
+          <p>
+            A business creates a CobraTrust account and provides the information
+            needed to build its business profile.
+          </p>
+
+
+          <h3>
+            2. Complete your business profile
+          </h3>
+
+          <p>
+            Businesses can add information such as their business name,
+            description, contact details, social links, portfolio and relevant
+            trust proof.
+          </p>
+
+
+          <h3>
+            3. Build your public trust profile
+          </h3>
+
+          <p>
+            CobraTrust organizes the information into a professional public
+            profile that customers can access through a shareable profile link.
+          </p>
+
+
+          <h3>
+            4. Customers review the profile
+          </h3>
+
+          <p>
+            Visitors can learn about the business, review its available trust
+            proof and portfolio material and access the business's available
+            contact options.
+          </p>
+
+
+          <h3>
+            5. Businesses understand their audience
+          </h3>
+
+          <p>
+            CobraTrust analytics can record profile views and interactions such
+            as contact clicks, trust-proof activity, portfolio activity and
+            other supported events.
+          </p>
+
+
+          <div class="callout callout-success">
+
+            <strong>Important:</strong>
+            CobraTrust is a trust-information platform. A verified profile is
+            not a guarantee that a business, product, service or transaction
+            is completely risk-free.
+
+          </div>
+
+        </section>
+
+
+        <!-- PROFILE -->
+
+        <section class="section" id="profile">
+
+          <h2>
+            CobraTrust public trust profiles
+          </h2>
+
+          <p class="lead">
+            A CobraTrust public profile gives a business a single professional
+            place to present itself to potential customers.
+          </p>
+
+
+          <h3>
+            Business information
+          </h3>
+
+          <p>
+            Businesses can provide information that helps visitors understand
+            what the business does, what it offers and how to contact it.
+          </p>
+
+
+          <h3>
+            Trust proof
+          </h3>
+
+          <p>
+            Trust proof can help businesses present relevant evidence,
+            documentation, achievements, work examples or other information
+            they want potential customers to review.
+          </p>
+
+
+          <h3>
+            Portfolio
+          </h3>
+
+          <p>
+            Portfolio content can help customers see examples of a business's
+            work before deciding whether to contact the business.
+          </p>
+
+
+          <h3>
+            Contact and social links
+          </h3>
+
+          <p>
+            Businesses may provide links such as WhatsApp, phone, email,
+            website, Instagram, Facebook, TikTok or LinkedIn where applicable.
+          </p>
+
+
+          <div class="notice">
+
+            Businesses are responsible for making sure that information they
+            publish on their public profile is accurate, lawful and appropriate
+            for public viewing.
+
+          </div>
+
+        </section>
+
+
+        <!-- VERIFICATION -->
+
+        <section class="section" id="verification">
+
+          <h2>
+            Verification
+          </h2>
+
+          <p class="lead">
+            CobraTrust verification is designed to provide an additional trust
+            signal by reviewing information submitted through the platform's
+            verification process.
+          </p>
+
+
+          <h3>
+            What verification means
+          </h3>
+
+          <p>
+            When a business receives a CobraTrust verification status, it means
+            the submitted information has been reviewed according to the
+            verification process applicable to that profile or service.
+          </p>
+
+
+          <h3>
+            What verification does not mean
+          </h3>
+
+          <ul>
+
+            <li>
+              It does not guarantee that every transaction with the business
+              will be successful.
+            </li>
+
+            <li>
+              It does not guarantee the quality of every product or service.
+            </li>
+
+            <li>
+              It does not guarantee future business conduct.
+            </li>
+
+            <li>
+              It does not replace customer due diligence.
+            </li>
+
+            <li>
+              It does not mean CobraTrust is a party to a transaction between
+              a business and its customer.
+            </li>
+
+          </ul>
+
+
+          <h3>
+            Maintaining verification
+          </h3>
+
+          <p>
+            CobraTrust may review or request additional information when
+            necessary. Verification may be suspended or removed if information
+            is found to be inaccurate, misleading or inconsistent with the
+            platform's requirements.
+          </p>
+
+        </section>
+
+
+        <!-- ANALYTICS -->
+
+        <section class="section" id="analytics">
+
+          <h2>
+            Real profile analytics
+          </h2>
+
+          <p class="lead">
+            CobraTrust analytics are designed to help businesses understand
+            what visitors actually do on their public trust profile.
+          </p>
+
+
+          <div class="cards">
+
+            <article class="card">
+
+              <div class="card-icon">
+                01
+              </div>
+
+              <h3>
+                Profile views
+              </h3>
+
+              <p>
+                Records supported visits to a public business profile.
+              </p>
+
+            </article>
+
+
+            <article class="card">
+
+              <div class="card-icon">
+                02
+              </div>
+
+              <h3>
+                Unique visitors
+              </h3>
+
+              <p>
+                Helps measure distinct visitor activity using supported
+                anonymous visitor/session identifiers.
+              </p>
+
+            </article>
+
+
+            <article class="card">
+
+              <div class="card-icon">
+                03
+              </div>
+
+              <h3>
+                Contact clicks
+              </h3>
+
+              <p>
+                Supported WhatsApp, phone, email, website and social clicks
+                can be recorded as interaction events.
+              </p>
+
+            </article>
+
+
+            <article class="card">
+
+              <div class="card-icon">
+                04
+              </div>
+
+              <h3>
+                Trust interactions
+              </h3>
+
+              <p>
+                Supported trust-proof and portfolio interactions can be
+                measured to help businesses understand visitor engagement.
+              </p>
+
+            </article>
+
+          </div>
+
+
+          <p>
+            Visitors do not need to have a CobraTrust account for supported
+            public-profile analytics to record an anonymous interaction.
+          </p>
+
+
+          <div class="notice">
+
+            CobraTrust analytics are intended to provide useful engagement
+            information. Analytics numbers should not be interpreted as a
+            guarantee of customer quality, sales or revenue.
+
+          </div>
+
+        </section>
+
+
+        <!-- PAYMENTS -->
+
+        <section class="section" id="payments">
+
+          <h2>
+            Subscriptions and payments
+          </h2>
+
+          <p class="lead">
+            CobraTrust may provide paid subscription plans that unlock or
+            maintain access to certain platform features.
+          </p>
+
+
+          <div class="plans">
+
+            <div class="plan">
+
+              <span class="plan-price">
+                NGN 3,000
+              </span>
+
+              <div class="plan-title">
+                30-day plan
+              </div>
+
+              <div class="plan-description">
+                A 30-day CobraTrust subscription when this plan is available
+                on the official subscription page.
+              </div>
+
+            </div>
+
+
+            <div class="plan">
+
+              <span class="plan-price">
+                NGN 20,000
+              </span>
+
+              <div class="plan-title">
+                1-year plan
+              </div>
+
+              <div class="plan-description">
+                A one-year CobraTrust subscription when this plan is available
+                on the official subscription page.
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <h3>
+            Payment verification
+          </h3>
+
+          <p>
+            Where manual payment verification is used, users may be required
+            to provide payment information and upload a payment screenshot.
+          </p>
+
+          <p>
+            The submitted payment information is reviewed by the CobraTrust
+            Verification Team. Submitting a form does not automatically mean
+            that a payment has been approved.
+          </p>
+
+
+          <h3>
+            Payment approval
+          </h3>
+
+          <p>
+            A subscription that depends on manual approval becomes active only
+            after the payment has been reviewed and approved through the
+            CobraTrust payment-verification process.
+          </p>
+
+
+          <div class="callout">
+
+            <strong>Payment safety:</strong>
+            Always follow the official payment instructions displayed inside
+            CobraTrust. Do not send money to payment details obtained from
+            unofficial messages or third parties.
+
+          </div>
+
+        </section>
+
+
+        <!-- SECURITY -->
+
+        <section class="section" id="security">
+
+          <h2>
+            Security and data protection
+          </h2>
+
+          <p class="lead">
+            CobraTrust is designed with account security, controlled access
+            and protected data handling in mind.
+          </p>
+
+
+          <h3>
+            Account authentication
+          </h3>
+
+          <p>
+            CobraTrust may use Firebase Authentication or other authentication
+            infrastructure to securely manage user accounts and sign-in.
+          </p>
+
+
+          <h3>
+            Database security
+          </h3>
+
+          <p>
+            Information required to operate the platform may be stored using
+            secure cloud infrastructure. Access to private account information
+            should be restricted according to the platform's security rules.
+          </p>
+
+
+          <h3>
+            Payment information
+          </h3>
+
+          <p>
+            Payment-verification submissions are intended to be accessible only
+            to authorized personnel responsible for reviewing payments.
+          </p>
+
+
+          <h3>
+            Anonymous visitors
+          </h3>
+
+          <p>
+            Public profile visitors may be represented by anonymous identifiers
+            or sessions for analytics purposes without requiring the visitor
+            to create a CobraTrust account.
+          </p>
+
+
+          <div class="notice">
+
+            No internet platform can promise absolute security. Users should
+            avoid sharing passwords, authentication codes or unnecessary
+            sensitive information with anyone.
+
+          </div>
+
+        </section>
+
+
+        <!-- PRIVACY -->
+
+        <section class="section" id="privacy">
+
+          <h2>
+            Privacy Policy
+          </h2>
+
+          <p>
+            <strong>Last updated: August 2026</strong>
+          </p>
+
+          <p>
+            CobraTrust respects the privacy of users and visitors. This Privacy
+            Policy explains the types of information that may be collected,
+            why the information may be used and how public-profile information
+            differs from private account information.
+          </p>
+
+
+          <h3>
+            Information users provide
+          </h3>
+
+          <p>
+            Depending on how the platform is used, information may include
+            account email, account identifier, business name, business
+            description, business contact details, social links, profile
+            information, trust proof, portfolio content and payment-verification
+            information.
+          </p>
+
+
+          <h3>
+            Public profile information
+          </h3>
+
+          <p>
+            Information that a business intentionally publishes on its public
+            CobraTrust profile may be visible to visitors. Businesses should
+            never publish passwords, authentication codes, private financial
+            information or other sensitive information they do not want to
+            make public.
+          </p>
+
+
+          <h3>
+            Anonymous visitor information
+          </h3>
+
+          <p>
+            People can visit public profiles without necessarily having a
+            CobraTrust account. The platform may use anonymous identifiers,
+            sessions or similar technical information to measure profile views
+            and supported interactions.
+          </p>
+
+
+          <h3>
+            How information is used
+          </h3>
+
+          <ul>
+
+            <li>
+              To create and maintain CobraTrust accounts.
+            </li>
+
+            <li>
+              To display public business trust profiles.
+            </li>
+
+            <li>
+              To provide profile analytics.
+            </li>
+
+            <li>
+              To provide profile-view notifications.
+            </li>
+
+            <li>
+              To process and verify subscriptions and payments.
+            </li>
+
+            <li>
+              To maintain platform security.
+            </li>
+
+            <li>
+              To improve platform performance and user experience.
+            </li>
+
+            <li>
+              To respond to support requests.
+            </li>
+
+          </ul>
+
+
+          <h3>
+            Third-party services
+          </h3>
+
+          <p>
+            CobraTrust may use third-party infrastructure providers for
+            authentication, hosting, databases, storage, analytics, payment
+            processing and other services required to operate the platform.
+          </p>
+
+
+          <h3>
+            Data retention
+          </h3>
+
+          <p>
+            CobraTrust may retain information for as long as reasonably
+            necessary to provide the service, maintain security, satisfy
+            legitimate business requirements or comply with applicable
+            obligations.
+          </p>
+
+
+          <h3>
+            Privacy changes
+          </h3>
+
+          <p>
+            This Privacy Policy may be updated as CobraTrust develops. The
+            updated version will be published on this page with a revised
+            effective date.
+          </p>
+
+        </section>
+
+
+        <!-- TERMS -->
+
+        <section class="section" id="terms">
+
+          <h2>
+            Terms of Use
+          </h2>
+
+          <p>
+            <strong>Last updated: August 2026</strong>
+          </p>
+
+          <p>
+            By using CobraTrust, you agree to use the platform responsibly
+            and in accordance with these Terms of Use.
+          </p>
+
+
+          <h3>
+            1. Account responsibility
+          </h3>
+
+          <p>
+            You are responsible for the information you submit to CobraTrust
+            and for maintaining the security of your account.
+          </p>
+
+
+          <h3>
+            2. Accurate information
+          </h3>
+
+          <p>
+            Businesses must not knowingly publish false, misleading or
+            fraudulent information about themselves, their products or their
+            services.
+          </p>
+
+
+          <h3>
+            3. Prohibited activities
+          </h3>
+
+          <ul>
+
+            <li>
+              Impersonating another person or business.
+            </li>
+
+            <li>
+              Fraudulent or deceptive activity.
+            </li>
+
+            <li>
+              Uploading unlawful or harmful material.
+            </li>
+
+            <li>
+              Submitting false payment information.
+            </li>
+
+            <li>
+              Manipulating payment screenshots or verification evidence.
+            </li>
+
+            <li>
+              Attempting to access another user's private account.
+            </li>
+
+            <li>
+              Attempting to bypass CobraTrust security controls.
+            </li>
+
+            <li>
+              Abusing analytics or automated platform systems.
+            </li>
+
+            <li>
+              Using CobraTrust for unlawful purposes.
+            </li>
+
+          </ul>
+
+
+          <h3>
+            4. Verification
+          </h3>
+
+          <p>
+            CobraTrust may approve, reject, suspend or request additional
+            information during verification. Verification status may be removed
+            where information is inaccurate, misleading or no longer satisfies
+            the applicable requirements.
+          </p>
+
+
+          <h3>
+            5. Subscriptions
+          </h3>
+
+          <p>
+            Subscription plans are provided according to the plan displayed
+            at the time of purchase. Features dependent on an active plan
+            may become unavailable when that plan expires.
+          </p>
+
+
+          <h3>
+            6. Payment verification
+          </h3>
+
+          <p>
+            Payment submissions are subject to review. Providing a transaction
+            reference, bank information or screenshot does not automatically
+            prove that payment has been received.
+          </p>
+
+
+          <h3>
+            7. Public profiles
+          </h3>
+
+          <p>
+            CobraTrust may restrict a public profile when a required
+            subscription has expired, a required payment has not been
+            verified, or the profile violates platform requirements.
+          </p>
+
+
+          <h3>
+            8. Business transactions
+          </h3>
+
+          <p>
+            CobraTrust is not automatically a party to transactions between
+            businesses and their customers. Customers and businesses are
+            responsible for making their own agreements and decisions.
+          </p>
+
+
+          <h3>
+            9. No guaranteed business outcome
+          </h3>
+
+          <p>
+            CobraTrust does not guarantee sales, customers, revenue, successful
+            transactions, investment returns or any particular business outcome.
+          </p>
+
+
+          <h3>
+            10. Platform availability
+          </h3>
+
+          <p>
+            CobraTrust aims to maintain a reliable service but cannot guarantee
+            uninterrupted availability or that every feature will always be
+            free of technical errors.
+          </p>
+
+
+          <h3>
+            11. Account suspension
+          </h3>
+
+          <p>
+            CobraTrust may restrict or suspend an account where necessary to
+            protect users, investigate suspected abuse, enforce platform rules
+            or protect the security of the service.
+          </p>
+
+
+          <h3>
+            12. Changes to these Terms
+          </h3>
+
+          <p>
+            CobraTrust may update these Terms as the platform develops.
+            Continued use of the service after applicable changes may constitute
+            acceptance of the updated Terms.
+          </p>
+
+        </section>
+
+
+        <!-- FAQ -->
+
+        <section class="section" id="faq">
+
+          <h2>
+            Frequently asked questions
+          </h2>
+
+          <div class="faq">
+
+
+            <details>
+
+              <summary>
+                What is CobraTrust?
+              </summary>
+
+              <div class="faq-answer">
+                CobraTrust is a platform that helps businesses create
+                professional public trust profiles containing business
+                information, trust proof, portfolio material and contact options.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                Do visitors need a CobraTrust account to view a public profile?
+              </summary>
+
+              <div class="faq-answer">
+                No. Public CobraTrust profiles can be viewed by people who
+                do not have a CobraTrust account, subject to the profile's
+                subscription and availability status.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                What does the CobraTrust verified status mean?
+              </summary>
+
+              <div class="faq-answer">
+                It indicates that the business or submitted information has
+                passed the applicable CobraTrust verification process. It does
+                not guarantee future business conduct or a successful transaction.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                Can a business see profile activity?
+              </summary>
+
+              <div class="faq-answer">
+                CobraTrust provides analytics for supported profile activity,
+                including profile views and interactions. Some visitors may be
+                recorded anonymously rather than by name.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                Can someone view a profile without signing up?
+              </summary>
+
+              <div class="faq-answer">
+                Yes. Public profile visitors do not necessarily need to create
+                a CobraTrust account.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                What happens when a subscription expires?
+              </summary>
+
+              <div class="faq-answer">
+                Features that require an active subscription may become
+                unavailable until the business renews its subscription.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                Does submitting payment automatically activate my profile?
+              </summary>
+
+              <div class="faq-answer">
+                No. Where manual payment verification is used, the payment
+                must be reviewed and approved before dependent features become
+                active.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                Does CobraTrust guarantee a business?
+              </summary>
+
+              <div class="faq-answer">
+                No. CobraTrust provides trust and business-presentation tools.
+                Customers should still perform their own appropriate checks
+                before sending money or entering into an agreement.
+              </div>
+
+            </details>
+
+
+            <details>
+
+              <summary>
+                How can I get help?
+              </summary>
+
+              <div class="faq-answer">
+                Use the official support option provided within the CobraTrust
+                platform.
+              </div>
+
+            </details>
+
+
+          </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section class="section" id="contact">
+
+          <h2>
+            Need help?
+          </h2>
+
+          <p>
+            If you need assistance with your account, public trust profile,
+            verification, analytics, subscription or payment verification,
+            use the official CobraTrust support channel.
+          </p>
+
+          <a href="index.html" class="button button-primary">
+            Return to CobraTrust
+          </a>
+
+        </section>
+
+
+      </div>
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer class="footer">
+
+    <div class="footer-inner">
+
+      <div class="footer-grid">
+
+
+        <div>
+
+          <a href="index.html" class="brand">
+
+            <span class="brand-icon">
+
+              <svg viewBox="0 0 24 24">
+
+                <path d="M12 3.2L19 6v5.5c0 4.3-2.8 7.5-7 9.3-4.2-1.8-7-5-7-9.3V6l7-2.8Z"/>
+
+                <path d="m8.5 12 2.2 2.2 4.8-5"/>
+
+              </svg>
+
+            </span>
+
+            <span>CobraTrust</span>
+
+          </a>
+
+
+          <p class="footer-description">
+
+            A professional business trust-profile platform designed to help
+            businesses communicate credibility and give customers useful
+            information before doing business.
+
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <div class="footer-heading">
+            Company
+          </div>
+
+          <div class="footer-links">
+
+            <a href="#about">
+              About CobraTrust
+            </a>
+
+            <a href="#how-it-works">
+              How it works
+            </a>
+
+            <a href="#verification">
+              Verification
+            </a>
+
+            <a href="#analytics">
+              Analytics
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="footer-heading">
+            Legal
+          </div>
+
+          <div class="footer-links">
+
+            <a href="#privacy">
+              Privacy Policy
+            </a>
+
+            <a href="#terms">
+              Terms of Use
+            </a>
+
+            <a href="#payments">
+              Payments
+            </a>
+
+            <a href="#security">
+              Security
+            </a>
+
+          </div>
+
+        </div>
+
+
+        <div>
+
+          <div class="footer-heading">
+            Help
+          </div>
+
+          <div class="footer-links">
+
+            <a href="#faq">
+              FAQ
+            </a>
+
+            <a href="#contact">
+              Support
+            </a>
+
+            <a href="index.html">
+              CobraTrust Home
+            </a>
+
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+      <div class="copyright">
+
+        <span>
+          © 2026 CobraTrust. All rights reserved.
+        </span>
+
+        <span>
+          Built to make business trust easier to communicate.
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    /*
+      Highlight the section currently being viewed
+      in the table of contents.
+    */
+
+    const sections =
+      document.querySelectorAll(".section[id]");
+
+    const tocLinks =
+      document.querySelectorAll(".toc a");
+
+
+    const observer =
+      new IntersectionObserver(
+        (entries) => {
+
+          entries.forEach((entry) => {
+
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+
+            tocLinks.forEach((link) => {
+
+              const target =
+                link.getAttribute("href");
+
+              link.style.background =
+                target === "#" + entry.target.id
+                  ? "#f2f4f7"
+                  : "";
+
+              link.style.color =
+                target === "#" + entry.target.id
+                  ? "#101828"
+                  : "";
+
+            });
+
+          });
+
+        },
+        {
+          rootMargin: "-25% 0px -65% 0px",
+          threshold: 0
+        }
+      );
+
+
+    sections.forEach((section) => {
+
+      observer.observe(section);
+
+    });
+
+  </script>
+
+</body>
+</html>
