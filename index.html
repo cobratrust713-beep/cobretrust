@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>TrustCobra | Build Trust Before You Get Paid</title>
+    <meta name="description" content="TrustCobra helps online sellers, freelancers, and businesses showcase proof of legitimacy in one professional page that customers can trust." />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    
+    <style type="text/tailwindcss">
+      @theme base {
+        --color-background: #FCFCFD;
+        --color-foreground: #151C2C;
+        --color-border: #E2E8F0;
+        --color-primary: #151C2C;
+        --color-primary-foreground: #FFFFFF;
+        --color-secondary: #F1F5F9;
+        --color-secondary-foreground: #151C2C;
+        --color-muted: #F1F5F9;
+        --color-muted-foreground: #64748B;
+        --color-card: #FFFFFF;
+        --color-destructive: #EF4444;
+        
+        --font-sans: 'Inter', sans-serif;
+      }
+      
+      body {
+        font-family: var(--font-sans);
+        background-color: var(--color-background);
+        color: var(--color-foreground);
+      }
+      
+      .fade-in-up {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98), transform 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+      }
+      
+      .fade-in-up.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      
+      .fade-in-left {
+        opacity: 0;
+        transform: translateX(24px);
+        transition: opacity 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98), transform 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98);
+      }
+      
+      .fade-in-left.visible {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      
+      .delay-100 { transition-delay: 100ms; }
+      .delay-200 { transition-delay: 200ms; }
+      .delay-300 { transition-delay: 300ms; }
+      .delay-400 { transition-delay: 400ms; }
+      .delay-500 { transition-delay: 500ms; }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-primary/10 selection:text-primary">
+    
+    <!-- Navbar -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5">
+      <div class="container mx-auto px-6 max-w-7xl flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <a href="#" class="flex items-center gap-2">
+            <div class="flex items-center gap-2.5">
+  <a href="#" class="flex items-center gap-2.5">
+
+    <!-- TrustCobra C Logo -->
+    <div class="w-8 h-8 flex items-center justify-center">
+      <svg
+        viewBox="0 0 40 40"
+        width="32"
+        height="32"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-label="TrustCobra logo"
+      >
+        <!-- Outer C -->
+        <path
+          d="M29.5 9.8
+             C26.8 7.3 23.2 6 19.4 6
+             C11.8 6 6 11.8 6 20
+             C6 28.2 11.8 34 19.4 34
+             C23.2 34 26.8 32.7 29.5 30.2"
+          stroke="currentColor"
+          stroke-width="5"
+          stroke-linecap="round"
+        />
+
+        <!-- Trust/verification mark -->
+        <path
+          d="M25 20.5L28 23.5L34 16.5"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+
+    <span class="font-semibold text-lg tracking-tight">
+      TrustCobra
+    </span>
+
+  </a>
+</div>
+
+        <nav class="hidden md:flex items-center gap-8">
+          <a href="#features" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</a>
+          <a href="#pricing" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
+          <a href="#about" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</a>
+        </nav>
+
+        <div class="hidden md:flex items-center gap-4">
+          <a href="login.html" class="text-sm font-medium text-foreground hover:text-primary transition-colors px-4 py-2">Log In</a>
+          <a href="login.html" class="text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md transition-colors shadow-sm">Create Trust Profile</a>
+        </div>
+
+        <button id="mobile-menu-btn" class="md:hidden text-foreground">
+          <i class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg py-4 px-6 flex flex-col gap-4">
+        <a href="#features" class="mobile-link text-base font-medium text-muted-foreground hover:text-foreground py-2">Features</a>
+        <a href="#pricing" class="mobile-link text-base font-medium text-muted-foreground hover:text-foreground py-2">Pricing</a>
+        <a href="#about" class="mobile-link text-base font-medium text-muted-foreground hover:text-foreground py-2">About</a>
+        <div class="h-px bg-border my-2"></div>
+        <a href="login.html" class="text-base font-medium text-foreground py-2">Log In</a>
+        <a href="login.html" class="text-base font-medium bg-primary text-primary-foreground text-center py-2.5 rounded-md mt-2">Create Trust Profile</a>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/[0.03] rounded-[100%] blur-3xl -z-10 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+            
+            <div class="max-w-2xl">
+              <div class="fade-in-up delay-100 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6 border border-border">
+                <i class="fa-solid fa-shield-check text-primary"></i>
+                <span>The professional standard for independents</span>
+              </div>
+              
+              <h1 class="fade-in-up delay-200 text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
+                Build Trust Before <br class="hidden md:block" />
+                You Get Paid
+              </h1>
+              
+              <p class="fade-in-up delay-300 text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
+                TrustCobra helps online sellers, freelancers, and businesses showcase proof of legitimacy in one professional page that customers can trust before making payment.
+              </p>
+              
+              <div class="fade-in-up delay-400 flex flex-col sm:flex-row gap-4">
+                <a href="login.html" class="inline-flex items-center justify-center bg-primary text-primary-foreground font-medium px-6 py-3.5 rounded-md hover:bg-primary/90 transition-colors shadow-sm">
+                  Create Free Trust Profile
+                </a>
+                <a href="#how-it-works" class="inline-flex items-center justify-center bg-transparent border border-border text-foreground font-medium px-6 py-3.5 rounded-md hover:bg-secondary transition-colors">
+                  View Demo Profile
+                </a>
+              </div>
+            </div>
+
+            <div class="fade-in-left delay-500 relative lg:ml-auto w-full max-w-md mx-auto lg:mx-0">
+              <div class="bg-card border border-border rounded-xl shadow-xl overflow-hidden relative">
+                <div class="h-32 bg-secondary/50 relative overflow-hidden">
+                  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
+                </div>
+                
+                <div class="absolute top-20 left-8">
+                  <div class="w-20 h-20 bg-background rounded-full p-1 border border-border shadow-sm">
+                    <div class="w-full h-full bg-primary/10 rounded-full flex items-center justify-center text-primary font-medium text-xl">S</div>
+                  </div>
+                </div>
+
+                <div class="absolute top-24 left-24 bg-background rounded-full p-0.5 shadow-sm text-primary">
+                  <i class="fa-solid fa-circle-check text-lg"></i>
+                </div>
+
+                <div class="pt-12 pb-8 px-8">
+                  <div class="mb-6">
+                    <div class="h-6 w-32 bg-foreground/10 rounded mb-2"></div>
+                    <div class="h-4 w-48 bg-muted-foreground/20 rounded"></div>
+                    
+                    <div class="flex items-center gap-2 mt-4">
+                      <i class="fa-solid fa-location-dot text-muted-foreground text-xs"></i>
+                      <div class="h-3 w-24 bg-muted-foreground/10 rounded"></div>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4 mb-8">
+                    <div class="p-3 border border-border rounded-lg bg-secondary/30 flex flex-col gap-1.5">
+                      <i class="fa-solid fa-shield-halved text-primary text-sm"></i>
+                      <div class="h-3 w-20 bg-foreground/20 rounded"></div>
+                      <div class="h-2 w-16 bg-muted-foreground/20 rounded"></div>
+                    </div>
+                    <div class="p-3 border border-border rounded-lg bg-secondary/30 flex flex-col gap-1.5">
+                      <i class="fa-solid fa-star text-primary text-sm"></i>
+                      <div class="h-3 w-16 bg-foreground/20 rounded"></div>
+                      <div class="h-2 w-24 bg-muted-foreground/20 rounded"></div>
+                    </div>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div class="h-4 w-24 bg-foreground/10 rounded mb-3"></div>
+                    <div class="flex gap-3">
+                      <div class="w-8 h-8 rounded-full bg-muted shrink-0"></div>
+                      <div class="space-y-2 flex-1 pt-1">
+                        <div class="h-3 w-1/3 bg-foreground/10 rounded"></div>
+                        <div class="h-2 w-full bg-muted-foreground/10 rounded"></div>
+                        <div class="h-2 w-4/5 bg-muted-foreground/10 rounded"></div>
+                      </div>
+                    </div>
+                    <div class="flex gap-3">
+                      <div class="w-8 h-8 rounded-full bg-muted shrink-0"></div>
+                      <div class="space-y-2 flex-1 pt-1">
+                        <div class="h-3 w-1/3 bg-foreground/10 rounded"></div>
+                        <div class="h-2 w-full bg-muted-foreground/10 rounded"></div>
+                        <div class="h-2 w-4/5 bg-muted-foreground/10 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="mt-8">
+                    <div class="h-10 w-full bg-primary rounded-md opacity-90"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="absolute -right-6 top-10 w-24 h-24 bg-primary/5 rounded-full blur-2xl -z-10"></div>
+              <div class="absolute -left-6 bottom-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl -z-10"></div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Trust Indicators -->
+      <section class="py-12 border-y border-border bg-secondary/30">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
+            <div class="fade-in-up flex flex-col">
+              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+              <h3 class="text-base font-semibold text-foreground mb-2">Professional Trust Pages</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">A centralized, clean profile that represents your business identity.</p>
+            </div>
+            <div class="fade-in-up delay-100 flex flex-col">
+              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
+                <i class="fa-solid fa-image"></i>
+              </div>
+              <h3 class="text-base font-semibold text-foreground mb-2">Customer Proof Gallery</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Showcase completed work, happy customers, and past deliveries.</p>
+            </div>
+            <div class="fade-in-up delay-200 flex flex-col">
+              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
+                <i class="fa-solid fa-book-open"></i>
+              </div>
+              <h3 class="text-base font-semibold text-foreground mb-2">Portfolio Showcase</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Organize your best work in a structured, professional format.</p>
+            </div>
+            <div class="fade-in-up delay-300 flex flex-col">
+              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
+                <i class="fa-solid fa-lock"></i>
+              </div>
+              <h3 class="text-base font-semibold text-foreground mb-2">Secure Public Profile</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Share a single link with buyers without exposing personal details.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why TrustCobra -->
+      <section id="features" class="py-24 bg-background">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="fade-in-up max-w-2xl mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">The missing layer of trust in online commerce.</h2>
+            <p class="text-lg text-muted-foreground">Selling online is harder when buyers can't verify who you are. We built CobraTrust to bridge the gap between independent sellers and cautious buyers.</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
+            <div class="fade-in-up delay-100 bg-secondary/40 border border-border rounded-2xl p-8 lg:p-10 relative overflow-hidden">
+              <div class="absolute top-0 left-0 w-1 h-full bg-destructive/60"></div>
+              <div class="w-12 h-12 bg-background border border-border rounded-xl flex items-center justify-center mb-6">
+                <i class="fa-solid fa-circle-exclamation text-destructive/80 text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4">The Problem</h3>
+              <p class="text-muted-foreground leading-relaxed mb-6">Buyers hesitate when dealing with independent sellers. They worry about scams, undelivered goods, or misrepresented services. When you only have a social media handle or an email address, establishing credibility takes time you don't have.</p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-sm text-muted-foreground">
+                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
+                  Lost sales due to buyer hesitation
+                </li>
+                <li class="flex items-start gap-3 text-sm text-muted-foreground">
+                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
+                  Time wasted proving your legitimacy
+                </li>
+                <li class="flex items-start gap-3 text-sm text-muted-foreground">
+                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
+                  Scattered reviews across different platforms
+                </li>
+                <li class="flex items-start gap-3 text-sm text-muted-foreground">
+                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
+                  Unprofessional first impressions
+                </li>
+              </ul>
+            </div>
+
+            <div class="fade-in-up delay-200 bg-primary border border-primary/20 rounded-2xl p-8 lg:p-10 relative overflow-hidden text-primary-foreground shadow-lg">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
+              <div class="w-12 h-12 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm">
+                <i class="fa-solid fa-circle-check text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-semibold mb-4 text-white">The Solution</h3>
+              <p class="text-white/80 leading-relaxed mb-6">TrustCobra provides a verified, professional presence. One shareable link that instantly communicates your credibility, centralizes your proof of work, and gives buyers the confidence they need to proceed with payment.</p>
+              <ul class="space-y-3">
+                <li class="flex items-start gap-3 text-sm text-white/90">
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
+                  Instant professional credibility
+                </li>
+                <li class="flex items-start gap-3 text-sm text-white/90">
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
+                  Centralized reviews and portfolio
+                </li>
+                <li class="flex items-start gap-3 text-sm text-white/90">
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
+                  Clear contact and verification status
+                </li>
+                <li class="flex items-start gap-3 text-sm text-white/90">
+                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
+                  Higher conversion from inquiry to payment
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Grid -->
+      <section class="py-24 bg-secondary/20">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="fade-in-up text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Everything you need to prove your legitimacy</h2>
+            <p class="text-lg text-muted-foreground">No bloated features. Just the essential tools required to build trust and close sales online.</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="fade-in-up delay-100 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-building text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Business Profile</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">A clean, structured profile outlining who you are and what you do.</p>
+            </div>
+            <div class="fade-in-up delay-200 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-comments text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Customer Reviews</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Collect and display genuine feedback from your past clients.</p>
+            </div>
+            <div class="fade-in-up delay-300 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-images text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Proof Gallery</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Upload receipts, delivery photos, or completed work as visual proof.</p>
+            </div>
+            <div class="fade-in-up delay-100 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-briefcase text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Portfolio</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Showcase your best services or products in an organized grid.</p>
+            </div>
+            <div class="fade-in-up delay-200 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-link text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Social Links</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Connect your official social media accounts for cross-verification.</p>
+            </div>
+            <div class="fade-in-up delay-300 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-brands fa-whatsapp text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">WhatsApp Button</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Let buyers contact you instantly through a verified channel.</p>
+            </div>
+            <div class="fade-in-up delay-100 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-address-card text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Contact Information</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Clear, accessible ways for serious buyers to reach out.</p>
+            </div>
+            <div class="fade-in-up delay-200 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-palette text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Professional Branding</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Customizable themes that align with your business identity.</p>
+            </div>
+            <div class="fade-in-up delay-300 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
+              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-mobile-screen text-foreground"></i></div>
+              <h3 class="text-lg font-semibold mb-2">Responsive Design</h3>
+              <p class="text-sm text-muted-foreground leading-relaxed">Looks perfect on mobile, where most of your customers browse.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How It Works -->
+      <section id="how-it-works" class="py-24 bg-background">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="fade-in-up mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">How it works</h2>
+            <p class="text-lg text-muted-foreground max-w-2xl">Get your trust profile up and running in minutes. No technical skills required.</p>
+          </div>
+
+          <div class="grid md:grid-cols-3 gap-8 relative">
+            <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-px bg-border -z-10"></div>
+            
+            <div class="fade-in-up delay-100 relative">
+              <div class="w-24 h-24 bg-secondary border border-border rounded-full flex items-center justify-center text-3xl font-bold text-foreground/30 mb-6 mx-auto md:mx-0">01</div>
+              <h3 class="text-xl font-semibold mb-3 text-center md:text-left">Create Your Profile</h3>
+              <p class="text-muted-foreground leading-relaxed text-center md:text-left">Sign up and add your basic business details, contact information, and social links.</p>
+            </div>
+            <div class="fade-in-up delay-200 relative">
+              <div class="w-24 h-24 bg-secondary border border-border rounded-full flex items-center justify-center text-3xl font-bold text-foreground/30 mb-6 mx-auto md:mx-0">02</div>
+              <h3 class="text-xl font-semibold mb-3 text-center md:text-left">Upload Your Trust Proof</h3>
+              <p class="text-muted-foreground leading-relaxed text-center md:text-left">Add past work, customer reviews, delivery photos, or certifications.</p>
+            </div>
+            <div class="fade-in-up delay-300 relative">
+              <div class="w-24 h-24 bg-secondary border border-border rounded-full flex items-center justify-center text-3xl font-bold text-foreground/30 mb-6 mx-auto md:mx-0">03</div>
+              <h3 class="text-xl font-semibold mb-3 text-center md:text-left">Share Your TrustCobra</h3>
+              <p class="text-muted-foreground leading-relaxed text-center md:text-left">Send your unique link to hesitant buyers before they make a payment.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section id="pricing" class="py-24 bg-secondary/30 border-y border-border">
+        <div class="container mx-auto px-6 max-w-7xl">
+          <div class="fade-in-up text-center max-w-2xl mx-auto mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Simple, transparent pricing</h2>
+            <p class="text-lg text-muted-foreground">Start building trust today for free. Upgrade when your business needs more capacity.</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <div class="fade-in-up delay-100 bg-card border border-border rounded-2xl p-8 flex flex-col">
+              <h3 class="text-xl font-semibold mb-2">Free Plan</h3>
+              <p class="text-sm text-muted-foreground mb-8">Everything you need to establish a verified presence.</p>
+              <ul class="space-y-4 mb-8 flex-1">
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-muted-foreground"></i> One Trust Page
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-muted-foreground"></i> Three proof uploads
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-muted-foreground"></i> Basic customization
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-muted-foreground"></i> TrustCobra branding
+                </li>
+              </ul>
+              <a href="login.html" class="w-full py-3 px-4 bg-secondary hover:bg-secondary/80 border border-border text-foreground font-medium rounded-md text-center transition-colors block">Start Free</a>
+            </div>
+
+            <div class="fade-in-up delay-200 bg-card border-2 border-primary rounded-2xl p-8 flex flex-col relative shadow-md">
+              <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">Recommended</div>
+              <h3 class="text-xl font-semibold mb-2">Premium Plan</h3>
+              <p class="text-sm text-muted-foreground mb-8">For growing businesses that need unlimited proof.</p>
+              <ul class="space-y-4 mb-8 flex-1">
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Unlimited proof uploads</span>
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Unlimited portfolio items</span>
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Premium themes</span>
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Remove TrustCobra branding</span>
+                </li>
+                <li class="flex items-center gap-3 text-sm">
+                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Priority support</span>
+                </li>
+              </ul>
+              <button class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-md text-center transition-colors">Upgrade Later</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section id="faq" class="py-24 bg-background">
+        <div class="container mx-auto px-6 max-w-3xl">
+          <div class="fade-in-up text-center mb-12">
+            <h2 class="text-3xl font-bold tracking-tight mb-4">Frequently Asked Questions</h2>
+          </div>
+
+          <div class="space-y-4">
+            <div class="fade-in-up delay-100 border border-border rounded-lg bg-card overflow-hidden faq-item">
+              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
+                <span class="font-medium">What is TrustCobra?</span>
+                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
+              </button>
+              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
+                TrustCobra is a platform that lets independent sellers, freelancers, and small businesses create a professional trust page — a single shareable link that shows customers proof of legitimacy before they pay.
+              </div>
+            </div>
+            <div class="fade-in-up delay-200 border border-border rounded-lg bg-card overflow-hidden faq-item">
+              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
+                <span class="font-medium">Who is TrustCobra for?</span>
+                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
+              </button>
+              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
+                Anyone who sells goods or services online and wants to reduce buyer hesitation. This includes freelancers, marketplace sellers, tutors, coaches, tradespeople, and small business owners.
+              </div>
+            </div>
+            <div class="fade-in-up delay-300 border border-border rounded-lg bg-card overflow-hidden faq-item">
+              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
+                <span class="font-medium">Can I use TrustCobra for free?</span>
+                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
+              </button>
+              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
+                Yes. The free plan includes one trust page, up to three proof uploads, and basic customization. No credit card required to get started.
+              </div>
+            </div>
+            <div class="fade-in-up delay-400 border border-border rounded-lg bg-card overflow-hidden faq-item">
+              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
+                <span class="font-medium">Can I update my page anytime?</span>
+                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
+              </button>
+              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
+                Yes. You can edit your TrustCobra profile at any time — add new reviews, update your portfolio, or change your contact information.
+              </div>
+            </div>
+            <div class="fade-in-up delay-500 border border-border rounded-lg bg-card overflow-hidden faq-item">
+              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
+                <span class="font-medium">How do customers access my page?</span>
+                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
+              </button>
+              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
+                You get a unique shareable link. You can include it in your messages, emails, social profiles, or WhatsApp chats — anywhere you communicate with buyers.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="about" class="bg-card border-t border-border pt-16 pb-8">
+      <div class="container mx-auto px-6 max-w-7xl">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-2 mb-4">
+              <div class="w-6 h-6 rounded-sm bg-primary flex items-center justify-center">
+                <div class="w-3 h-3 rounded-full bg-background"></div>
+              </div>
+              <span class="font-semibold text-lg tracking-tight">TrustCobra</span>
+            </div>
+            <p class="text-sm text-muted-foreground max-w-xs leading-relaxed">
+              The professional standard for independents. Build trust, prove legitimacy, and close more sales online.
+            </p>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4 text-foreground">Company</h4>
+            <ul class="space-y-3">
+              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a></li>
+              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a></li>
+              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Use</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="font-semibold mb-4 text-foreground">Support</h4>
+            <ul class="space-y-3">
+              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
+              <li><a href="login.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Log In</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
+          <p class="text-sm text-muted-foreground">
+            © 2026 TrustCobra. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Scroll functionality for Navbar
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 20) {
+          navbar.classList.add('bg-background/90', 'backdrop-blur-md', 'border-b', 'border-border', 'shadow-sm', 'py-3');
+          navbar.classList.remove('bg-transparent', 'py-5');
+        } else {
+          navbar.classList.add('bg-transparent', 'py-5');
+          navbar.classList.remove('bg-background/90', 'backdrop-blur-md', 'border-b', 'border-border', 'shadow-sm', 'py-3');
+        }
+      });
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      const mobileIcon = mobileBtn.querySelector('i');
+      
+      mobileBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        if(mobileMenu.classList.contains('hidden')) {
+          mobileIcon.classList.remove('fa-xmark');
+          mobileIcon.classList.add('fa-bars');
+        } else {
+          mobileIcon.classList.remove('fa-bars');
+          mobileIcon.classList.add('fa-xmark');
+        }
+      });
+
+      // Close mobile menu on link click
+      document.querySelectorAll('.mobile-link').forEach(link => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileIcon.classList.remove('fa-xmark');
+          mobileIcon.classList.add('fa-bars');
+        });
+      });
+
+      // FAQ Accordion
+      document.querySelectorAll('.faq-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const content = btn.nextElementSibling;
+          const icon = btn.querySelector('i');
+          const isExpanded = !content.classList.contains('hidden');
+          
+          // Close all others
+          document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+          document.querySelectorAll('.faq-btn i').forEach(i => i.classList.remove('rotate-180'));
+          
+          if (!isExpanded) {
+            content.classList.remove('hidden');
+            icon.classList.add('rotate-180');
+          }
+        });
+      });
+
+      // Scroll Reveal Animation
+      const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.1
+      };
+
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll('.fade-in-up, .fade-in-left').forEach(el => {
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
