@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trustfolio – Complete Your Profile</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ============================
+       RESET & BASE
+    ============================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:        #2563EB;
+      --primary-hover:  #1D4ED8;
+      --primary-light:  #EFF6FF;
+      --accent:         #4F46E5;
+      --bg:             #F8FAFC;
+      --card:           #FFFFFF;
+      --text:           #0F172A;
+      --text-secondary: #64748B;
+      --border:         #E2E8F0;
+      --border-focus:   #2563EB;
+      --success:        #16A34A;
+      --success-bg:     #F0FDF4;
+      --error:          #EF4444;
+      --error-bg:       #FEF2F2;
+      --radius:         12px;
+      --shadow-sm:      0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:      0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-lg:      0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.04);
+      --transition:     all 0.2s ease;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================
+       TOPBAR
+    ============================ */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .topbar-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 26px;
+      height: 26px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .logo-wordmark {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+    }
+
+    #skipProfile {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    #skipProfile:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* ============================
+       PROGRESS BAR
+    ============================ */
+    .progress-bar-track {
+      height: 3px;
+      background: var(--border);
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.4s ease;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* ============================
+       PAGE WRAPPER
+    ============================ */
+    .page-wrapper {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
+    }
+
+    /* ============================
+       PAGE HEADER
+    ============================ */
+    .page-header {
+      margin-bottom: 32px;
+    }
+
+    .step-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .page-title {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .page-sub {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================
+       STEP PANELS
+    ============================ */
+    .step-panel {
+      display: none;
+      animation: fadeUp 0.3s ease both;
+    }
+
+    .step-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================
+       SECTION CARD
+    ============================ */
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .section-title-icon svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ============================
+       FORM FIELDS
+    ============================ */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-grid.full { grid-template-columns: 1fr; }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-group.span-2 { grid-column: 1 / -1; }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .field-label .required {
+      color: #EF4444;
+      margin-left: 2px;
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .field-error {
+      font-size: 12px;
+      color: var(--error);
+      margin-top: 2px;
+      font-weight: 500;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: var(--transition);
+      appearance: none;
+    }
+
+    input.has-error,
+    select.has-error,
+    textarea.has-error {
+      border-color: var(--error);
+    }
+
+    input::placeholder,
+    textarea::placeholder { color: #94A3B8; }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      border-color: var(--border-focus);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+
+    textarea { resize: none; }
+
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2364748B' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 13px center;
+      padding-right: 36px;
+    }
+
+    .char-counter {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: right;
+    }
+
+    .char-counter.over { color: #EF4444; }
+
+    /* ============================
+       SOCIAL FIELD ROWS
+    ============================ */
+    .social-field {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 13px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      transition: var(--transition);
+    }
+
+    .social-field:focus-within {
+      border-color: var(--border-focus);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+
+    .social-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .social-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .social-field input {
+      border: none;
+      background: transparent;
+      padding: 0;
+      font-size: 14px;
+      color: var(--text);
+      flex: 1;
+      outline: none;
+    }
+
+    /* ============================
+       IMAGE UPLOADERS
+    ============================ */
+    .upload-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 4px;
+    }
+
+    .upload-zone {
+      position: relative;
+      border: 2px dashed var(--border);
+      border-radius: 14px;
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg);
+      overflow: hidden;
+      min-height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .upload-zone:hover,
+    .upload-zone.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    .upload-zone-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 10px;
+      flex-shrink: 0;
+    }
+
+    .upload-zone-icon svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--text-secondary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .upload-zone-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .upload-zone-hint {
+      font-size: 11px;
+      color: var(--text-secondary);
+    }
+
+    .upload-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      z-index: 1;
+    }
+
+    .upload-preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      border-radius: 12px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .upload-zone:hover .upload-preview-overlay { display: flex; }
+
+    .upload-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: rgba(255,255,255,0.3);
+      z-index: 4;
+      border-radius: 0 0 12px 12px;
+      overflow: hidden;
+    }
+
+    .upload-progress-bar {
+      height: 100%;
+      background: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Multi-upload grid (proof + portfolio) */
+    .multi-upload-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    .multi-upload-slot {
+      position: relative;
+      aspect-ratio: 1;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--bg);
+      overflow: hidden;
+    }
+
+    .multi-upload-slot:hover,
+    .multi-upload-slot.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .multi-upload-slot input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 2;
+    }
+
+    .multi-upload-slot svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(--text-secondary);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      margin-bottom: 6px;
+    }
+
+    .multi-upload-slot span {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .multi-upload-slot img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      border-radius: 10px;
+    }
+
+    .multi-upload-slot .slot-uploading {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 3;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .multi-upload-slot .slot-error {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      right: 4px;
+      background: rgba(239,68,68,0.9);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+      border-radius: 4px;
+      padding: 2px 4px;
+      z-index: 4;
+    }
+
+    /* ============================
+       USERNAME FIELD
+    ============================ */
+    .username-wrapper {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .username-wrapper.has-error {
+      border-color: var(--error);
+    }
+
+    .username-wrapper:focus-within {
+      border-color: var(--border-focus);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.10);
+    }
+
+    .username-prefix {
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      background: var(--border);
+      font-weight: 500;
+      white-space: nowrap;
+      border-right: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .username-wrapper input {
+      border: none;
+      background: transparent;
+      border-radius: 0;
+      padding: 10px 12px;
+      flex: 1;
+      outline: none;
+      min-width: 0;
+    }
+
+    .username-wrapper input:focus {
+      border: none;
+      box-shadow: none;
+    }
+
+    .username-status {
+      padding: 0 12px;
+      font-size: 12px;
+      font-weight: 600;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .username-status.available { color: var(--success); }
+    .username-status.taken { color: #EF4444; }
+    .username-status.checking { color: var(--text-secondary); }
+
+    .url-preview {
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .url-preview-text {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* ============================
+       AUTO-SAVE STATUS
+    ============================ */
+    .autosave-status {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      z-index: 50;
+      transition: opacity 0.3s ease;
+    }
+
+    .autosave-status.saved { color: var(--success); }
+    .autosave-status.saving { color: var(--primary); }
+    .autosave-status.error { color: var(--error); }
+
+    /* ============================
+       CHECKLIST (final card)
+    ============================ */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      transition: var(--transition);
+    }
+
+    .check-row.done {
+      background: var(--success-bg);
+      border-color: #BBF7D0;
+    }
+
+    .check-icon {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 2px solid var(--border);
+      background: var(--card);
+      transition: var(--transition);
+    }
+
+    .check-row.done .check-icon {
+      background: var(--success);
+      border-color: var(--success);
+    }
+
+    .check-icon svg {
+      width: 12px;
+      height: 12px;
+      stroke: #fff;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .check-row.done .check-icon svg { opacity: 1; }
+
+    .check-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      flex: 1;
+    }
+
+    .check-status {
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .check-row.done .check-status { color: var(--success); }
+    .check-row:not(.done) .check-status { color: var(--text-secondary); }
+
+    /* ============================
+       NAVIGATION BUTTONS
+    ============================ */
+    .step-nav {
+      display: flex;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn-back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 11px 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: var(--card);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-back:hover {
+      color: var(--text);
+      background: var(--bg);
+    }
+
+    .btn-next,
+    .btn-submit {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 24px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      letter-spacing: -0.1px;
+    }
+
+    .btn-next:hover,
+    .btn-submit:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(37,99,235,0.30);
+    }
+
+    .btn-next:active,
+    .btn-submit:active { transform: translateY(0); }
+
+    .btn-next:disabled,
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .btn-next svg,
+    .btn-submit svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ============================
+       LOADING OVERLAY
+    ============================ */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(248,250,252,0.85);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .loading-overlay.active {
+      display: flex;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    /* ============================
+       NOT LOGGED IN SCREEN
+    ============================ */
+    .not-logged-in {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--bg);
+    }
+
+    .not-logged-in-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 48px 40px;
+      text-align: center;
+      max-width: 400px;
+      box-shadow: var(--shadow-md);
+    }
+
+    .not-logged-in-card h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .not-logged-in-card p {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .not-logged-in-card a {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: #fff;
+      border-radius: var(--radius);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .not-logged-in-card a:hover {
+      background: var(--primary-hover);
+    }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 560px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .form-grid .field-group.span-2 { grid-column: 1; }
+      .upload-pair { grid-template-columns: 1fr 1fr; }
+      .page-title { font-size: 22px; }
+      .section-card { padding: 20px; }
+      .page-wrapper { padding: 28px 16px 80px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NOT LOGGED IN ─────────────────────────────────── -->
+  <div id="notLoggedIn" class="not-logged-in" style="display:none">
+    <div class="not-logged-in-card">
+      <h2>Sign in to continue</h2>
+      <p>You need to be signed in to complete your Trustfolio profile setup.</p>
+      <a href="index.html">Go to Sign In</a>
+    </div>
+  </div>
+
+  <!-- ── MAIN APP ──────────────────────────────────────── -->
+  <div id="mainApp" style="display:none">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-inner">
+        <a href="index.html" class="logo">
+          <span class="logo-icon">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z" />
+            </svg>
+          </span>
+          <span class="logo-wordmark">TrustCobra</span>
+        </a>
+        <button id="skipProfile" onclick="window.location.href='dashboard.html'">Skip for now</button>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progressFill" style="width:25%"></div>
+      </div>
+    </header>
+
+    <!-- PAGE WRAPPER -->
+    <div class="page-wrapper">
+
+      <!-- PAGE HEADER -->
+      <div class="page-header">
+        <div class="step-label" id="stepLabel">Step 1 of 4</div>
+        <h1 class="page-title">Complete Your TrustCobra</h1>
+        <p class="page-sub">Let's build your professional trust profile. This only takes a few minutes.</p>
+      </div>
+
+      <!-- ══════════════════════════════════════════════
+           STEP 1 — Business Info
+      ══════════════════════════════════════════════ -->
+      <div class="step-panel active" id="step1">
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><rect x="2" y="6" width="12" height="8" rx="1"/><path d="M5 6V4a3 3 0 016 0v2"/></svg>
+            </span>
+            Business Information
+          </div>
+
+          <div class="form-grid">
+            <div class="field-group span-2">
+              <label class="field-label" for="businessName">Business Name <span class="required">*</span></label>
+              <input type="text" id="businessName" placeholder="e.g. Sarah's Boutique" />
+              <span class="field-error" id="err-businessName" style="display:none"></span>
+            </div>
+
+            <div class="field-group span-2">
+              <label class="field-label" for="businessCategory">Business Category <span class="required">*</span></label>
+              <select id="businessCategory">
+                <option value="" disabled selected>Select a category</option>
+                <option>Graphic Designer</option>
+                <option>Fashion Store</option>
+                <option>Tech Services</option>
+                <option>Digital Marketing</option>
+                <option>Photographer</option>
+                <option>Freelancer</option>
+                <option>Beauty Brand</option>
+                <option>Online Store</option>
+                <option>Consultant</option>
+                <option>Tutor / Coach</option>
+                <option>Tradesperson</option>
+                <option>Food &amp; Catering</option>
+                <option>Events &amp; Entertainment</option>
+                <option>Other</option>
+              </select>
+              <span class="field-error" id="err-businessCategory" style="display:none"></span>
+            </div>
+
+            <div class="field-group span-2">
+              <label class="field-label" for="businessDescription">Business Description</label>
+              <textarea id="businessDescription" rows="3" maxlength="300"
+                placeholder="Briefly describe what you do and how you help your customers..."
+                oninput="document.getElementById('descCounter').textContent=this.value.length+' / 300';document.getElementById('descCounter').className='char-counter'+(this.value.length>=290?' over':'')"></textarea>
+              <div class="char-counter" id="descCounter">0 / 300</div>
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="businessCity">City</label>
+              <input type="text" id="businessCity" placeholder="e.g. Lagos" />
+            </div>
+
+            <div class="field-group">
+              <label class="field-label" for="businessCountry">Country</label>
+              <input type="text" id="businessCountry" placeholder="e.g. Nigeria" />
+            </div>
+          </div>
+
+          <!-- Logo & Photo -->
+          <div style="margin-top:20px;margin-bottom:6px">
+            <label class="field-label">Business Logo &amp; Profile Photo</label>
+          </div>
+          <div class="upload-pair">
+
+            <!-- Logo zone -->
+            <div class="upload-zone" id="logoZone"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSingleDrop(event,'logo')">
+              <input type="file" accept="image/*" id="logoInput" onchange="handleSingleFileChange(this,'logo')" />
+              <img id="logoPreview" class="upload-preview" style="display:none" alt="Logo preview" />
+              <div id="logoOverlay" class="upload-preview-overlay" style="display:none">Change logo</div>
+              <div id="logoPlaceholder">
+                <div class="upload-zone-icon">
+                  <svg viewBox="0 0 18 18"><path d="M9 2L15 6V12L9 16L3 12V6L9 2Z"/></svg>
+                </div>
+                <div class="upload-zone-label">Business Logo</div>
+                <div class="upload-zone-hint">PNG or JPG, square preferred</div>
+              </div>
+              <div class="upload-progress" id="logoProgress" style="display:none">
+                <div class="upload-progress-bar" style="width:70%"></div>
+              </div>
+            </div>
+
+            <!-- Photo zone -->
+            <div class="upload-zone" id="photoZone"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSingleDrop(event,'photo')">
+              <input type="file" accept="image/*" id="photoInput" onchange="handleSingleFileChange(this,'photo')" />
+              <img id="photoPreview" class="upload-preview" style="display:none" alt="Photo preview" />
+              <div id="photoOverlay" class="upload-preview-overlay" style="display:none">Change photo</div>
+              <div id="photoPlaceholder">
+                <div class="upload-zone-icon">
+                  <svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3"/><path d="M3 16c0-3 6-3 6-3s6 0 6 3"/></svg>
+                </div>
+                <div class="upload-zone-label">Profile Photo</div>
+                <div class="upload-zone-hint">Your face or brand photo</div>
+              </div>
+              <div class="upload-progress" id="photoProgress" style="display:none">
+                <div class="upload-progress-bar" style="width:70%"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-next" onclick="nextStep()">
+            Continue
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </div>
+      </div><!-- /step1 -->
+
+      <!-- ══════════════════════════════════════════════
+           STEP 2 — Contact + Social
+      ══════════════════════════════════════════════ -->
+      <div class="step-panel" id="step2">
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><path d="M14 10.5c0 .3-.06.59-.19.87-.12.28-.32.54-.57.75-.43.38-.89.56-1.37.56-.36 0-.74-.09-1.16-.27L8 10.5 5.29 12.41c-.42.18-.8.27-1.16.27-.48 0-.94-.18-1.37-.56-.25-.21-.45-.47-.57-.75A2.1 2.1 0 012 10.5V4.5C2 3.4 2.9 2.5 4 2.5h8c1.1 0 2 .9 2 2v6z"/></svg>
+            </span>
+            Contact Information
+          </div>
+          <div class="form-grid">
+            <div class="field-group span-2">
+              <label class="field-label" for="whatsapp">WhatsApp Number <span class="required">*</span></label>
+              <input type="tel" id="whatsapp" placeholder="+1 555 000 0000" />
+              <span class="field-error" id="err-whatsapp" style="display:none"></span>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="contactEmail">Email Address</label>
+              <input type="email" id="contactEmail" placeholder="you@example.com" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="phoneNumber">Phone Number</label>
+              <input type="tel" id="phoneNumber" placeholder="+1 555 000 0000" />
+            </div>
+            <div class="field-group span-2">
+              <label class="field-label" for="website">Website</label>
+              <input type="url" id="website" placeholder="https://yourwebsite.com" />
+            </div>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 2c0 0-3 2-3 6s3 6 3 6M8 2c0 0 3 2 3 6s-3 6-3 6M2 8h12"/></svg>
+            </span>
+            Social Media Links
+          </div>
+          <div class="form-grid full" style="gap:10px">
+
+            <div class="field-group">
+              <div class="social-field">
+                <span class="social-icon">
+                  <svg viewBox="0 0 24 24" fill="none"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" stroke="#E1306C" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#E1306C" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#E1306C"/></svg>
+                </span>
+                <input type="url" id="instagram" placeholder="instagram.com/yourusername" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="social-field">
+                <span class="social-icon">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <input type="url" id="facebook" placeholder="facebook.com/yourpage" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="social-field">
+                <span class="social-icon">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                <input type="url" id="tiktok" placeholder="tiktok.com/@yourusername" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="social-field">
+                <span class="social-icon">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" stroke="#0A66C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect width="4" height="12" x="2" y="9" stroke="#0A66C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke="#0A66C2" stroke-width="2"/></svg>
+                </span>
+                <input type="url" id="linkedin" placeholder="linkedin.com/in/yourname" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="social-field">
+                <span class="social-icon">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16M4 20L20 4" stroke="#000" stroke-width="2.2" stroke-linecap="round"/></svg>
+                </span>
+                <input type="url" id="twitter" placeholder="x.com/yourusername" />
+              </div>
+            </div>
+
+            <div class="field-group">
+              <div class="social-field">
+                <span class="social-icon">
+                  <svg viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="#FF0000" stroke-width="2"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="#FF0000" stroke-width="2" stroke-linejoin="round"/></svg>
+                </span>
+                <input type="url" id="youtube" placeholder="youtube.com/@yourchannel" />
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep()">
+            <svg viewBox="0 0 16 16" width="14" height="14" style="stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round">
+              <path d="M13 8H3M7 4L3 8l4 4"/>
+            </svg>
+            Back
+          </button>
+          <button class="btn-next" onclick="nextStep()">
+            Continue
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </div>
+      </div><!-- /step2 -->
+
+      <!-- ══════════════════════════════════════════════
+           STEP 3 — Username + Proof + Portfolio
+      ══════════════════════════════════════════════ -->
+      <div class="step-panel" id="step3">
+
+        <!-- Username card -->
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="6"/><path d="M8 4v4l3 1.5"/></svg>
+            </span>
+            Public TrustCobra URL
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="username">Choose Your Username <span class="required">*</span></label>
+            <div class="username-wrapper" id="usernameWrapper">
+              <span class="username-prefix">TrustCobra.app/</span>
+              <input type="text" id="username" placeholder="yourname" autocomplete="off"
+                oninput="handleUsernameInput(this.value)" />
+              <span class="username-status" id="usernameStatusEl"></span>
+            </div>
+            <span class="field-error" id="err-username" style="display:none"></span>
+            <div class="url-preview">
+              <svg viewBox="0 0 16 16" width="14" height="14" style="stroke:var(--text-secondary);fill:none;stroke-width:2;stroke-linecap:round">
+                <path d="M6 2H3a1 1 0 00-1 1v10a1 1 0 001 1h10a1 1 0 001-1v-3M10 2h4m0 0v4m0-4L7 9"/>
+              </svg>
+              Your profile will appear at:&nbsp;
+              <span class="url-preview-text" id="urlPreviewText">TrustCobra.app/yourname</span>
+            </div>
+            <p class="field-hint">Use letters, numbers, and hyphens only. No spaces.</p>
+          </div>
+        </div>
+
+        <!-- Trust Proof card -->
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 10l4-3 3 2.5 2-1.5 3 3"/></svg>
+            </span>
+            First Trust Proof
+          </div>
+          <p class="field-hint" style="margin-bottom:14px">
+            Upload your first customer reviews, delivery confirmations, or payment confirmations.
+          </p>
+          <span class="field-error" id="err-proof" style="display:none;margin-bottom:10px;display:none"></span>
+          <div class="multi-upload-grid" id="proofGrid">
+
+            <div class="multi-upload-slot" id="proofSlot0"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'proof',0)">
+              <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'proof',0)" />
+              <img id="proofImg0" style="display:none" alt="Proof 1" />
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span>Screenshot 1</span>
+              <div class="slot-uploading" id="proofUploading0" style="display:none">Uploading…</div>
+              <div class="slot-error" id="proofError0" style="display:none"></div>
+            </div>
+
+            <div class="multi-upload-slot" id="proofSlot1"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'proof',1)">
+              <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'proof',1)" />
+              <img id="proofImg1" style="display:none" alt="Proof 2" />
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span>Screenshot 2</span>
+              <div class="slot-uploading" id="proofUploading1" style="display:none">Uploading…</div>
+              <div class="slot-error" id="proofError1" style="display:none"></div>
+            </div>
+
+            <div class="multi-upload-slot" id="proofSlot2"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'proof',2)">
+              <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'proof',2)" />
+              <img id="proofImg2" style="display:none" alt="Proof 3" />
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span>Screenshot 3</span>
+              <div class="slot-uploading" id="proofUploading2" style="display:none">Uploading…</div>
+              <div class="slot-error" id="proofError2" style="display:none"></div>
+            </div>
+
+          </div>
+          <p class="field-hint" style="margin-top:10px">Accepted: PNG, JPG, JPEG — max 10 MB each</p>
+        </div>
+
+        <!-- Portfolio card -->
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><rect x="1" y="3" width="6" height="5" rx="1"/><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="1" y="10" width="6" height="3" rx="1"/><rect x="9" y="10" width="6" height="3" rx="1"/></svg>
+            </span>
+            Portfolio
+          </div>
+          <p class="field-hint" style="margin-bottom:14px">Show your best work. Upload up to 3 portfolio images.</p>
+          <span class="field-error" id="err-portfolio" style="display:none;margin-bottom:10px"></span>
+          <div class="multi-upload-grid" id="portfolioGrid">
+
+            <div class="multi-upload-slot" id="portfolioSlot0"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'portfolio',0)">
+              <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'portfolio',0)" />
+              <img id="portfolioImg0" style="display:none" alt="Portfolio 1" />
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span>Image 1</span>
+              <div class="slot-uploading" id="portfolioUploading0" style="display:none">Uploading…</div>
+              <div class="slot-error" id="portfolioError0" style="display:none"></div>
+            </div>
+
+            <div class="multi-upload-slot" id="portfolioSlot1"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'portfolio',1)">
+              <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'portfolio',1)" />
+              <img id="portfolioImg1" style="display:none" alt="Portfolio 2" />
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span>Image 2</span>
+              <div class="slot-uploading" id="portfolioUploading1" style="display:none">Uploading…</div>
+              <div class="slot-error" id="portfolioError1" style="display:none"></div>
+            </div>
+
+            <div class="multi-upload-slot" id="portfolioSlot2"
+              ondragover="event.preventDefault();this.classList.add('drag-over')"
+              ondragleave="this.classList.remove('drag-over')"
+              ondrop="event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'portfolio',2)">
+              <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'portfolio',2)" />
+              <img id="portfolioImg2" style="display:none" alt="Portfolio 3" />
+              <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+              <span>Image 3</span>
+              <div class="slot-uploading" id="portfolioUploading2" style="display:none">Uploading…</div>
+              <div class="slot-error" id="portfolioError2" style="display:none"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep()">
+            <svg viewBox="0 0 16 16" width="14" height="14" style="stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round">
+              <path d="M13 8H3M7 4L3 8l4 4"/>
+            </svg>
+            Back
+          </button>
+          <button class="btn-next" onclick="nextStep()">
+            Review &amp; Finish
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </div>
+      </div><!-- /step3 -->
+
+      <!-- ══════════════════════════════════════════════
+           STEP 4 — Review + Submit
+      ══════════════════════════════════════════════ -->
+      <div class="step-panel" id="step4">
+        <div class="section-card">
+          <div class="section-title">
+            <span class="section-title-icon">
+              <svg viewBox="0 0 16 16"><path d="M13 5L6.5 11.5 3 8"/></svg>
+            </span>
+            Profile Checklist
+          </div>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:18px">
+            Here's a summary of what you've filled in. Required items are marked below.
+          </p>
+          <div class="checklist" id="checklist">
+            <!-- Rows rendered by renderChecklist() -->
+          </div>
+        </div>
+
+        <div class="step-nav">
+          <button class="btn-back" onclick="prevStep()">
+            <svg viewBox="0 0 16 16" width="14" height="14" style="stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round">
+              <path d="M13 8H3M7 4L3 8l4 4"/>
+            </svg>
+            Back
+          </button>
+          <button class="btn-submit" id="submitBtn" onclick="saveProfile()">
+            Create My TrustCobra
+            <svg viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+          </button>
+        </div>
+      </div><!-- /step4 -->
+
+    </div><!-- /page-wrapper -->
+  </div><!-- /mainApp -->
+
+  <!-- LOADING OVERLAY -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <div class="loading-text" id="loadingText">Loading…</div>
+  </div>
+
+  <!-- AUTO-SAVE BADGE -->
+  <div class="autosave-status" id="autosaveBadge" style="display:none"></div>
+
+  <!-- ════════════════════════════════════════════════════
+       JAVASCRIPT — Firebase + Cloudinary + All Logic
+  ════════════════════════════════════════════════════ -->
+  <script type="module">
+    import { initializeApp }
+      from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+    import { getAuth, onAuthStateChanged }
+      from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+    import { getFirestore, doc, getDoc, setDoc, collection, query, where, getDocs, serverTimestamp }
+      from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js';
+
+    // ── Firebase config ──────────────────────────────────────────────────────
+    const firebaseConfig = {
+    apiKey: "AIzaSyA5Wab9dX0UKqdkTEUKC25SLtREOK2Bcw0",
+    authDomain: "portpilot-16d14.firebaseapp.com",
+    projectId: "portpilot-16d14",
+    storageBucket: "portpilot-16d14.firebasestorage.app",
+    messagingSenderId: "941538760648",
+    appId: "1:941538760648:web:a7fc4f00e96e0cd40712fd",
+    measurementId: "G-FZ23CY4GZQ"
+  };
+
+    const app  = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db   = getFirestore(app);
+
+    // ── Cloudinary config ────────────────────────────────────────────────────
+    const CLOUDINARY_CLOUD  = 'gl3jfdm6';
+    const CLOUDINARY_PRESET = 'portpilot_upload';
+    const CLOUDINARY_URL    = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/upload`;
+
+    // ── Reserved usernames ───────────────────────────────────────────────────
+    const RESERVED = ['admin','support','TrustCobra','help','demo','test','www','api'];
+
+    // ── App state ────────────────────────────────────────────────────────────
+    let currentUser    = null;
+    let currentStep    = 1;
+    let originalUsername = '';
+    let _usernameStatus  = '';   // '', 'checking', 'available', 'taken', 'too-short'
+    let autosaveTimer    = null;
+    let autosaveHideTimer = null;
+    let usernameTimer    = null;
+
+    // Image slot state: { url, uploading }
+    const slots = {
+      logo:      { url: '', uploading: false },
+      photo:     { url: '', uploading: false },
+      proof:     [{url:'',uploading:false},{url:'',uploading:false},{url:'',uploading:false}],
+      portfolio: [{url:'',uploading:false},{url:'',uploading:false},{url:'',uploading:false}],
+    };
+
+    // ── Helpers: DOM shortcuts ───────────────────────────────────────────────
+    const $  = id => document.getElementById(id);
+    const val = id => ($( id) ? $(id).value.trim() : '');
+
+    // ── Loading overlay ──────────────────────────────────────────────────────
+    function setLoading(active, text = 'Saving your profile…') {
+      $('loadingText').textContent = text;
+      $('loadingOverlay').classList.toggle('active', active);
+    }
+
+    // ── Autosave badge ───────────────────────────────────────────────────────
+    function showAutosave(status) {
+      const badge = $('autosaveBadge');
+      badge.className = 'autosave-status ' + status;
+      badge.style.display = 'flex';
+      if (status === 'saving') badge.textContent = '⟳ Saving…';
+      else if (status === 'saved')  badge.textContent = '✓ Saved';
+      else if (status === 'error')  badge.textContent = '✕ Save failed';
+    }
+
+    function hideAutosave() {
+      $('autosaveBadge').style.display = 'none';
+    }
+
+    // ── Field errors ─────────────────────────────────────────────────────────
+    function setFieldError(field, msg) {
+      const el = $('err-' + field);
+      if (!el) return;
+      if (msg) {
+        el.textContent = msg;
+        el.style.display = 'block';
+        const input = $(field);
+        if (input) input.classList.add('has-error');
+      } else {
+        el.style.display = 'none';
+        const input = $(field);
+        if (input) input.classList.remove('has-error');
+      }
+    }
+
+    function clearAllErrors() {
+      ['businessName','businessCategory','whatsapp','username','proof','portfolio']
+        .forEach(f => setFieldError(f, ''));
+      $('usernameWrapper').classList.remove('has-error');
+    }
+
+    // ── Step navigation ──────────────────────────────────────────────────────
+    const PROGRESS = [25, 50, 75, 100];
+
+    function goToStep(n) {
+      document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+      $('step' + n).classList.add('active');
+      currentStep = n;
+      $('stepLabel').textContent = `Step ${n} of 4`;
+      $('progressFill').style.width = PROGRESS[n - 1] + '%';
+      if (n === 4) renderChecklist();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Expose to inline onclick handlers
+    window.nextStep = function () {
+      if (!validateStep(currentStep)) return;
+      if (currentStep < 4) goToStep(currentStep + 1);
+    };
+
+    window.prevStep = function () {
+      if (currentStep > 1) goToStep(currentStep - 1);
+    };
+
+    // ── Validation ───────────────────────────────────────────────────────────
+    function validateStep(step) {
+      let ok = true;
+
+      if (step === 1) {
+        if (!val('businessName')) {
+          setFieldError('businessName', 'Business Name is required.');
+          ok = false;
+        }
+        if (!val('businessCategory')) {
+          setFieldError('businessCategory', 'Please select a category.');
+          ok = false;
+        }
+      }
+
+      if (step === 2) {
+        if (!val('whatsapp')) {
+          setFieldError('whatsapp', 'WhatsApp number is required.');
+          ok = false;
+        }
+      }
+
+      if (step === 3) {
+        const uname = val('username');
+        if (!uname || uname.length < 3) {
+          setFieldError('username', 'Choose a username (min. 3 characters).');
+          $('usernameWrapper').classList.add('has-error');
+          ok = false;
+        } else if (_usernameStatus === 'taken') {
+          setFieldError('username', 'This username is already taken.');
+          $('usernameWrapper').classList.add('has-error');
+          ok = false;
+        } else if (_usernameStatus === 'checking') {
+          setFieldError('username', 'Please wait — checking availability.');
+          ok = false;
+        }
+
+        const hasProof = slots.proof.some(s => s.url);
+        if (!hasProof) {
+          const el = $('err-proof');
+          el.textContent = 'At least one trust proof image is required.';
+          el.style.display = 'block';
+          ok = false;
+        }
+
+        const hasPortfolio = slots.portfolio.some(s => s.url);
+        if (!hasPortfolio) {
+          const el = $('err-portfolio');
+          el.textContent = 'At least one portfolio image is required.';
+          el.style.display = 'block';
+          ok = false;
+        }
+      }
+
+      return ok;
+    }
+
+    // ── Username input & availability check ──────────────────────────────────
+    window.handleUsernameInput = function (raw) {
+      const clean = raw.toLowerCase().replace(/[^a-z0-9-]/g, '');
+      $('username').value = clean;
+      $('urlPreviewText').textContent = 'TrustCobra.app/' + (clean || 'yourname');
+      setFieldError('username', '');
+      $('usernameWrapper').classList.remove('has-error');
+
+      if (usernameTimer) clearTimeout(usernameTimer);
+
+      if (!clean) {
+        setUsernameStatus('');
+        return;
+      }
+      if (clean.length < 3) {
+        setUsernameStatus('too-short');
+        return;
+      }
+      if (RESERVED.includes(clean)) {
+        setUsernameStatus('taken');
+        return;
+      }
+      if (clean === originalUsername) {
+        setUsernameStatus('available');
+        return;
+      }
+
+      setUsernameStatus('checking');
+      usernameTimer = setTimeout(async () => {
+        try {
+          const q = query(collection(db, 'usernames'), where('username', '==', clean));
+          const snap = await getDocs(q);
+          setUsernameStatus(snap.empty ? 'available' : 'taken');
+        } catch {
+          setUsernameStatus('available');
+        }
+      }, 600);
+    };
+
+    function setUsernameStatus(status) {
+      _usernameStatus = status;
+      const el = $('usernameStatusEl');
+      el.className = 'username-status';
+      if (status === 'checking') {
+        el.classList.add('checking');
+        el.textContent = 'Checking…';
+      } else if (status === 'available') {
+        el.classList.add('available');
+        el.textContent = '✓ Available';
+      } else if (status === 'taken') {
+        el.classList.add('taken');
+        el.textContent = 'Already taken';
+      } else if (status === 'too-short') {
+        el.classList.add('taken');
+        el.textContent = 'Too short';
+      } else {
+        el.textContent = '';
+      }
+    }
+
+    // ── Cloudinary upload ────────────────────────────────────────────────────
+    async function uploadToCloudinary(file) {
+      const fd = new FormData();
+      fd.append('file', file);
+      fd.append('upload_preset', CLOUDINARY_PRESET);
+      const res = await fetch(CLOUDINARY_URL, { method: 'POST', body: fd });
+      if (!res.ok) throw new Error('Upload failed: ' + res.status);
+      const data = await res.json();
+      if (!data.secure_url) throw new Error(data.error?.message || 'Upload failed');
+      return data.secure_url;
+    }
+
+    // ── Single upload (logo / photo) ─────────────────────────────────────────
+    window.handleSingleFileChange = function (input, type) {
+      const file = input.files[0];
+      if (file) doSingleUpload(file, type);
+    };
+
+    window.handleSingleDrop = function (event, type) {
+      const file = event.dataTransfer.files[0];
+      if (file) doSingleUpload(file, type);
+    };
+
+    async function doSingleUpload(file, type) {
+      const previewId  = type + 'Preview';
+      const overlayId  = type + 'Overlay';
+      const placeholderId = type + 'Placeholder';
+      const progressId = type + 'Progress';
+
+      // Instant local preview
+      const objectURL = URL.createObjectURL(file);
+      const previewEl = $(previewId);
+      previewEl.src = objectURL;
+      previewEl.style.display = 'block';
+      $(overlayId).style.display  = '';   // visible on hover via CSS
+      $(placeholderId).style.display = 'none';
+      $(progressId).style.display = 'block';
+      slots[type].uploading = true;
+
+      try {
+        const url = await uploadToCloudinary(file);
+        slots[type].url = url;
+      } catch {
+        alert('Image upload failed. Please try again.');
+      } finally {
+        slots[type].uploading = false;
+        $(progressId).style.display = 'none';
+      }
+    }
+
+    // ── Multi-slot upload (proof / portfolio) ────────────────────────────────
+    window.handleSlotFileChange = function (input, group, idx) {
+      const file = input.files[0];
+      if (file) doSlotUpload(file, group, idx);
+    };
+
+    window.handleSlotDrop = function (event, group, idx) {
+      const file = event.dataTransfer.files[0];
+      if (file) doSlotUpload(file, group, idx);
+    };
+
+    async function doSlotUpload(file, group, idx) {
+      if (file.size > 10 * 1024 * 1024) {
+        $(`${group}Error${idx}`).textContent = 'File too large (max 10 MB)';
+        $(`${group}Error${idx}`).style.display = 'block';
+        return;
+      }
+
+      // Clear previous error
+      $(`${group}Error${idx}`).style.display = 'none';
+      // Also clear section-level error
+      const sectionErr = $('err-' + group);
+      if (sectionErr) sectionErr.style.display = 'none';
+
+      // Instant preview
+      const imgEl = $(`${group}Img${idx}`);
+      imgEl.src = URL.createObjectURL(file);
+      imgEl.style.display = 'block';
+      $(`${group}Uploading${idx}`).style.display = 'flex';
+      slots[group][idx].uploading = true;
+
+      try {
+        const url = await uploadToCloudinary(file);
+        slots[group][idx].url = url;
+      } catch {
+        $(`${group}Error${idx}`).textContent = 'Upload failed';
+        $(`${group}Error${idx}`).style.display = 'block';
+        imgEl.style.display = 'none';
+      } finally {
+        slots[group][idx].uploading = false;
+        $(`${group}Uploading${idx}`).style.display = 'none';
+      }
+    }
+
+    // ── Auto-save ────────────────────────────────────────────────────────────
+    function scheduleAutosave() {
+      if (!currentUser) return;
+      if (autosaveTimer) clearTimeout(autosaveTimer);
+      if (autosaveHideTimer) clearTimeout(autosaveHideTimer);
+
+      autosaveTimer = setTimeout(async () => {
+        showAutosave('saving');
+        try {
+          await setDoc(doc(db, 'users', currentUser.uid), getTextPayload(), { merge: true });
+          showAutosave('saved');
+          autosaveHideTimer = setTimeout(hideAutosave, 3000);
+        } catch {
+          showAutosave('error');
+          autosaveHideTimer = setTimeout(hideAutosave, 5000);
+        }
+      }, 1500);
+    }
+
+    function getTextPayload() {
+      return {
+        businessName:        val('businessName'),
+        businessCategory:    val('businessCategory'),
+        businessDescription: $('businessDescription').value,
+        businessCity:        val('businessCity'),
+        businessCountry:     val('businessCountry'),
+        whatsapp:            val('whatsapp'),
+        contactEmail:        val('contactEmail'),
+        phoneNumber:         val('phoneNumber'),
+        website:             val('website'),
+        instagram:           val('instagram'),
+        facebook:            val('facebook'),
+        tiktok:              val('tiktok'),
+        linkedin:            val('linkedin'),
+        twitter:             val('twitter'),
+        youtube:             val('youtube'),
+        username:            val('username'),
+        lastUpdatedAt:       serverTimestamp(),
+      };
+    }
+
+    // Attach autosave listeners to all text inputs / selects / textarea
+    document.addEventListener('DOMContentLoaded', () => {
+      const ids = [
+        'businessName','businessCategory','businessDescription',
+        'businessCity','businessCountry','whatsapp','contactEmail',
+        'phoneNumber','website','instagram','facebook','tiktok',
+        'linkedin','twitter','youtube','username',
+      ];
+      ids.forEach(id => {
+        const el = $(id);
+        if (el) el.addEventListener('input', scheduleAutosave);
+      });
+
+      // Clear errors on input for required fields
+      ['businessName','businessCategory','whatsapp'].forEach(id => {
+        const el = $(id);
+        if (el) el.addEventListener('input', () => setFieldError(id, ''));
+      });
+    });
+
+    // ── Checklist (step 4) ───────────────────────────────────────────────────
+    function renderChecklist() {
+      const uname = val('username');
+      const items = [
+        { label: 'Business Name',  done: !!val('businessName') },
+        { label: 'Category',        done: !!val('businessCategory') },
+        { label: 'WhatsApp Number', done: !!val('whatsapp') },
+        { label: 'Username',         done: !!uname && uname.length >= 3 && _usernameStatus === 'available' },
+        { label: 'Trust Proof',      done: slots.proof.some(s => s.url) },
+        { label: 'Portfolio',        done: slots.portfolio.some(s => s.url) },
+      ];
+
+      $('checklist').innerHTML = items.map(({ label, done }) => `
+        <div class="check-row${done ? ' done' : ''}">
+          <div class="check-icon">
+            <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg>
+          </div>
+          <span class="check-label">${label}</span>
+          <span class="check-status">${done ? 'Complete' : 'Not added'}</span>
+        </div>
+      `).join('');
+    }
+
+    // ── Final save ───────────────────────────────────────────────────────────
+    window.saveProfile = async function () {
+      if (!currentUser) { alert('Not logged in. Please log in again.'); return; }
+
+      // Validate all steps
+      let allValid = true;
+      if (!validateStep(1)) { goToStep(1); allValid = false; }
+      else if (!validateStep(2)) { goToStep(2); allValid = false; }
+      else if (!validateStep(3)) { goToStep(3); allValid = false; }
+      if (!allValid) return;
+
+      // Wait for any in-progress uploads
+      const anyUploading = [
+        slots.logo, slots.photo,
+        ...slots.proof, ...slots.portfolio,
+      ].some(s => s.uploading);
+      if (anyUploading) {
+        alert('Please wait for all uploads to finish before saving.');
+        return;
+      }
+
+      setLoading(true, 'Saving your profile…');
+      $('submitBtn').disabled = true;
+
+      try {
+        const username   = val('username');
+        const publicURL  = `TrustCobra.app/${username}`;
+        const proofURLs  = slots.proof.filter(s => s.url).map(s => s.url);
+        const portURLs   = slots.portfolio.filter(s => s.url).map(s => s.url);
+
+        // Reserve / update username
+        if (username !== originalUsername) {
+          if (originalUsername) {
+            await setDoc(doc(db, 'usernames', originalUsername), { deleted: true }, { merge: true });
+          }
+          await setDoc(doc(db, 'usernames', username), {
+            uid: currentUser.uid,
+            username,
+            createdAt: serverTimestamp(),
+          });
+        }
+
+        const profileData = {
+          businessName:        val('businessName'),
+          businessCategory:    val('businessCategory'),
+          businessDescription: $('businessDescription').value,
+          businessCity:        val('businessCity'),
+          businessCountry:     val('businessCountry'),
+          whatsapp:            val('whatsapp'),
+          contactEmail:        val('contactEmail'),
+          phoneNumber:         val('phoneNumber'),
+          website:             val('website'),
+          instagram:           val('instagram'),
+          facebook:            val('facebook'),
+          tiktok:              val('tiktok'),
+          linkedin:            val('linkedin'),
+          twitter:             val('twitter'),
+          youtube:             val('youtube'),
+          username,
+          publicURL,
+          logoURL:             slots.logo.url,
+          photoURL:            slots.photo.url,
+          trustProof:          proofURLs,
+          portfolio:           portURLs,
+          bio:                 $('businessDescription').value,
+          email:               currentUser.email,
+          profileCompleted:    true,
+          profileCreatedAt:    serverTimestamp(),
+          lastUpdatedAt:       serverTimestamp(),
+        };
+
+        await setDoc(doc(db, 'users', currentUser.uid), profileData, { merge: true });
+        originalUsername = username;
+
+        setLoading(false);
+window.location.href = 'dashboard.html?openProfile=1';
+      } catch (err) {
+        console.error('Profile save error:', err);
+        alert('Error saving profile: ' + (err.message || 'Unknown error'));
+        setLoading(false);
+        $('submitBtn').disabled = false;
+      }
+    };
+
+    // ── Load saved profile from Firestore ────────────────────────────────────
+    async function loadProfile(user) {
+      try {
+        const snap = await getDoc(doc(db, 'users', user.uid));
+        if (!snap.exists()) return;
+        const d = snap.data();
+
+        const setVal = (id, v) => { if (v && $(id)) $(id).value = v; };
+
+        setVal('businessName',        d.businessName);
+        setVal('businessDescription', d.businessDescription);
+        setVal('businessCity',        d.businessCity);
+        setVal('businessCountry',     d.businessCountry);
+        setVal('whatsapp',            d.whatsapp);
+        setVal('contactEmail',        d.contactEmail);
+        setVal('phoneNumber',         d.phoneNumber);
+        setVal('website',             d.website);
+        setVal('instagram',           d.instagram);
+        setVal('facebook',            d.facebook);
+        setVal('tiktok',              d.tiktok);
+        setVal('linkedin',            d.linkedin);
+        setVal('twitter',             d.twitter);
+        setVal('youtube',             d.youtube);
+
+        // Category (select)
+        if (d.businessCategory) {
+          const sel = $('businessCategory');
+          if (sel) sel.value = d.businessCategory;
+        }
+
+        // Description counter
+        if (d.businessDescription) {
+          const len = d.businessDescription.length;
+          $('descCounter').textContent = len + ' / 300';
+          if (len >= 290) $('descCounter').classList.add('over');
+        }
+
+        // Logo
+        if (d.logoURL) {
+          slots.logo.url = d.logoURL;
+          const img = $('logoPreview');
+          img.src = d.logoURL;
+          img.style.display = 'block';
+          $('logoOverlay').style.display = '';
+          $('logoPlaceholder').style.display = 'none';
+        }
+
+        // Photo
+        if (d.photoURL) {
+          slots.photo.url = d.photoURL;
+          const img = $('photoPreview');
+          img.src = d.photoURL;
+          img.style.display = 'block';
+          $('photoOverlay').style.display = '';
+          $('photoPlaceholder').style.display = 'none';
+        }
+
+        // Username
+        if (d.username) {
+          $('username').value = d.username;
+          $('urlPreviewText').textContent = 'TrustCobra.app/' + d.username;
+          originalUsername = d.username;
+          setUsernameStatus('available');
+        }
+
+        // Proof images
+        if (Array.isArray(d.trustProof)) {
+          d.trustProof.forEach((url, i) => {
+            if (!url || i >= 3) return;
+            slots.proof[i].url = url;
+            const img = $(`proofImg${i}`);
+            img.src = url;
+            img.style.display = 'block';
+          });
+        }
+
+        // Portfolio images
+        if (Array.isArray(d.portfolio)) {
+          d.portfolio.forEach((url, i) => {
+            if (!url || i >= 3) return;
+            slots.portfolio[i].url = url;
+            const img = $(`portfolioImg${i}`);
+            img.src = url;
+            img.style.display = 'block';
+          });
+        }
+      } catch (err) {
+        console.error('Error loading profile:', err);
+      }
+    }
+
+    // ── Auth state listener ──────────────────────────────────────────────────
+    setLoading(true, 'Loading…');
+
+    onAuthStateChanged(auth, async (user) => {
+      setLoading(false);
+      if (user) {
+        currentUser = user;
+        $('mainApp').style.display = 'block';
+        await loadProfile(user);
+      } else {
+        $('notLoggedIn').style.display = 'flex';
+      }
+    });
+
+  </script>
+</body>
+</html>
