@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CobraTrust — Sign In</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================
+       CSS RESET & BASE
+    ============================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --primary:       #2563EB;
+      --primary-hover: #1D4ED8;
+      --accent:        #4F46E5;
+      --bg:            #F8FAFC;
+      --card:          #FFFFFF;
+      --text:          #0F172A;
+      --text-secondary:#64748B;
+      --border:        #E2E8F0;
+      --border-focus:  #2563EB;
+      --radius:        12px;
+      --shadow-sm:     0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md:     0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-lg:     0 12px 40px rgba(0,0,0,0.10), 0 2px 8px rgba(0,0,0,0.05);
+      --transition:    all 0.2s ease;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ============================
+       PAGE LAYOUT
+    ============================ */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ============================
+       TOP BAR
+    ============================ */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      width: 16px;
+      height: 16px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .logo-wordmark {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    /* ============================
+       MAIN CONTENT AREA
+    ============================ */
+    .main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    /* ============================
+       AUTH CARD
+    ============================ */
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: var(--shadow-lg);
+      padding: 40px 40px 36px;
+      animation: cardIn 0.35s ease both;
+    }
+
+    @keyframes cardIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .card-headline {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 8px;
+    }
+
+    .card-sub {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ============================
+       MAIN CONTAINER (dynamic)
+    ============================ */
+    #main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+
+    /* ============================
+       BUTTONS
+    ============================ */
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      text-decoration: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .btn:hover {
+      background: #F8FAFC;
+      border-color: #CBD5E1;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn img {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+    }
+
+    /* Google */
+    .google-btn {
+      background: var(--card);
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    /* Email signup — primary */
+    .email-btn {
+      background: var(--text);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .email-btn:hover {
+      background: #1E293B;
+      border-color: transparent;
+    }
+
+    /* Login — ghost/outline */
+    .login-btn {
+      background: transparent;
+      color: var(--text-secondary);
+      border-color: var(--border);
+    }
+
+    .login-btn:hover {
+      color: var(--text);
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+    }
+
+    /* Submit — primary filled */
+    .submit-btn {
+      background: var(--primary);
+      color: #fff;
+      border-color: transparent;
+      font-size: 15px;
+      padding: 13px 16px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      margin-top: 4px;
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(37,99,235,0.30);
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    /* ============================
+       DIVIDER
+    ============================ */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+      margin: 4px 0;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ============================
+       AUTH FORM (email/password)
+    ============================ */
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .auth-form input::placeholder {
+      color: #94A3B8;
+    }
+
+    .auth-form input:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.12);
+      background: #fff;
+    }
+
+    /* ============================
+       BACK BUTTON (inside card)
+    ============================ */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 0;
+      margin-bottom: 20px;
+      transition: color 0.15s;
+    }
+
+    .back-btn:hover {
+      color: var(--text);
+    }
+
+    .back-btn svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* ============================
+       FORM TITLE
+    ============================ */
+    .form-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    /* ============================
+       LOADING OVERLAY
+    ============================ */
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(248, 250, 252, 0.80);
+      backdrop-filter: blur(4px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* ============================
+       FOOTER
+    ============================ */
+    footer {
+      padding: 24px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      background: var(--card);
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 16px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-links a:hover {
+      color: var(--primary);
+    }
+
+    .footer-links span {
+      color: var(--border);
+      font-size: 12px;
+    }
+
+    /* ============================
+       RESPONSIVE
+    ============================ */
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 28px 24px 24px;
+        border-radius: 14px;
+      }
+
+      .card-headline {
+        font-size: 20px;
+      }
+
+      .main {
+        align-items: flex-start;
+        padding: 24px 16px 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">
+        <svg viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z"/>
+        </svg>
+      </span>
+      <span class="logo-wordmark">CobraTrust</span>
+    </a>
+  </header>
+
+  <!-- MAIN -->
+  <main class="main">
+    <div class="auth-card">
+
+      <!-- Card header shown on the main screen -->
+      <div class="card-header" id="card-header">
+        <h1 class="card-headline">Build Trust Before You Get Paid</h1>
+        <p class="card-sub">Create your professional trust profile and give customers confidence before they send payment.</p>
+      </div>
+
+      <!-- Dynamic content injected by JS -->
+      <div id="main-container"></div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-copy">&copy; 2025 CobraTrust. All rights reserved.</p>
+    <nav class="footer-links">
+      <a href="about.html">About</a>
+      <span aria-hidden="true">•</span>
+      <a href="about.html">Privacy Policy</a>
+      <span aria-hidden="true">•</span>
+      <a href="about.html">Terms of Use</a>
+      <span aria-hidden="true">•</span>
+      <a href="about.html">Support</a>
+    </nav>
+  </footer>
+
+</div>
+
+<!-- LOADING OVERLAY -->
+<div class="loading-overlay" id="loading">
+  <div class="spinner"></div>
+</div>
+
+<!-- ============================
+     FIREBASE AUTH — UNCHANGED
+     All logic, IDs, and flow preserved exactly.
+     Only change: index.html → dashboard.html for authenticated returning users.
+============================ -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.6.0/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
+    apiKey: "AIzaSyA5Wab9dX0UKqdkTEUKC25SLtREOK2Bcw0",
+    authDomain: "portpilot-16d14.firebaseapp.com",
+    projectId: "portpilot-16d14",
+    storageBucket: "portpilot-16d14.firebasestorage.app",
+    messagingSenderId: "941538760648",
+    appId: "1:941538760648:web:a7fc4f00e96e0cd40712fd",
+    measurementId: "G-FZ23CY4GZQ"
+  };
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const mainContainer = document.getElementById("main-container");
+const cardHeader = document.getElementById("card-header");
+const loading = document.getElementById("loading");
+
+// loading
+function showLoading(){ loading.style.display = "flex"; }
+function hideLoading(){ loading.style.display = "none"; }
+
+// =====================
+// FIXED AUTH STATE (SAFE)
+// =====================
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    renderMain();
+    return;
+  }
+
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+
+  // If no profile OR not completed → setup
+  if (!snap.exists() || snap.data().profileCompleted !== true) {
+    window.location.replace("profile-setup.html");
+  } else {
+    window.location.replace("dashboard.html");
+  }
+});
+
+// =====================
+// MAIN UI
+// =====================
+function renderMain() {
+  cardHeader.style.display = "";
+
+  mainContainer.innerHTML = `
+    <div class="btn google-btn" id="google-btn">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+      Continue with Google
+    </div>
+
+    <div class="divider">or</div>
+
+    <div class="btn email-btn" id="email-btn">
+      Continue with Email
+    </div>
+
+    <div class="btn login-btn" id="login-btn">Log In</div>
+  `;
+
+  document.getElementById("google-btn").onclick = googleSignIn;
+  document.getElementById("email-btn").onclick = () => showForm("Sign Up");
+  document.getElementById("login-btn").onclick = () => showForm("Login");
+}
+
+// =====================
+// EMAIL FORM (FIXED LOGIN FLOW)
+// =====================
+function showForm(type) {
+  cardHeader.style.display = "none";
+
+  mainContainer.innerHTML = `
+    <button class="back-btn" id="back-btn">
+      <svg viewBox="0 0 14 14" aria-hidden="true">
+        <polyline points="9 2 4 7 9 12"/>
+      </svg>
+      Back
+    </button>
+
+    <div class="form-title">${type === "Sign Up" ? "Create your account" : "Welcome back"}</div>
+
+    <form class="auth-form" id="auth-form">
+      <div class="field-group">
+        <label class="field-label" for="email">Email address</label>
+        <input type="email" id="email" placeholder="you@example.com" required autocomplete="email" />
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="password">Password</label>
+        <input type="password" id="password" placeholder="${type === "Sign Up" ? "Create a password" : "Enter your password"}" required autocomplete="${type === "Sign Up" ? "new-password" : "current-password"}" />
+      </div>
+      <button class="submit-btn" type="submit">${type === "Sign Up" ? "Create Account" : "Log In"}</button>
+    </form>
+  `;
+
+  document.getElementById("back-btn").onclick = renderMain;
+
+  document.getElementById("auth-form").onsubmit = async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    try {
+      showLoading();
+
+      let userCredential;
+
+      if (type === "Sign Up") {
+        userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+        await saveUser(userCredential.user);
+
+        // NEW USERS → PROFILE SETUP
+        window.location.href = "profile-setup.html";
+
+      } else {
+        userCredential = await signInWithEmailAndPassword(auth, email, password);
+
+        await saveUser(userCredential.user);
+
+        // OLD USERS → HOME
+        window.location.href = "index.html";
+      }
+
+    } catch (err) {
+      hideLoading();
+      alert(err.message);
+    }
+  };
+}
+
+// =====================
+// GOOGLE LOGIN FIXED
+// =====================
+async function googleSignIn() {
+  try {
+    showLoading();
+
+    const provider = new GoogleAuthProvider();
+    const result = await signInWithPopup(auth, provider);
+
+    await saveUser(result.user);
+
+    window.location.href = "profile-setup.html";
+
+  } catch (err) {
+    hideLoading();
+    alert(err.message);
+  }
+}
+
+// =====================
+// SAVE USER
+// =====================
+async function saveUser(user) {
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+
+  if (!snap.exists()) {
+    await setDoc(userRef, {
+      uid: user.uid,
+      email: user.email,
+      createdAt: serverTimestamp(),
+      profileCompleted: false
+    });
+  }
+}
+
+// start
+renderMain();
+</script>
+</body>
+</html>
