@@ -1,673 +1,672 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>TrustCobra | Build Trust Before You Get Paid</title>
-    <meta name="description" content="TrustCobra helps online sellers, freelancers, and businesses showcase proof of legitimacy in one professional page that customers can trust." />
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    
-    <style type="text/tailwindcss">
-      @theme base {
-        --color-background: #FCFCFD;
-        --color-foreground: #151C2C;
-        --color-border: #E2E8F0;
-        --color-primary: #151C2C;
-        --color-primary-foreground: #FFFFFF;
-        --color-secondary: #F1F5F9;
-        --color-secondary-foreground: #151C2C;
-        --color-muted: #F1F5F9;
-        --color-muted-foreground: #64748B;
-        --color-card: #FFFFFF;
-        --color-destructive: #EF4444;
-        
-        --font-sans: 'Inter', sans-serif;
-      }
-      
-      body {
-        font-family: var(--font-sans);
-        background-color: var(--color-background);
-        color: var(--color-foreground);
-      }
-      
-      .fade-in-up {
-        opacity: 0;
-        transform: translateY(24px);
-        transition: opacity 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98), transform 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98);
-      }
-      
-      .fade-in-up.visible {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      
-      .fade-in-left {
-        opacity: 0;
-        transform: translateX(24px);
-        transition: opacity 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98), transform 0.6s cubic-bezier(0.21, 0.47, 0.32, 0.98);
-      }
-      
-      .fade-in-left.visible {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      
-      .delay-100 { transition-delay: 100ms; }
-      .delay-200 { transition-delay: 200ms; }
-      .delay-300 { transition-delay: 300ms; }
-      .delay-400 { transition-delay: 400ms; }
-      .delay-500 { transition-delay: 500ms; }
-    </style>
-  </head>
-  <body class="antialiased selection:bg-primary/10 selection:text-primary">
-    
-    <!-- Navbar -->
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5">
-      <div class="container mx-auto px-6 max-w-7xl flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <a href="#" class="flex items-center gap-2">
-            <div class="flex items-center gap-2.5">
-  <a href="#" class="flex items-center gap-2.5">
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CobraTrust — Build Trust Before You Get Paid</title>
+<style>
+:root{
+  --blue:#1f4fb8;
+  --blue2:#2a62d4;
+  --ink:#152238;
+  --muted:#617087;
+  --line:#dce3ed;
+  --soft:#f7f9fc;
+  --green:#219653;
+  --red:#e85a5a;
+  --navy:#07182f;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  color:var(--ink);
+  background:#03080f;
+}
+.page{
+  max-width:1510px;
+  margin:8px auto;
+  background:#fff;
+  border-radius:18px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+}
+.container{max-width:1280px;margin:auto;padding:0 42px}
+.nav{
+  height:74px; display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--line); background:rgba(255,255,255,.97);
+  padding:0 42px; position:relative; z-index:10;
+}
+.brand{display:flex;align-items:center;gap:9px;font-size:20px;font-weight:800;color:#18253a;text-decoration:none}
+.brand-mark{width:27px;height:27px;display:grid;place-items:center}
+.brand-mark svg{width:100%;height:100%}
+.nav-links{display:flex;align-items:center;gap:40px;margin-left:auto;margin-right:36px}
+.nav-links a{font-size:13px;color:#27354a;text-decoration:none;font-weight:600}
+.nav-links a:hover{color:var(--blue)}
+.btn{
+  border:0;border-radius:5px;min-height:48px;padding:0 25px;font-weight:750;
+  font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;
+}
+.btn-primary{color:#fff;background:linear-gradient(135deg,#1d54c7,#1744a8);box-shadow:0 7px 16px rgba(31,79,184,.2)}
+.btn-outline{color:#33435a;background:#fff;border:1px solid #cbd5e1}
+.nav .btn{min-height:42px;padding:0 25px}
+.menu{display:none;background:none;border:0;font-size:24px;color:#203047}
 
-    <!-- TrustCobra C Logo -->
-    <div class="w-8 h-8 flex items-center justify-center">
-      <svg
-        viewBox="0 0 40 40"
-        width="32"
-        height="32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-label="TrustCobra logo"
-      >
-        <!-- Outer C -->
-        <path
-          d="M29.5 9.8
-             C26.8 7.3 23.2 6 19.4 6
-             C11.8 6 6 11.8 6 20
-             C6 28.2 11.8 34 19.4 34
-             C23.2 34 26.8 32.7 29.5 30.2"
-          stroke="currentColor"
-          stroke-width="5"
-          stroke-linecap="round"
-        />
+/* Mobile navigation menu */
+.mobile-nav-panel{
+  display:none;
+  position:absolute;
+  top:calc(100% + 8px);
+  left:16px;
+  right:16px;
+  padding:12px;
+  background:rgba(255,255,255,.98);
+  border:1px solid #dce3ed;
+  border-radius:12px;
+  box-shadow:0 18px 45px rgba(15,35,65,.18);
+  backdrop-filter:blur(14px);
+  z-index:1000;
+}
+.mobile-nav-panel a{
+  display:block;
+  padding:13px 14px;
+  border-radius:8px;
+  color:#27354a;
+  text-decoration:none;
+  font-size:14px;
+  font-weight:700;
+}
+.mobile-nav-panel a:hover{background:#f2f6ff;color:var(--blue)}
+.mobile-nav-panel .mobile-create{
+  margin-top:6px;
+  color:#fff;
+  background:linear-gradient(135deg,#1d54c7,#1744a8);
+  text-align:center;
+}
+.nav.menu-open .mobile-nav-panel{display:block}
 
-        <!-- Trust/verification mark -->
-        <path
-          d="M25 20.5L28 23.5L34 16.5"
-          stroke="currentColor"
-          stroke-width="3"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
+/* hero */
+.hero{
+  position:relative;overflow:hidden;padding:64px 0 48px;
+  background:
+    radial-gradient(circle at 47% 20%,rgba(45,96,205,.10),transparent 30%),
+    radial-gradient(circle at 82% 40%,rgba(248,197,97,.10),transparent 24%),
+    linear-gradient(180deg,#fff,#fbfcfe);
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:center}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:999px;
+  background:#f2f6ff;color:#2954a7;font-size:12px;font-weight:750;
+  box-shadow:0 5px 14px rgba(20,60,120,.08); margin-bottom:20px;
+}
+.eyebrow:before{content:"✦";font-size:11px}
+.hero h1{font-size:60px;line-height:1.1;letter-spacing:-2.8px;margin:0 0 24px;max-width:690px}
+.hero h1 .accent{color:#2856bb;position:relative;white-space:nowrap}
+.hero h1 .accent:after{content:"";position:absolute;left:5px;right:2px;height:3px;bottom:-9px;background:#88a7ef;border-radius:99px;transform:rotate(-2deg)}
+.hero-copy{font-size:18px;line-height:1.75;color:#5d6c80;max-width:650px;margin:0 0 22px}
+.check-list{display:grid;gap:12px;margin:22px 0 30px}
+.check{display:flex;align-items:center;gap:11px;color:#526176;font-size:15px}
+.check i{width:16px;height:16px;background:#2458bf;color:white;border-radius:50%;display:grid;place-items:center;font-size:10px;font-style:normal;font-weight:900}
+.hero-actions{display:flex;gap:14px;align-items:center}
+.social-proof{display:flex;align-items:center;gap:12px;margin-top:30px;color:#66758a;font-size:13px;font-weight:600}
+.faces{display:flex}
+.face{width:31px;height:31px;border-radius:50%;border:2px solid white;margin-right:-7px;background-size:cover;background-position:center;box-shadow:0 2px 7px rgba(0,0,0,.14)}
+.face:nth-child(1){background:linear-gradient(135deg,#caa184,#4d2b24)}
+.face:nth-child(2){background:linear-gradient(135deg,#e4bd92,#3b2d2a)}
+.face:nth-child(3){background:linear-gradient(135deg,#382920,#d2a36e)}
+.face:nth-child(4){background:linear-gradient(135deg,#6b4a39,#e8bca1)}
+.face:nth-child(5){background:linear-gradient(135deg,#e8c1a0,#45332d)}
+.hero-dots{position:absolute;right:11%;top:31%;display:grid;grid-template-columns:repeat(3,4px);gap:10px;opacity:.45}
+.hero-dots span{width:4px;height:4px;background:#2563eb;border-radius:50%}
+
+/* Sarah Collections public-profile preview — rebuilt from the supplied reference */
+.profile-wrap{
+  position:relative;
+  width:min(100%,500px);
+  margin-left:auto;
+  padding:0 24px 0 0;
+}
+.profile-card{
+  position:relative;
+  overflow:hidden;
+  border:1px solid #d8e1ec;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 20px 45px rgba(24,48,88,.18),0 3px 10px rgba(24,48,88,.08);
+}
+.pc-top{
+  height:112px;
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.05),rgba(228,235,243,.55)),
+    linear-gradient(135deg,#eef2f6 0%,#e2e8f0 100%);
+  border-bottom:1px solid #e9edf2;
+}
+.pc-head{
+  min-height:90px;
+  padding:0 18px 10px;
+  position:relative;
+  margin-top:-42px;
+}
+.pc-avatar{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  border:3px solid #c99a37;
+  background-image:url("data:image/webp;base64,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");
+  background-size:cover;
+  background-position:center;
+  box-shadow:0 2px 7px rgba(22,32,48,.16);
+  margin-bottom:6px;
+}
+.pc-name-row{
+  position:absolute;
+  left:105px;
+  right:18px;
+  top:44px;
+  margin:0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+.pc-name{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  font-size:17px;
+  line-height:1.1;
+  font-weight:800;
+  color:#263247;
+  white-space:nowrap;
+}
+.tiny-badge{
+  width:13px;
+  height:13px;
+  flex:0 0 13px;
+  border-radius:50%;
+  background:#2364d2;
+  color:#fff;
+  display:inline-grid;
+  place-items:center;
+  font-size:8px;
+  line-height:1;
+}
+.pc-share{
+  width:30px;
+  height:30px;
+  flex:0 0 30px;
+  border-radius:6px;
+  border:1px solid #d9e0e8;
+  background:#f7f9fb;
+  display:grid;
+  place-items:center;
+  font-size:0;
+  color:#344155;
+}
+.pc-share::before{
+  content:"↗";
+  font-size:17px;
+  font-weight:700;
+}
+.pc-role{
+  margin:0 0 0 105px;
+  color:#66758a;
+  font-size:11px;
+  line-height:1.3;
+}
+.pc-location{
+  margin:7px 0 0 105px;
+  color:#69778a;
+  font-size:9px;
+  line-height:1.2;
+}
+.pc-location::first-letter{color:#293b54}
+.pc-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid #e7ecf2;
+  border-bottom:1px solid #e7ecf2;
+}
+.pc-stat{
+  min-height:55px;
+  padding:12px 4px 8px;
+  text-align:center;
+  border-right:1px solid #e8edf3;
+}
+.pc-stat:last-child{border-right:0}
+.pc-stat b{
+  display:block;
+  font-size:12px;
+  color:#263247;
+  font-weight:800;
+  margin-bottom:2px;
+}
+.pc-stat span{
+  display:block;
+  color:#77859a;
+  font-size:8px;
+  white-space:nowrap;
+}
+.pc-section{
+  padding:13px 18px 0;
+}
+.pc-section h4{
+  margin:0 0 7px;
+  color:#263247;
+  font-size:12px;
+  font-weight:800;
+}
+.pc-section p{
+  margin:0;
+  color:#5d6c80;
+  font-size:9px;
+  line-height:1.6;
+}
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:5px;
+  margin-top:7px;
+}
+.portfolio{
+  height:73px;
+  border-radius:5px;
+  background-size:cover;
+  background-position:center;
+  box-shadow:inset 0 0 0 1px rgba(25,42,68,.05);
+}
+.portfolio:nth-child(1){background-image:url("data:image/webp;base64,UklGRgQRAABXRUJQVlA4IPgQAACQYgCdASq0ANwAPikQhkIhoQw82twMAUJZ20WVt8EzHvBxMGwi/92XvUpuLPNLj5G9Oz+jqB+VfQX/H5zsT7u//oZ1i5R7Vxv2nmeiqOVEmc98AVflHqKrbDCcV36F4/iCJEqGMyCHbAPbEcOHc2mrdMplT0khK3S4DTJ2elhGI9AimfpahDh+KYcY9YyJpaNJYso6Vc9/O5KxtXryagsnoMwDhoucrtpQhPO3s9s9NdeEmCVyCifRqEkTPK7WDi/Os4/KGtnv+Lmp/TCb1pZ1D1ti2WEqfzQTVUm1s45sH0ybgYYtebySgQFYzP1K4hARS+W8jTBVUX/0zYGpZFbP4/m7MskgwuyGcdcXzM9jKfyMV66qYxEH0zgpb4MrmDXXeDI65lM4y7LsCqpHZ4rIHQ4YXBR70OTnKbhpoh0CA3kwRgsTzH8THrm8EqeW4OozCuCUgwcXhgeN14PXiBbKQhdkWqA6vAgCiZ1AYpj8fJ4BBJEBeI8LprOZ4zQkdM7B4pBpVN9/MzlaMF2y/6Hoc5J/iz0SoyZz111pB/lEIPKEirLrLz/QXHK/RkETn2SqAFdakg73M6dGkISF1UZoDdAdJgMa9CWch9VSdiuznEmtVY9Lgduag6V5bmyc1C55JdM3nFUdNlw5ktzrEgxS1nTm4zaV+Z+kafPtMn6AMItf8jhRwBCYuicb0XxWzA6tLISZcybn3/+lm/E+TN5i1dxnYqWv0qqKf+9KQ+Z2aqZpX7x8Qnok4A4XPyiMAPeft6hrqUeT8/c6iuBmqRn/fH64BH/JbZ8rY6M/lIW4P/uFsnsJLMvqSXoGc38mQJ/O/QA9U318rTV2y/ey/rHJ3TQfFqb1OG0Oe9U4+vEPYmNum0HMdeToZgoFphtYQ8qpsveCAIvM3PJEW23K0hV6KU/kJR2fBFcmNXkWwTS2/Pa8lE/7A0jSTidewtPXnpi9FPWxWiyJE9B9icp8ajJ5pHxS6BPuX3ATEgxy/KBD09Ds319Q8p3zdJrToKQxniwhXLfqF+sghqqUvsJL5N5INCYoR5v8NGTXrsnPgAD+//5KJDo7U2ZhWOitzyP5tmLs4NsmfuXuWvR929J4rZF8jnRpOR1GOgGF7vIDl2FMFOn2KbNwooZKcvQSvsUcMbyB/7pb+RO2zI9C3oxNXrhS9wt/dfVTtNyT5EsC4eJ9i4GsDevHPUMjhtJMnatJh5ac6xKymcZt3eR8IpjqeMvGk9NNVAkYyvzYqsI1BvWN8LZOVMzOgyXVueEZmXHJar+1PsJWmNIfbKVhrWlpBKVTgzEptRKGbGuCZn4vzhyARN7janpNL77Arz5MGdrga+brTnIjLnVz8ZPakVSThXT2sjTb2pBAyWvzx0PqBUVsw39PIYK3uuw4NkkcPvp1nTfCSk4HTP8sA063qyTyUy1XfBud9g0IXKj9zVPFobljDPJrkDYZxlaS6STtV1M87rMcP3h258rlfLBeATNA8UrHbfyUOvXLRbAECzFeIF8gxG7lHIuD9T9bTWkuAbDx339aPo3veLGnH5kEWZe6ogYaPWtZ5SjKyvQl2a29bmRGMspuQWGUDUZACbRzRt+OdLuG66ouZmoySOA+TDZJTZw2Pa077YmuILT0PvqvjV8TMaXw4Y1+EZqbEbbNVNxUUF2ICbRR4SbkOoZFvWZCL0iwQBLzZ+PiksjOeOBDxk7YtFh0LMwy+Znrf7CvMQYTuH0rS36DILcgjyIR1jZBmE2zulNMFE7y8204Baw/J0GS1u78E1u+slyiF3CSg7Etmt72I/abDVmP+cL+cMiK9Lp+b1ieFElm6Jfg/z3iWnldtje1WYT8nArpE3vaialcfeEPz5oeL3Ymj0Ta7CUem5W4MkG0WPVJL42+YCv8979nFhj/9rIlQ+YR9b4vcw/kh0CyyBsf8R4f+PEAi09NZ006nmeZoBoU1Y3PqDWtOJCLxN72TzqIkWHigHxzv2uMfw4LZAJH7/3T6QDKiZl3FCgGBG9vG+bqoR6uuWaKONG28w5NhMLtFTEMRtWXO4bmmoCIlrrI/wzt31ha8ZL4tLYQhBY121xYeMCfYaFRDnDb7u8hytjGONsDa2yHVL2L6mUlffjzy7uiFDqJFRcabtrTWqorL7S8XPJVzfC2/GoeKFid+wzzA7gFMZm1MUU3a2CIAWfYyHt7vLNsUiHHbCPjy8Y4xMpZuSdftz3kpem/Ki6zBMQZAvVebDsyH078U/QS4F2e6EcBB3BFxEcli6wrFTfr0HflIO8gYdtsNrvihh5mikZEfPP6G9x5EY04v38qHf4mLwXDQ792QK0PLcyl73+mniuC9db1Wt2dS/OK01a62h51+Fp50p+htZYEHCLYB80kFjWocUS/dfgJaiDI3uhSJbTVSWYPMj0/IGCtGCpiRHDLkAv3LQEaOnoAOGVNLn0oO3pMiWmwI/2dDjg2bM1GEgMK8vwEoWcf+0GDpiEJ8eaQE17f5JD5zXuQxUKWd1JXw33I6ACQ7Ux5fmVLv3RN/OmZ/DSLuYKTR117IfzFWGaJouCRznc7Vy05TYtASilJf3sykhCHaDEJc3s+oeV1ugZh57vvZIa++0BZ3rkvzAIQ4h6MJnraLB3oe9zQrBzFsi+cZPgYHDELA9plOSEPcYt6SMfK+vqNVqlvGSVp2dUlS5vr7nBBWCtCUaOqULsjeODZRRQ+g/Nz5VTUoFCbt1LTkb98piHnMcYY03NLD9J7K5QHxd/8T2Pxw+GZhXLbPDTvQNdei3my5JD9hPn1Z5MCMWSCMABqje80AJm13VaZuR4dKJsE2xNRgguQmerjTEteKkgw1/yYxKJ9B8M5OOwKI0Gof6lfbXnxP73qgGtJYXXGFEgZD0oCLmYqeBt0+7MJ4L6JQoSylMuPUwGtsiGQVmrazQE0Z0g0Q3cxk6B82CF20wf8YOfsBKBJIHu3tQM8a/uzk2kQYIbXF0fX2ndAZpl2NnP+ZJPJvtEtO1Wmki1ihIVDMO7+usW8y+f4evt1dqgYqBhrncjW9xMYg5E29goz+6HKs9whOOGpY3nkz/N7krCJ02X/6lZd+jmurAM1XtgyF44yG7n1BM/henrzXuQwRA74kzkr0zx+DVWTWjG64ILgRI3NZ/eDdQ2Y3+kRr4OueOgEuDeIDqZDvaOzb7yAxpfA82yS7Wl/H+/CXKumSbivk7CvzZJbQ1UqcZ5aFScIMOiXg7QK1RfJeDN3YTHahYD1zd22ITDV2aOw9RU7knFxyOxrP8+J3RdcrsSBAUouhxvPIfT/7faFqWKwNjSYzCng0gaCYFi2JvkQpOaKc6CgYEh4Mjp5TIhXOTYhweXlTODx5VBJ7WpRw5Ox8lVkrMBtLh0mpeLHycrdD+61RFEW1KK7TbwpUbTjX6TqLjq+UoPeN4qE8mgPbawp7h2GCib7DxxxBH6NxT5fWXQNc2Jv10+iN292ShbBa07LhIM/h/ljaDpMw0Pk7IKgzIb20nef0HhvhTY0aw7o95HmSrULYkGre7MJKAXNshthVUT7o408n4X5k7MTMc9Y2jIQJgFtZDaLdkCxSCn6EApHZmOIxV/nJ2jPj05Keulbvf4A1D/UjwYmpLEqdBFJRJOOl1DCwfcaX7jQ/MXraXm9HgUoQZqaZUrvqsrZaZooAeLNO8d4YwHuCwtix8nPD9BbI20DUXtRkVavul7qMlRgmXj9sbsktncS3z/jy/K6TeYI+tVBYOCr1axYxsF/HOCt4RaS19dggg/EgW4krytOLDoMM7DHUR49SptGpGBnICAOyDwstyBcsMVM8Y73KB9RTFjgdchcwjReW77exnfS6rCT94g9IcaQh9p8VBYK5PyPwAiqNPqLQE/E7OnanMmT+GOaB6Mn/kjAZ24AE5KZGJmhGo+CCxJo6Sa7ceeH46p5UfmURLLTZ5IpdIA+oHFDyZEiAV+RyG62ifo/Xc2vUYwBkW8afZJXPm9NEPaZg1BGAeq37CewHfh5X4VO7sBUhlZcjVt+DauFxNFOYNgKHGI596mnCsz5nRIBVWLqO+WhkR65wb4Ya6C0TM1dbkKZP63juIm/jv2flBbEow1FTV2+NCS86SF9ICsOYKCsjHRCjOsJK1t/s7KjhDVMsDI9gBGfxsIxomadgtv9sEKJdptpPIEAuML5mTMxwqOlmvw5955p/PvRzUHfhy38dV7nZbxJPpF/88NTJ8BTtH65UW/gII1M51PxXXjipoyFSL3zTyfrCMoGEpVAlMQ+E2nSLNLjlMkYR4dHLCGJ3YRGxftfulxZPpyU87KQr+DxTlUGiCBUZ0ZfmI0ygczMHGGXBFCmA01cBppaYRuMZDNh1BQWKZfJOID4xsepCIwfZXwY+8OJgG5DTt0wiASE6qUj9oGQ7VF7NajXQca3BK6nV6WkXEiz6YLSQYZgNfoUaVtX3KT2XcIJDrXNviPha5GI6XYs4GL6helUXP/7ozhpVlaxn0fSlfsYCIPe8d1PnTZT+EeDBJElyqAa9U892FPCMyg7cVjO2CYto5p/SDBLCATGiNeSpwWgDKyzM3TyAR8SRnsADbqQ18wGqahc68Rv8EoLZhV47fmFFv1lpCs5YjenihPR9/fqOwzP52SHoCqByZNfkBAWNFVW7PMXwob7uoTGjZ7xPRRFOrPLl4U1CuSgPjRU1uwh8XEJE0lIy5pH6BpYaySWClmgP8Jy/sSWk/ipuDhnqQLeYwhAjK9KyY//g5hbsQbnNWC/ztuyNYnImxpX2B2Zwg9ES4ey5biBOabscVshXXxrXlLF7zWMaTmlCblWNR4wBVSdaJRqxZz7ixku+1q9nP4zhpD+aPfzB0g7+0QzXVoxKKfv2RE70ynH4uGHzr8L6UIouF+K+CZ/G2oY43wNPFk5Lt9c7uXhqFOLyJiKuoY5umVfBkh/gMiXwEIZvLhEuIkVZgp1fKE398jFtHGoACQU9nc4nkd4uphzuCfTmsNRg8uJMh6PPYXSR3LxcRUcBwJoXj6Q1DoKgIeLCP9yIKl5hFKB7NVVJ9ohZxDUNhSxrh+m0NK2grM9DzuINFVxM2rdy/hOn+0sLIqD/AOCab25E1EOShRVu4lw26z93ulYTBUWc55TuOeSVIR5Q957eFI8Uo+2WGECR7ev9KkOkgIB3kpeU2M3cabIpEbyprn8EoN5YBiY5f23q53Kt+rrPAIxesgrSUad3nOsdtRCHBqaA90pkQHPRGYoig3oeDLNbT6MECRMW3N7hkQBk8tepYZBJmqswzo/NzKysISuXcmqGy3X1xtK0Yi4EGnWBjy3KaLym6GibHx61jOcSxavXOR5xOUXvB9usLxFHteJXSv2CfypQ+z3W+JzKa70w3JsHnoXRa3Jj9ht2bplFi1U3XXKXYrSWibVKAMV6OnyqWofKMRiVS4Ichaq3qeLJxXVpDf/tDaf2iGacAMU7tXCXRmdp/lWngm+9vdqgBLlYo7E6mkttVO/IBVdvYmEMtnFhaOauO2PjFg+oTL4UYXVDHDM0vw1Iw6k2o5rGQ+lWCXDNr6zJpeOIZOo/2Dt+8OIRSoWoAlobEnEVDUyvBy4IY7rMrHbW+ulgX6sdr6XUJAFQy2dOucNCdptxVsIMpz2qMq6gsS282Su3YxHWKDnF9gy9EQ3ix9oPjl0f+kJAHsl+r0lihCzRbCiMqD2ji6we5wPzzHCHVfLpunZ3fiq4Q1E68pUaTvIrgczlZGRuNjIbuY8/m1vK8wVVOp3gHVVZO0N2J26gcCrJ2EZ4JUkOJaQPFHJMMh1XbYKM6KcNMngvkEAAAA=")}
+.portfolio:nth-child(2){background-image:url("data:image/webp;base64,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")}
+.portfolio:nth-child(3){background-image:url("data:image/webp;base64,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")}
+.portfolio:nth-child(4){background-image:url("data:image/webp;base64,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")}
+.review{
+  margin:12px 18px 8px;
+  padding:9px 0 0;
+  border-top:1px solid #e9edf2;
+  display:flex;
+  gap:8px;
+}
+.review-avatar{
+  width:27px;
+  height:27px;
+  flex:0 0 27px;
+  border-radius:50%;
+  background-image:url("data:image/webp;base64,UklGRoQFAABXRUJQVlA4IHgFAAAQGwCdASpQAFAAPiUOhkIhhhcTvwYAkSgDIkEfRrJjs7+L4j0r/YtOz8UTp6eaPHi+fW9nefa8j/h/2f0B/4t9vPw/5j+vngrwAvxX+c/3T8qvzA5O3kk2e/4PgRf4bzoUnokbNMMJ/fC3oproHOYzY6XNp4JI9vfslEu4N8sEqwXflzyxnKk1kqn7JfN65pzHp449VYaadooUOKc9P0yLxl2AZ+TwBDA7P3qCcYjhZrZL4heU8s9wcOiFVAEHMvi6udcl/1Z1SvXZruYQwEjCz+J1kbH+rbhRD6QJfsmdIIAA/v/+jaoUwOVlLa9jFfew7LFHhTQpHeT19yQZSpPxDMdfSlhehHScRwXNHSnXLHzad4QKq99jPCMfXpCPjyz9noIdj9IB1PJu2Mf4pTPK/hw4BDP67a8gOJT3/3Qei2ThQlvNpHvZA9cDSS3JBWw2Gi6vXsX94KNwCQEUebOOjJTESd21EHnoXj40r0L/2fFol/GKMm/leis74O6yBsfyUNGX5Wjvz/WT+f+C5pCS/Nf+PQTVcXyJcWujujrZ9qrFh7RPuQrY0BVJNPkNuCtUGJMTi5Vxag7DzFGP2cBGDAWCDfQRGd1IJ2EEvC9uOkqmVT2ZF/934YgudRsWZPYT12pb/jbXUROcX0xaX9HBs/yd2j9is8PJk1LXy6vpPIJPAZ+wcDLsrg/hzMLZLK6xNLk3TjLf6Kx6xk5Au0C1l32uRVEiSnf8uh5czcBQqN0qDZpakxELHOeaH/DmHpLH7cXS1z8C0mhg7x4wEpQ/+LlxdtEj7+dNbdSr6ZmcOvPBbCJyi3tApAgcGNSbnNelY2/9muYUiZ9Av3YG90ejEe2v1OtzBObmf2Bd9/db8y9EolJf0otelNn4rHkS1gm/7+fx9mXNoeSbn5iLoXiwEkjp3ShHR04XeCDNqMLVuGPTxRPW+mZcwVN3cBFbzK498IemfDvIhbT0ByTjn8fDQ/r19C2HbKJa21pyTFgrayORJ+8i8D+dL3swC9291BvFIzBFcMMkoLufFS0RfkgKTsiT6VbKsYt9GipUDw8hmSCTES9SVPB5ab14KI0sbVt5j/UQfcSuC9I8QebQ0bcNzcWk3gtpTE4NssnGegckMU/Ow77/5z0SfSahiuIkHgpltND2SQAcc2XV7XUfXY3ujUzZSs+zmPBAO0kA1IprNi9i68x4GR4P0NmmKQjuEs23/lNmTtvNiiOv2bi+GDVe72Q0EeazF7mG4W3AowaScnQ91DSsrSdjKWbVC94I4VMaiyorSXnW6nBNIIoQsCLGhcDJWdxS45IBo02aJH2ajH8VuQB+roX19dti/VTdl6nv3SQSxC/zRf6ZU9/zf+Kln9f+vrOG0UjvHtBkSWkRBe36TkMvIuJBMblwE9ft6rZvgfNjVCZL1KaItfynIvk7bFy4ooTccmhEezvu8YtgtnI7mG4lthxgOdVgxZm8vcwbCcxlitqCiUDOqjD3oQBngbjU/4fcoDn+5MuiUP17zv0vCJfiU+13Ba1a7xbtH5hKObY7uD6k33nt3T1rm2WASNU79jf97jmHMrg5JJO0rgkmczFERdw8GsfUERSMRHNxvijnqvwUX0j//dsC11YHZhEjkNIch54sDH6Bz0BMW2XAXv41Q7w7U2iJIgrB4H/FGDYPrW9nCdTy51fIyxmfDsnbg5vtA53eLJH9ZH/yHVjq4/6ZOJ8RGBbbn83DXnKzUyaJzuOcv/VNdf8KOw8DSal1y649vEqPyJB/9keKSNBMX9ZO5CTU3f5G0GGcsISFlEL+4d8QQZqd/fpmxd0vg6WObhhoWpxyyC4GinWPxo33bKTBqp4piV7NdnVldn+6Qm1w67oAAA==");
+  background-size:cover;
+  background-position:center;
+}
+.review-main{
+  min-width:0;
+  flex:1;
+}
+.review-main b{
+  font-size:9px;
+  color:#344156;
+}
+.review-main > div{
+  margin-top:1px;
+  color:#7b8798;
+  font-size:8px;
+}
+.review-main p{
+  margin:4px 0 0;
+  color:#5e6d80;
+  font-size:8px;
+  line-height:1.35;
+}
+.stars{
+  float:right;
+  color:#f2ad20;
+  font-size:9px;
+  letter-spacing:1px;
+}
+.pc-contact{
+  margin:8px 18px 17px;
+  height:31px;
+  border-radius:4px;
+  background:linear-gradient(135deg,#1947b9,#2864da);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:9px;
+  font-weight:700;
+  box-shadow:0 5px 10px rgba(32,86,202,.18);
+}
+.shield-float{
+  position:absolute;
+  right:-4px;
+  bottom:10px;
+  width:78px;
+  height:78px;
+  filter:drop-shadow(0 9px 16px rgba(37,99,235,.22));
+}
+.shield-float svg{width:100%;height:100%}
+
+@media(max-width:860px){
+  .profile-wrap{
+    width:min(100%,520px);
+    margin:28px auto 0;
+    padding-right:18px;
+  }
+}
+
+@media(max-width:600px){
+  .profile-wrap{
+    width:100%;
+    max-width:470px;
+    padding-right:14px;
+    margin-top:26px;
+  }
+  .profile-card{border-radius:13px}
+  .pc-top{height:92px}
+  .pc-head{margin-top:-37px}
+  .pc-avatar{width:68px;height:68px}
+  .pc-name-row{left:92px;top:39px}
+  .pc-role{margin-left:92px}
+  .pc-location{margin-left:92px}
+  .pc-section{padding-left:15px;padding-right:15px}
+  .review{margin-left:15px;margin-right:15px}
+  .pc-contact{margin-left:15px;margin-right:15px}
+  .portfolio{height:64px}
+  .shield-float{width:62px;height:62px;right:-2px}
+}
+
+
+/* features */
+.section{padding:54px 0}
+.section-title{text-align:center;font-size:30px;letter-spacing:-.7px;margin:0 0 8px}
+.section-sub{text-align:center;color:#68768a;font-size:14px;margin:0 auto 26px;max-width:650px}
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.feature-card{border:1px solid #dce4ee;border-radius:12px;padding:22px;background:#fff;min-height:178px}
+.feature-icon{width:48px;height:48px;border-radius:9px;background:linear-gradient(135deg,#285dc7,#1948a8);display:grid;place-items:center;color:#fff;margin-bottom:17px;box-shadow:0 8px 15px rgba(31,79,184,.18)}
+.feature-card h3{font-size:15px;margin:0 0 8px}.feature-card p{font-size:12px;color:#66758a;line-height:1.55;margin:0}
+
+/* problem solution */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.info-card{min-height:270px;border:1px solid #e0e5ec;border-radius:12px;padding:30px;position:relative;overflow:hidden}
+.problem{background:linear-gradient(135deg,#fff8f8,#f7fafc)}
+.solution{background:linear-gradient(135deg,#f6fff9,#f7fbff)}
+.info-card h3{margin:0 0 12px;font-size:16px}.problem h3{color:#c13d37}.solution h3{color:#23804b}
+.info-card h2{font-size:20px;line-height:1.35;margin:0 0 18px;max-width:300px}.info-card p{font-size:12px;color:#68778b;line-height:1.6;max-width:310px}
+.mini-list{display:grid;gap:11px;margin-top:22px;font-size:12px;color:#637187}.mini-list span:before{content:"✕";color:#ef5656;margin-right:8px;font-weight:900}.solution .mini-list span:before{content:"✓";color:#209653}
+.watermark{position:absolute;right:-4px;bottom:-22px;font-size:120px;opacity:.08}.problem .watermark{color:#ef5656}.solution .watermark{color:#1d9d56}
+
+/* how */
+.how{padding-top:16px}
+.steps{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:start;gap:22px;max-width:980px;margin:28px auto 0}
+.step{text-align:center}.step-icon{width:62px;height:62px;border:1px solid #d7dfeb;border-radius:50%;display:grid;place-items:center;margin:0 auto 10px;color:#2358bd;font-size:26px;background:#fff;box-shadow:0 7px 20px rgba(40,60,100,.08)}
+.step b{font-size:13px}.step p{font-size:11px;color:#718095;line-height:1.55;margin:6px auto;max-width:170px}
+.arrow{font-size:34px;color:#8794a6;padding-top:8px}
+
+/* dark stats */
+.dark-stats{background:linear-gradient(135deg,#06162e,#0b2345);border-radius:12px;display:grid;grid-template-columns:repeat(4,1fr);margin-top:42px;color:#fff;overflow:hidden}
+.dark-stat{text-align:center;padding:25px 15px;border-right:1px solid rgba(255,255,255,.15)}
+.dark-stat:last-child{border:0}.dark-stat strong{display:block;font-size:29px}.dark-stat span{font-size:11px;color:#c3cede}
+
+/* pricing */
+.pricing-box{max-width:760px;margin:25px auto 0;border:1px solid #dbe3ed;border-radius:11px;padding:20px 24px;display:grid;grid-template-columns:1.3fr .7fr;gap:20px}
+.price-name{font-size:16px;font-weight:800}.price{font-size:33px;font-weight:900;color:#1d3970;margin:7px 0}.price small{font-size:12px;font-weight:500;color:#68778a}
+.price-copy{font-size:11px;color:#66758a;margin-bottom:13px}
+.price-features{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;font-size:11px;color:#516077}
+.price-features span:before{content:"✓";color:#2159bd;font-weight:900;margin-right:8px}
+.price-actions{display:grid;align-content:center;gap:9px}.price-actions .btn{min-height:39px;font-size:11px}
+.guarantee{border:1px solid #dbe3ed;border-radius:7px;padding:9px;text-align:center;color:#506178;font-size:10px;font-weight:700}
+
+/* footer */
+.footer{background:linear-gradient(135deg,#06152c,#071b39);color:#fff;padding:38px 0 18px;margin-top:36px}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.7fr;gap:42px}
+.footer .brand{color:#fff}.footer-copy{font-size:11px;color:#9caac0;line-height:1.7;max-width:220px;margin-top:12px}
+.footer h4{font-size:12px;margin:4px 0 15px}.footer a{display:block;text-decoration:none;color:#aeb9ca;font-size:11px;margin:10px 0}
+.newsletter p{font-size:11px;color:#aeb9ca;line-height:1.5}.subscribe{display:flex;margin-top:12px}.subscribe input{min-width:0;flex:1;border:1px solid #314563;background:#0a2347;color:white;padding:11px;border-radius:4px 0 0 4px;font-size:11px}.subscribe button{border:0;background:#2358c6;color:white;padding:0 15px;border-radius:0 4px 4px 0;font-size:11px}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.12);margin-top:25px;padding-top:15px;text-align:center;color:#8492a8;font-size:10px}
+
+/* mobile */
+@media(max-width:900px){
+  body{background:#fff}.page{margin:0;border-radius:0;box-shadow:none}.container{padding:0 22px}.nav{padding:0 20px;height:68px}
+  .nav-links,.nav > .btn{display:none}.menu{display:block;cursor:pointer;padding:8px;border-radius:8px}.menu:hover{background:#f1f5f9}
+  .hero{padding:24px 0 30px}.hero-grid{grid-template-columns:1fr;gap:22px}
+  .hero h1{font-size:40px;letter-spacing:-1.7px;max-width:420px}.hero-copy{font-size:15px;line-height:1.7}.check-list{gap:10px}.check{font-size:13px}
+  .hero-actions{display:grid;grid-template-columns:1fr;gap:9px}.hero-actions .btn{width:100%}
+  .profile-wrap{max-width:none;padding:0;margin:0}.profile-card{border-radius:10px}.pc-top{height:90px}.portfolio{height:58px}
+  .hero-dots{display:none}.shield-float{width:58px;height:58px;right:-3px;bottom:10px}
+  .features{grid-template-columns:1fr;gap:13px}.feature-card{min-height:auto;padding:17px;display:grid;grid-template-columns:54px 1fr;column-gap:14px}.feature-icon{grid-row:span 2;width:44px;height:44px;margin:0}.feature-card h3{align-self:end;margin:0}.feature-card p{margin-top:4px}
+  .section{padding:36px 0}.section-title{text-align:left;font-size:24px}.section-sub{text-align:left;font-size:12px;margin-bottom:18px}
+  .split{grid-template-columns:1fr;gap:12px}.info-card{min-height:220px;padding:22px}.info-card h2{font-size:17px}.watermark{font-size:95px}
+  .steps{grid-template-columns:1fr;gap:13px;margin-top:20px}.arrow{display:none}.step{display:grid;grid-template-columns:58px 1fr;text-align:left;column-gap:12px}.step-icon{width:50px;height:50px;grid-row:span 2;margin:0;font-size:20px}.step b{align-self:end}.step p{margin:4px 0;max-width:none}
+  .dark-stats{grid-template-columns:repeat(3,1fr);margin-top:25px}.dark-stat{padding:17px 8px}.dark-stat:nth-child(3){border-right:0}.dark-stat:last-child{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.15)}.dark-stat strong{font-size:22px}
+  .pricing-box{grid-template-columns:1fr;padding:18px}.price-actions{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr;gap:24px}.footer-grid>div:first-child,.newsletter{grid-column:1/-1}
+}
+@media(max-width:430px){
+  .hero h1{font-size:35px}.eyebrow{font-size:10px;padding:7px 10px}.social-proof{font-size:11px}
+  .pc-head{padding:0 14px}.pc-section{padding-left:14px;padding-right:14px}.review{margin-left:14px;margin-right:14px}.pc-contact{margin-left:14px;margin-right:14px}
+  .pc-name-row{margin-left:78px}.pc-role,.pc-location{margin-left:78px}.pc-avatar{width:64px;height:64px}.pc-stats{font-size:11px}
+  .price-features{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a href="#" class="brand">
+      <span class="brand-mark"><svg viewBox="0 0 32 32" fill="none"><path d="M16 2.5l11 5.5v7.8c0 7.2-4.5 11.7-11 13.7-6.5-2-11-6.5-11-13.7V8L16 2.5z" fill="#edf3ff" stroke="#2557b9" stroke-width="1.8"/><path d="M11.5 16l3 3 6-7" stroke="#2557b9" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      CobraTrust
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a><a href="#how">How It Works</a><a href="#examples">Examples</a><a href="#pricing">Pricing</a><a href="about.html">About</a><a href="login.html">Log In</a>
     </div>
+    <a class="btn btn-primary" href="login.html">Create Trust Profile</a>
+    <button class="menu" type="button" aria-label="Open navigation menu" aria-expanded="false">☰</button>
+    <div class="mobile-nav-panel" aria-label="Mobile navigation">
+      <a href="#features">Features</a>
+      <a href="#how">How It Works</a>
+      <a href="#examples">Examples</a>
+      <a href="#pricing">Pricing</a>
+      <a href="about.html">About</a>
+      <a href="login.html">Log In</a>
+      <a href="login.html" class="mobile-create">Create Trust Profile</a>
+    </div>
+  </nav>
 
-    <span class="font-semibold text-lg tracking-tight">
-      TrustCobra
-    </span>
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">The #1 Trust Profile for Online Businesses</div>
+          <h1>Build Trust Before<br>You <span class="accent">Get Paid</span></h1>
+          <p class="hero-copy">CobraTrust helps online sellers, freelancers, and businesses showcase their identity, proof of work, reviews, and verification in one professional page that customers can trust.</p>
+          <div class="check-list">
+            <div class="check"><i>✓</i> Increase customer confidence</div>
+            <div class="check"><i>✓</i> Get more sales and higher conversions</div>
+            <div class="check"><i>✓</i> Stand out from thousands of online sellers</div>
+          </div>
+          <div class="hero-actions">
+            <a href="login.html" class="btn btn-primary">Create Your Trust Profile</a>
+            <a href="#examples" class="btn btn-outline">View Demo Profile</a>
+          </div>
+          <div class="social-proof">
+            <div class="faces"><span class="face"></span><span class="face"></span><span class="face"></span><span class="face"></span><span class="face"></span></div>
+            Trusted by 500+ online sellers
+          </div>
+        </div>
 
-  </a>
+        <div class="profile-wrap" id="examples">
+          <div class="profile-card" aria-label="Sarah Collections verified business profile preview">
+            <div class="pc-top"></div>
+
+            <div class="pc-head">
+              <div class="pc-avatar" aria-label="Sarah Collections profile photo"></div>
+
+              <div class="pc-name-row">
+                <div class="pc-name">
+                  Sarah Collections
+                  <span class="tiny-badge" aria-label="Verified">✓</span>
+                </div>
+                <div class="pc-share" aria-label="Share profile"></div>
+              </div>
+
+              <div class="pc-role">Fashion Brand</div>
+              <div class="pc-location">● Lagos, Nigeria</div>
+            </div>
+
+            <div class="pc-stats">
+              <div class="pc-stat"><b>98%</b><span>Positive Reviews</span></div>
+              <div class="pc-stat"><b>250+</b><span>Happy Customers</span></div>
+              <div class="pc-stat"><b>2+ Years</b><span>Experience</span></div>
+            </div>
+
+            <div class="pc-section">
+              <h4>About Us</h4>
+              <p>We sell quality female wear, bags and accessories. We deliver top-notch quality.</p>
+            </div>
+
+            <div class="pc-section">
+              <h4>Portfolio</h4>
+              <div class="portfolio-grid" aria-label="Sarah Collections portfolio">
+                <div class="portfolio" aria-label="Fashion bag"></div>
+                <div class="portfolio" aria-label="Fashion outfit"></div>
+                <div class="portfolio" aria-label="Leather handbag"></div>
+                <div class="portfolio" aria-label="Fashion outfit and bag"></div>
+              </div>
+            </div>
+
+            <div class="review">
+              <div class="review-avatar" aria-label="Jane M profile photo"></div>
+              <div class="review-main">
+                <b>Jane M.</b>
+                <div>Verified Buyer <span class="stars">★★★★★</span></div>
+                <p>Received my order and the quality is top notch! Highly recommended.</p>
+              </div>
+            </div>
+
+            <div class="pc-contact">Contact us</div>
+          </div>
+
+          <div class="shield-float" aria-hidden="true">
+            <svg viewBox="0 0 80 80">
+              <path d="M40 4l28 12v21c0 18-11 30-28 39C23 67 12 55 12 37V16L40 4z" fill="#dcecff"/>
+              <path d="M40 10l21 9v18c0 13-7 22-21 30-14-8-21-17-21-30V19l21-9z" fill="#2563c9"/>
+              <path d="M28 39l8 8 16-18" fill="none" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="hero-dots" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="container">
+        <h2 class="section-title">Everything You Need to Build Trust</h2>
+        <p class="section-sub">Powerful features that help you showcase your business and win more customers.</p>
+        <div class="features">
+          <div class="feature-card"><div class="feature-icon">▣</div><h3>Professional Trust Page</h3><p>A clean, centralized profile that represents your business identity.</p></div>
+          <div class="feature-card"><div class="feature-icon">▧</div><h3>Customer Proof Gallery</h3><p>Showcase completed jobs, reviews, and happy customers.</p></div>
+          <div class="feature-card"><div class="feature-icon">⌘</div><h3>Portfolio Showcase</h3><p>Display your best work in an organized and beautiful way.</p></div>
+          <div class="feature-card"><div class="feature-icon">♢</div><h3>Secure &amp; Verified</h3><p>Get verified and give customers the confidence to pay you.</p></div>
+        </div>
+
+        <div class="split">
+          <div class="info-card problem">
+            <h3>The Problem</h3><h2>Buyers hesitate when dealing with strangers online.</h2>
+            <p>Sellers lose customers because buyers fear scams, have no easy way to prove legitimacy, and spend too much time trying to build trust.</p>
+            <div class="mini-list"><span>Fear of scams and fake sellers</span><span>Lost sales due to low trust</span><span>Time wasted proving you're legit</span><span>Unprofessional first impression</span></div>
+            <div class="watermark">!</div>
+          </div>
+          <div class="info-card solution">
+            <h3>The Solution</h3><h2>CobraTrust gives you a professional presence that instantly builds credibility and trust.</h2>
+            <div class="mini-list"><span>Verified identity and business info</span><span>Real reviews from real customers</span><span>Showcase your portfolio and work</span><span>One link that says it all</span></div>
+            <div class="watermark">✓</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="how">
+      <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-sub">Get your professional trust profile online in 3 simple steps.</p>
+        <div class="steps">
+          <div class="step"><div class="step-icon">♙</div><b>1 &nbsp; Create Your Profile</b><p>Sign up and set up your professional trust profile in minutes.</p></div>
+          <div class="arrow">→</div>
+          <div class="step"><div class="step-icon">▧</div><b>2 &nbsp; Add Your Details</b><p>Add your business info, portfolio, social links, and reviews.</p></div>
+          <div class="arrow">→</div>
+          <div class="step"><div class="step-icon">↗</div><b>3 &nbsp; Share Your Link</b><p>Share your unique link with customers and start building trust.</p></div>
+        </div>
+
+        <div class="dark-stats">
+          <div class="dark-stat"><strong>500+</strong><span>Verified Businesses</span></div>
+          <div class="dark-stat"><strong>98%</strong><span>Positive Reviews</span></div>
+          <div class="dark-stat"><strong>2,000+</strong><span>Happy Customers</span></div>
+          <div class="dark-stat"><strong>24/7</strong><span>Support</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing">
+      <div class="container">
+        <h2 class="section-title">Simple, Affordable Pricing</h2>
+        <p class="section-sub">One price. All the features you need to build trust and grow your business.</p>
+        <div class="pricing-box">
+          <div>
+            <div class="price-name">CobraTrust Plan</div>
+            <div class="price">₦3,000 <small>/ year</small></div>
+            <div class="price-copy">Everything in one plan</div>
+            <div class="price-features"><span>Professional Trust Profile</span><span>Verification Badge</span><span>Portfolio &amp; Gallery</span><span>Unlimited Updates</span><span>Customer Reviews</span><span>Priority Support</span></div>
+          </div>
+          <div class="price-actions">
+            <a href="login.html" class="btn btn-primary">Create Your Profile</a>
+            <a href="#examples" class="btn btn-outline">View Demo Profile</a>
+            <div class="guarantee">♢ &nbsp; 30-Day Money Back Guarantee</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="about">
+    <div class="container">
+      <div class="footer-grid">
+        <div><a href="about.html" class="brand"><span class="brand-mark">♢</span>CobraTrust</a><div class="footer-copy">Build trust. Get paid.<br><br>Your professional trust profile for online sellers, freelancers, and businesses who want to build credibility and win more customers.</div></div>
+        <div><h4>Quick Links</h4><a href="about.html">Features</a><a href="about.html">How It Works</a><a href="about.html">Examples</a><a href="about.html">Pricing</a><a href="about.html">About</a></div>
+        <div><h4>Resources</h4><a href="about.html">Help Center</a><a href="about.html">Blog</a><a href="about.html">Privacy Policy</a><a href="about.html">Terms of Service</a></div>
+        <div class="newsletter"><h4>Stay Updated</h4><p>Get tips on building trust and growing your online business.</p><div class="subscribe"><input placeholder="Enter your email"><button>Subscribe</button></div></div>
+      </div>
+      <div class="footer-bottom">© 2026 CobraTrust. All rights reserved.</div>
+    </div>
+  </footer>
 </div>
+<script>
+(function(){
+  const nav = document.querySelector('.nav');
+  const menu = document.querySelector('.menu');
+  const panel = document.querySelector('.mobile-nav-panel');
+  if (!nav || !menu || !panel) return;
 
-        <nav class="hidden md:flex items-center gap-8">
-          <a href="#features" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Features</a>
-          <a href="#pricing" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Pricing</a>
-          <a href="#about" class="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">About</a>
-        </nav>
+  function closeMenu(){
+    nav.classList.remove('menu-open');
+    menu.setAttribute('aria-expanded','false');
+    menu.textContent='☰';
+  }
 
-        <div class="hidden md:flex items-center gap-4">
-          <a href="login.html" class="text-sm font-medium text-foreground hover:text-primary transition-colors px-4 py-2">Log In</a>
-          <a href="login.html" class="text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md transition-colors shadow-sm">Create Trust Profile</a>
-        </div>
+  menu.addEventListener('click', function(e){
+    e.stopPropagation();
+    const isOpen = nav.classList.toggle('menu-open');
+    menu.setAttribute('aria-expanded', String(isOpen));
+    menu.textContent = isOpen ? '✕' : '☰';
+  });
 
-        <button id="mobile-menu-btn" class="md:hidden text-foreground">
-          <i class="fa-solid fa-bars text-xl"></i>
-        </button>
-      </div>
+  panel.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', closeMenu);
+  });
 
-      <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg py-4 px-6 flex flex-col gap-4">
-        <a href="#features" class="mobile-link text-base font-medium text-muted-foreground hover:text-foreground py-2">Features</a>
-        <a href="#pricing" class="mobile-link text-base font-medium text-muted-foreground hover:text-foreground py-2">Pricing</a>
-        <a href="#about" class="mobile-link text-base font-medium text-muted-foreground hover:text-foreground py-2">About</a>
-        <div class="h-px bg-border my-2"></div>
-        <a href="login.html" class="text-base font-medium text-foreground py-2">Log In</a>
-        <a href="login.html" class="text-base font-medium bg-primary text-primary-foreground text-center py-2.5 rounded-md mt-2">Create Trust Profile</a>
-      </div>
-    </header>
+  document.addEventListener('click', function(e){
+    if (!nav.contains(e.target)) closeMenu();
+  });
 
-    <main>
-      <!-- Hero -->
-      <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-primary/[0.03] rounded-[100%] blur-3xl -z-10 pointer-events-none"></div>
-        
-        <div class="container mx-auto px-6 max-w-7xl">
-          <div class="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-            
-            <div class="max-w-2xl">
-              <div class="fade-in-up delay-100 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-xs font-medium mb-6 border border-border">
-                <i class="fa-solid fa-shield-check text-primary"></i>
-                <span>The professional standard for independents</span>
-              </div>
-              
-              <h1 class="fade-in-up delay-200 text-4xl md:text-6xl font-bold tracking-tight text-foreground leading-[1.1] mb-6">
-                Build Trust Before <br class="hidden md:block" />
-                You Get Paid
-              </h1>
-              
-              <p class="fade-in-up delay-300 text-lg md:text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                TrustCobra helps online sellers, freelancers, and businesses showcase proof of legitimacy in one professional page that customers can trust before making payment.
-              </p>
-              
-              <div class="fade-in-up delay-400 flex flex-col sm:flex-row gap-4">
-                <a href="login.html" class="inline-flex items-center justify-center bg-primary text-primary-foreground font-medium px-6 py-3.5 rounded-md hover:bg-primary/90 transition-colors shadow-sm">
-                  Create Free Trust Profile
-                </a>
-                <a href="#how-it-works" class="inline-flex items-center justify-center bg-transparent border border-border text-foreground font-medium px-6 py-3.5 rounded-md hover:bg-secondary transition-colors">
-                  View Demo Profile
-                </a>
-              </div>
-            </div>
-
-            <div class="fade-in-left delay-500 relative lg:ml-auto w-full max-w-md mx-auto lg:mx-0">
-              <div class="bg-card border border-border rounded-xl shadow-xl overflow-hidden relative">
-                <div class="h-32 bg-secondary/50 relative overflow-hidden">
-                  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent"></div>
-                </div>
-                
-                <div class="absolute top-20 left-8">
-                  <div class="w-20 h-20 bg-background rounded-full p-1 border border-border shadow-sm">
-                    <div class="w-full h-full bg-primary/10 rounded-full flex items-center justify-center text-primary font-medium text-xl">S</div>
-                  </div>
-                </div>
-
-                <div class="absolute top-24 left-24 bg-background rounded-full p-0.5 shadow-sm text-primary">
-                  <i class="fa-solid fa-circle-check text-lg"></i>
-                </div>
-
-                <div class="pt-12 pb-8 px-8">
-                  <div class="mb-6">
-                    <div class="h-6 w-32 bg-foreground/10 rounded mb-2"></div>
-                    <div class="h-4 w-48 bg-muted-foreground/20 rounded"></div>
-                    
-                    <div class="flex items-center gap-2 mt-4">
-                      <i class="fa-solid fa-location-dot text-muted-foreground text-xs"></i>
-                      <div class="h-3 w-24 bg-muted-foreground/10 rounded"></div>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-4 mb-8">
-                    <div class="p-3 border border-border rounded-lg bg-secondary/30 flex flex-col gap-1.5">
-                      <i class="fa-solid fa-shield-halved text-primary text-sm"></i>
-                      <div class="h-3 w-20 bg-foreground/20 rounded"></div>
-                      <div class="h-2 w-16 bg-muted-foreground/20 rounded"></div>
-                    </div>
-                    <div class="p-3 border border-border rounded-lg bg-secondary/30 flex flex-col gap-1.5">
-                      <i class="fa-solid fa-star text-primary text-sm"></i>
-                      <div class="h-3 w-16 bg-foreground/20 rounded"></div>
-                      <div class="h-2 w-24 bg-muted-foreground/20 rounded"></div>
-                    </div>
-                  </div>
-
-                  <div class="space-y-4">
-                    <div class="h-4 w-24 bg-foreground/10 rounded mb-3"></div>
-                    <div class="flex gap-3">
-                      <div class="w-8 h-8 rounded-full bg-muted shrink-0"></div>
-                      <div class="space-y-2 flex-1 pt-1">
-                        <div class="h-3 w-1/3 bg-foreground/10 rounded"></div>
-                        <div class="h-2 w-full bg-muted-foreground/10 rounded"></div>
-                        <div class="h-2 w-4/5 bg-muted-foreground/10 rounded"></div>
-                      </div>
-                    </div>
-                    <div class="flex gap-3">
-                      <div class="w-8 h-8 rounded-full bg-muted shrink-0"></div>
-                      <div class="space-y-2 flex-1 pt-1">
-                        <div class="h-3 w-1/3 bg-foreground/10 rounded"></div>
-                        <div class="h-2 w-full bg-muted-foreground/10 rounded"></div>
-                        <div class="h-2 w-4/5 bg-muted-foreground/10 rounded"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mt-8">
-                    <div class="h-10 w-full bg-primary rounded-md opacity-90"></div>
-                  </div>
-                </div>
-              </div>
-              <div class="absolute -right-6 top-10 w-24 h-24 bg-primary/5 rounded-full blur-2xl -z-10"></div>
-              <div class="absolute -left-6 bottom-10 w-32 h-32 bg-primary/5 rounded-full blur-2xl -z-10"></div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <!-- Trust Indicators -->
-      <section class="py-12 border-y border-border bg-secondary/30">
-        <div class="container mx-auto px-6 max-w-7xl">
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
-            <div class="fade-in-up flex flex-col">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
-                <i class="fa-solid fa-layer-group"></i>
-              </div>
-              <h3 class="text-base font-semibold text-foreground mb-2">Professional Trust Pages</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">A centralized, clean profile that represents your business identity.</p>
-            </div>
-            <div class="fade-in-up delay-100 flex flex-col">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
-                <i class="fa-solid fa-image"></i>
-              </div>
-              <h3 class="text-base font-semibold text-foreground mb-2">Customer Proof Gallery</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Showcase completed work, happy customers, and past deliveries.</p>
-            </div>
-            <div class="fade-in-up delay-200 flex flex-col">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
-                <i class="fa-solid fa-book-open"></i>
-              </div>
-              <h3 class="text-base font-semibold text-foreground mb-2">Portfolio Showcase</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Organize your best work in a structured, professional format.</p>
-            </div>
-            <div class="fade-in-up delay-300 flex flex-col">
-              <div class="w-10 h-10 rounded-lg bg-background border border-border shadow-sm flex items-center justify-center mb-4 text-primary">
-                <i class="fa-solid fa-lock"></i>
-              </div>
-              <h3 class="text-base font-semibold text-foreground mb-2">Secure Public Profile</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Share a single link with buyers without exposing personal details.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Why TrustCobra -->
-      <section id="features" class="py-24 bg-background">
-        <div class="container mx-auto px-6 max-w-7xl">
-          <div class="fade-in-up max-w-2xl mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">The missing layer of trust in online commerce.</h2>
-            <p class="text-lg text-muted-foreground">Selling online is harder when buyers can't verify who you are. We built CobraTrust to bridge the gap between independent sellers and cautious buyers.</p>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-12 lg:gap-20">
-            <div class="fade-in-up delay-100 bg-secondary/40 border border-border rounded-2xl p-8 lg:p-10 relative overflow-hidden">
-              <div class="absolute top-0 left-0 w-1 h-full bg-destructive/60"></div>
-              <div class="w-12 h-12 bg-background border border-border rounded-xl flex items-center justify-center mb-6">
-                <i class="fa-solid fa-circle-exclamation text-destructive/80 text-xl"></i>
-              </div>
-              <h3 class="text-xl font-semibold mb-4">The Problem</h3>
-              <p class="text-muted-foreground leading-relaxed mb-6">Buyers hesitate when dealing with independent sellers. They worry about scams, undelivered goods, or misrepresented services. When you only have a social media handle or an email address, establishing credibility takes time you don't have.</p>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3 text-sm text-muted-foreground">
-                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
-                  Lost sales due to buyer hesitation
-                </li>
-                <li class="flex items-start gap-3 text-sm text-muted-foreground">
-                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
-                  Time wasted proving your legitimacy
-                </li>
-                <li class="flex items-start gap-3 text-sm text-muted-foreground">
-                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
-                  Scattered reviews across different platforms
-                </li>
-                <li class="flex items-start gap-3 text-sm text-muted-foreground">
-                  <div class="w-1.5 h-1.5 rounded-full bg-destructive/40 mt-2 shrink-0"></div>
-                  Unprofessional first impressions
-                </li>
-              </ul>
-            </div>
-
-            <div class="fade-in-up delay-200 bg-primary border border-primary/20 rounded-2xl p-8 lg:p-10 relative overflow-hidden text-primary-foreground shadow-lg">
-              <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-3xl"></div>
-              <div class="w-12 h-12 bg-white/10 border border-white/20 rounded-xl flex items-center justify-center mb-6 backdrop-blur-sm">
-                <i class="fa-solid fa-circle-check text-white text-xl"></i>
-              </div>
-              <h3 class="text-xl font-semibold mb-4 text-white">The Solution</h3>
-              <p class="text-white/80 leading-relaxed mb-6">TrustCobra provides a verified, professional presence. One shareable link that instantly communicates your credibility, centralizes your proof of work, and gives buyers the confidence they need to proceed with payment.</p>
-              <ul class="space-y-3">
-                <li class="flex items-start gap-3 text-sm text-white/90">
-                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
-                  Instant professional credibility
-                </li>
-                <li class="flex items-start gap-3 text-sm text-white/90">
-                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
-                  Centralized reviews and portfolio
-                </li>
-                <li class="flex items-start gap-3 text-sm text-white/90">
-                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
-                  Clear contact and verification status
-                </li>
-                <li class="flex items-start gap-3 text-sm text-white/90">
-                  <div class="w-1.5 h-1.5 rounded-full bg-white/60 mt-2 shrink-0"></div>
-                  Higher conversion from inquiry to payment
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Features Grid -->
-      <section class="py-24 bg-secondary/20">
-        <div class="container mx-auto px-6 max-w-7xl">
-          <div class="fade-in-up text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Everything you need to prove your legitimacy</h2>
-            <p class="text-lg text-muted-foreground">No bloated features. Just the essential tools required to build trust and close sales online.</p>
-          </div>
-
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="fade-in-up delay-100 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-building text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Business Profile</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">A clean, structured profile outlining who you are and what you do.</p>
-            </div>
-            <div class="fade-in-up delay-200 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-comments text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Customer Reviews</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Collect and display genuine feedback from your past clients.</p>
-            </div>
-            <div class="fade-in-up delay-300 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-images text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Proof Gallery</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Upload receipts, delivery photos, or completed work as visual proof.</p>
-            </div>
-            <div class="fade-in-up delay-100 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-briefcase text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Portfolio</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Showcase your best services or products in an organized grid.</p>
-            </div>
-            <div class="fade-in-up delay-200 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-link text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Social Links</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Connect your official social media accounts for cross-verification.</p>
-            </div>
-            <div class="fade-in-up delay-300 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-brands fa-whatsapp text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">WhatsApp Button</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Let buyers contact you instantly through a verified channel.</p>
-            </div>
-            <div class="fade-in-up delay-100 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-address-card text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Contact Information</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Clear, accessible ways for serious buyers to reach out.</p>
-            </div>
-            <div class="fade-in-up delay-200 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-palette text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Professional Branding</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Customizable themes that align with your business identity.</p>
-            </div>
-            <div class="fade-in-up delay-300 bg-card border border-border rounded-xl p-6 hover:shadow-md transition-shadow">
-              <div class="w-10 h-10 rounded-lg bg-secondary flex items-center justify-center mb-4"><i class="fa-solid fa-mobile-screen text-foreground"></i></div>
-              <h3 class="text-lg font-semibold mb-2">Responsive Design</h3>
-              <p class="text-sm text-muted-foreground leading-relaxed">Looks perfect on mobile, where most of your customers browse.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- How It Works -->
-      <section id="how-it-works" class="py-24 bg-background">
-        <div class="container mx-auto px-6 max-w-7xl">
-          <div class="fade-in-up mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">How it works</h2>
-            <p class="text-lg text-muted-foreground max-w-2xl">Get your trust profile up and running in minutes. No technical skills required.</p>
-          </div>
-
-          <div class="grid md:grid-cols-3 gap-8 relative">
-            <div class="hidden md:block absolute top-12 left-[15%] right-[15%] h-px bg-border -z-10"></div>
-            
-            <div class="fade-in-up delay-100 relative">
-              <div class="w-24 h-24 bg-secondary border border-border rounded-full flex items-center justify-center text-3xl font-bold text-foreground/30 mb-6 mx-auto md:mx-0">01</div>
-              <h3 class="text-xl font-semibold mb-3 text-center md:text-left">Create Your Profile</h3>
-              <p class="text-muted-foreground leading-relaxed text-center md:text-left">Sign up and add your basic business details, contact information, and social links.</p>
-            </div>
-            <div class="fade-in-up delay-200 relative">
-              <div class="w-24 h-24 bg-secondary border border-border rounded-full flex items-center justify-center text-3xl font-bold text-foreground/30 mb-6 mx-auto md:mx-0">02</div>
-              <h3 class="text-xl font-semibold mb-3 text-center md:text-left">Upload Your Trust Proof</h3>
-              <p class="text-muted-foreground leading-relaxed text-center md:text-left">Add past work, customer reviews, delivery photos, or certifications.</p>
-            </div>
-            <div class="fade-in-up delay-300 relative">
-              <div class="w-24 h-24 bg-secondary border border-border rounded-full flex items-center justify-center text-3xl font-bold text-foreground/30 mb-6 mx-auto md:mx-0">03</div>
-              <h3 class="text-xl font-semibold mb-3 text-center md:text-left">Share Your TrustCobra</h3>
-              <p class="text-muted-foreground leading-relaxed text-center md:text-left">Send your unique link to hesitant buyers before they make a payment.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Pricing -->
-      <section id="pricing" class="py-24 bg-secondary/30 border-y border-border">
-        <div class="container mx-auto px-6 max-w-7xl">
-          <div class="fade-in-up text-center max-w-2xl mx-auto mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">Simple, transparent pricing</h2>
-            <p class="text-lg text-muted-foreground">Start building trust today for free. Upgrade when your business needs more capacity.</p>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div class="fade-in-up delay-100 bg-card border border-border rounded-2xl p-8 flex flex-col">
-              <h3 class="text-xl font-semibold mb-2">Free Plan</h3>
-              <p class="text-sm text-muted-foreground mb-8">Everything you need to establish a verified presence.</p>
-              <ul class="space-y-4 mb-8 flex-1">
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-muted-foreground"></i> One Trust Page
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-muted-foreground"></i> Three proof uploads
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-muted-foreground"></i> Basic customization
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-muted-foreground"></i> TrustCobra branding
-                </li>
-              </ul>
-              <a href="login.html" class="w-full py-3 px-4 bg-secondary hover:bg-secondary/80 border border-border text-foreground font-medium rounded-md text-center transition-colors block">Start Free</a>
-            </div>
-
-            <div class="fade-in-up delay-200 bg-card border-2 border-primary rounded-2xl p-8 flex flex-col relative shadow-md">
-              <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-primary-foreground text-xs font-semibold px-3 py-1 rounded-full">Recommended</div>
-              <h3 class="text-xl font-semibold mb-2">Premium Plan</h3>
-              <p class="text-sm text-muted-foreground mb-8">For growing businesses that need unlimited proof.</p>
-              <ul class="space-y-4 mb-8 flex-1">
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Unlimited proof uploads</span>
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Unlimited portfolio items</span>
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Premium themes</span>
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Remove TrustCobra branding</span>
-                </li>
-                <li class="flex items-center gap-3 text-sm">
-                  <i class="fa-solid fa-check text-primary"></i> <span class="font-medium">Priority support</span>
-                </li>
-              </ul>
-              <button class="w-full py-3 px-4 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-md text-center transition-colors">Upgrade Later</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- FAQ -->
-      <section id="faq" class="py-24 bg-background">
-        <div class="container mx-auto px-6 max-w-3xl">
-          <div class="fade-in-up text-center mb-12">
-            <h2 class="text-3xl font-bold tracking-tight mb-4">Frequently Asked Questions</h2>
-          </div>
-
-          <div class="space-y-4">
-            <div class="fade-in-up delay-100 border border-border rounded-lg bg-card overflow-hidden faq-item">
-              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
-                <span class="font-medium">What is TrustCobra?</span>
-                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
-              </button>
-              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
-                TrustCobra is a platform that lets independent sellers, freelancers, and small businesses create a professional trust page — a single shareable link that shows customers proof of legitimacy before they pay.
-              </div>
-            </div>
-            <div class="fade-in-up delay-200 border border-border rounded-lg bg-card overflow-hidden faq-item">
-              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
-                <span class="font-medium">Who is TrustCobra for?</span>
-                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
-              </button>
-              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
-                Anyone who sells goods or services online and wants to reduce buyer hesitation. This includes freelancers, marketplace sellers, tutors, coaches, tradespeople, and small business owners.
-              </div>
-            </div>
-            <div class="fade-in-up delay-300 border border-border rounded-lg bg-card overflow-hidden faq-item">
-              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
-                <span class="font-medium">Can I use TrustCobra for free?</span>
-                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
-              </button>
-              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
-                Yes. The free plan includes one trust page, up to three proof uploads, and basic customization. No credit card required to get started.
-              </div>
-            </div>
-            <div class="fade-in-up delay-400 border border-border rounded-lg bg-card overflow-hidden faq-item">
-              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
-                <span class="font-medium">Can I update my page anytime?</span>
-                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
-              </button>
-              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
-                Yes. You can edit your TrustCobra profile at any time — add new reviews, update your portfolio, or change your contact information.
-              </div>
-            </div>
-            <div class="fade-in-up delay-500 border border-border rounded-lg bg-card overflow-hidden faq-item">
-              <button class="w-full px-6 py-4 flex items-center justify-between text-left focus:outline-none faq-btn">
-                <span class="font-medium">How do customers access my page?</span>
-                <i class="fa-solid fa-chevron-down text-muted-foreground transition-transform duration-200"></i>
-              </button>
-              <div class="faq-content hidden px-6 pb-4 text-muted-foreground text-sm leading-relaxed border-t border-border/50 pt-4">
-                You get a unique shareable link. You can include it in your messages, emails, social profiles, or WhatsApp chats — anywhere you communicate with buyers.
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer id="about" class="bg-card border-t border-border pt-16 pb-8">
-      <div class="container mx-auto px-6 max-w-7xl">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-          <div class="md:col-span-2">
-            <div class="flex items-center gap-2 mb-4">
-              <div class="w-6 h-6 rounded-sm bg-primary flex items-center justify-center">
-                <div class="w-3 h-3 rounded-full bg-background"></div>
-              </div>
-              <span class="font-semibold text-lg tracking-tight">TrustCobra</span>
-            </div>
-            <p class="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              The professional standard for independents. Build trust, prove legitimacy, and close more sales online.
-            </p>
-          </div>
-
-          <div>
-            <h4 class="font-semibold mb-4 text-foreground">Company</h4>
-            <ul class="space-y-3">
-              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">About</a></li>
-              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a></li>
-              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Terms of Use</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 class="font-semibold mb-4 text-foreground">Support</h4>
-            <ul class="space-y-3">
-              <li><a href="about.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
-              <li><a href="login.html" class="text-sm text-muted-foreground hover:text-foreground transition-colors">Log In</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p class="text-sm text-muted-foreground">
-            © 2026 TrustCobra. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-
-    <script>
-      // Scroll functionality for Navbar
-      const navbar = document.getElementById('navbar');
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 20) {
-          navbar.classList.add('bg-background/90', 'backdrop-blur-md', 'border-b', 'border-border', 'shadow-sm', 'py-3');
-          navbar.classList.remove('bg-transparent', 'py-5');
-        } else {
-          navbar.classList.add('bg-transparent', 'py-5');
-          navbar.classList.remove('bg-background/90', 'backdrop-blur-md', 'border-b', 'border-border', 'shadow-sm', 'py-3');
-        }
-      });
-
-      // Mobile Menu Toggle
-      const mobileBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
-      const mobileIcon = mobileBtn.querySelector('i');
-      
-      mobileBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
-        if(mobileMenu.classList.contains('hidden')) {
-          mobileIcon.classList.remove('fa-xmark');
-          mobileIcon.classList.add('fa-bars');
-        } else {
-          mobileIcon.classList.remove('fa-bars');
-          mobileIcon.classList.add('fa-xmark');
-        }
-      });
-
-      // Close mobile menu on link click
-      document.querySelectorAll('.mobile-link').forEach(link => {
-        link.addEventListener('click', () => {
-          mobileMenu.classList.add('hidden');
-          mobileIcon.classList.remove('fa-xmark');
-          mobileIcon.classList.add('fa-bars');
-        });
-      });
-
-      // FAQ Accordion
-      document.querySelectorAll('.faq-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const content = btn.nextElementSibling;
-          const icon = btn.querySelector('i');
-          const isExpanded = !content.classList.contains('hidden');
-          
-          // Close all others
-          document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-          document.querySelectorAll('.faq-btn i').forEach(i => i.classList.remove('rotate-180'));
-          
-          if (!isExpanded) {
-            content.classList.remove('hidden');
-            icon.classList.add('rotate-180');
-          }
-        });
-      });
-
-      // Scroll Reveal Animation
-      const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-      };
-
-      const observer = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      }, observerOptions);
-
-      document.querySelectorAll('.fade-in-up, .fade-in-left').forEach(el => {
-        observer.observe(el);
-      });
-    </script>
-  </body>
+  window.addEventListener('resize', function(){
+    if (window.innerWidth > 900) closeMenu();
+  });
+})();
+</script>
+</body>
 </html>
