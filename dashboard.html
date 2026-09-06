@@ -2368,6 +2368,20 @@ margin-top:0;
 
 
 
+    /* CobraTrust trust-proof and review polish */
+    .pub-proof-badge { background: linear-gradient(135deg,#16A34A,#15803D) !important; border: 1px solid rgba(134,239,172,.55); box-shadow: 0 3px 12px rgba(22,163,74,.28); }
+    .pub-proof-item { border: 1px solid rgba(148,163,184,.22) !important; box-shadow: 0 8px 22px rgba(2,6,23,.18) !important; }
+    .pub-why-item { display:flex; align-items:flex-start; gap:12px; padding:12px 0; }
+    .pub-why-check { width:34px !important; height:34px !important; min-width:34px; border-radius:10px !important; background:rgba(255,255,255,.06) !important; border:1px solid rgba(255,255,255,.14); box-shadow:none !important; }
+    .pub-why-check svg { width:20px !important; height:20px !important; stroke-width:1.8 !important; }
+    .pub-why-title { color:#F8FAFC !important; font-weight:800 !important; }
+    .pub-why-sub { color:#CBD5E1 !important; }
+    .pub-review-stars { gap:7px !important; font-size:30px !important; line-height:1 !important; letter-spacing:0 !important; }
+    .pub-review-stars span { display:inline-block; min-width:30px; text-align:center; }
+    .pub-review-item-stars { font-size:20px !important; letter-spacing:2px !important; }
+    .pub-review-count { color:#A7F3D0 !important; font-weight:700; }
+    .pub-review-empty { padding:16px; border:1px dashed rgba(148,163,184,.3); border-radius:12px; background:rgba(15,23,42,.3); }
+
     /* ============================================================
        PUBLIC PROFILE — REDESIGN ENHANCEMENTS
     ============================================================ */
@@ -3022,7 +3036,218 @@ button.pub-verified-badge:active svg {
   height: 22px !important;
   overflow: visible !important;
 }
-    </style>
+
+    /* ============================================================
+       FINAL PUBLIC PROFILE POLISH
+       Keep the existing structure and data flow, but make the
+       visitor profile read as one professional page instead of a
+       stack of unrelated cards.
+    ============================================================ */
+    .pub-left-col,
+    .pub-right-col {
+      background: #0B1120 !important;
+    }
+    .pub-left-col {
+      background: #111827 !important;
+    }
+    .pub-card {
+      background: transparent !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgba(255,255,255,0.09) !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      padding: 22px 0 !important;
+      margin-bottom: 0 !important;
+    }
+    .pub-card:hover {
+      border-color: rgba(255,255,255,0.14) !important;
+      box-shadow: none !important;
+    }
+    .pub-card-title {
+      color: #F8FAFC !important;
+      font-size: 14px !important;
+      font-weight: 800 !important;
+      margin-bottom: 16px !important;
+    }
+    .pub-card-title svg {
+      stroke: #60A5FA !important;
+    }
+    .pub-right-col {
+      padding: 26px 28px !important;
+    }
+    .pub-right-col > .pub-card:first-child {
+      padding-top: 0 !important;
+    }
+    .pub-trust-hero {
+      border-radius: 14px !important;
+      margin: 0 0 2px !important;
+    }
+    #pubQrCard,
+    #pubReviewsCard {
+      background: rgba(30,41,59,0.72) !important;
+      border: 1px solid rgba(255,255,255,0.09) !important;
+      border-radius: 14px !important;
+      padding: 20px !important;
+      margin: 20px 0 !important;
+    }
+    #pubReviewsCard {
+      text-align: left;
+    }
+    .pub-review-summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .pub-review-average {
+      min-width: 58px;
+      font-size: 30px;
+      line-height: 1;
+      font-weight: 900;
+      color: #F8FAFC;
+    }
+    .pub-review-stars {
+      display: inline-flex;
+      gap: 3px;
+      color: #FBBF24;
+      letter-spacing: 1px;
+      font-size: 17px;
+    }
+    .pub-review-count {
+      margin-top: 4px;
+      color: #94A3B8;
+      font-size: 11px;
+    }
+    .pub-review-list {
+      display: grid;
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .pub-review-item {
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .pub-review-item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+    .pub-review-item-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .pub-review-author {
+      color: #F8FAFC;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .pub-review-item-stars {
+      color: #FBBF24;
+      font-size: 12px;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+    .pub-review-text {
+      margin-top: 6px;
+      color: #CBD5E1;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .pub-review-date {
+      margin-top: 6px;
+      color: #64748B;
+      font-size: 11px;
+    }
+    .pub-review-empty {
+      color: #94A3B8;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    .pub-proof-item,
+    .pub-gallery-item {
+      aspect-ratio: 4 / 5 !important;
+      min-height: 170px;
+      border-radius: 10px !important;
+      box-shadow: none !important;
+    }
+    .pub-proof-item img,
+    .pub-gallery-item img {
+      object-fit: cover !important;
+    }
+    .pub-proof-badge {
+      top: 9px !important;
+      right: 9px !important;
+      left: auto !important;
+      bottom: auto !important;
+      background: rgba(15,23,42,0.82) !important;
+      border: 1px solid rgba(255,255,255,0.2) !important;
+      border-radius: 5px !important;
+      color: #F8FAFC !important;
+      font-size: 9px !important;
+      padding: 3px 7px !important;
+      box-shadow: none !important;
+    }
+    .pub-proof-badge svg {
+      stroke: #60A5FA !important;
+    }
+    .pub-trust-detail-label,
+    .pub-trust-detail-value,
+    .pub-why-title,
+    .pub-why-sub {
+      color: #F8FAFC !important;
+      font-weight: 700 !important;
+    }
+    .pub-trust-detail-label svg {
+      stroke: #60A5FA !important;
+    }
+    .pub-why-sub {
+      font-size: 12px !important;
+      line-height: 1.6 !important;
+    }
+    .pub-why-check {
+      background: rgba(37,99,235,0.16) !important;
+      border-color: rgba(96,165,250,0.35) !important;
+      box-shadow: none !important;
+    }
+    .pub-why-check svg {
+      stroke: #60A5FA !important;
+    }
+    .pub-social-btn svg {
+      width: 17px !important;
+      height: 17px !important;
+      flex-shrink: 0;
+    }
+    @media (max-width: 900px) {
+      .pub-right-col {
+        padding: 18px 20px !important;
+      }
+    }
+    @media (max-width: 540px) {
+      .pub-right-col {
+        padding: 14px 16px !important;
+      }
+      #pubQrCard,
+      #pubReviewsCard {
+        padding: 16px !important;
+        margin: 16px 0 !important;
+      }
+      .pub-proof-item,
+      .pub-gallery-item {
+        min-height: 140px;
+      }
+      .pub-review-summary {
+        gap: 12px;
+      }
+    }
+    
+    .pub-review-prompt{font-size:13px;font-weight:700;color:#E2E8F0;margin-bottom:10px;text-align:center}.pub-star-vote{display:flex;justify-content:center;gap:8px}.pub-vote-star{background:none;border:0;color:#FBBF24;font-size:42px;line-height:1;cursor:pointer;padding:4px;transition:transform .15s}.pub-vote-star:hover{transform:scale(1.12)}.pub-vote-star:disabled{cursor:default}.pub-rating-total,.pub-rating-average,.pub-rating-success{text-align:center;color:#CBD5E1;font-size:13px;margin-top:9px}.pub-rating-star{color:#FBBF24;font-size:20px}.pub-rating-success{color:#86EFAC;font-weight:600}
+
+    .pub-proof-badge{background:linear-gradient(135deg,#16A34A,#15803D)!important;color:#fff!important;border:1px solid rgba(134,239,172,.45)!important;box-shadow:0 3px 10px rgba(22,163,74,.22)!important}
+    .pub-proof-item{border-color:var(--border)!important;box-shadow:var(--shadow-sm)!important}
+
+  </style>
 </head>
 <body>
 
@@ -3820,10 +4045,6 @@ button.pub-verified-badge:active svg {
               </div>
               <p id="pubAboutText" style="font-size:13px;color:#94A3B8;line-height:1.75;margin:0 0 10px"></p>
               <div id="pubBusinessTypeBadge" style="display:none"></div>
-              <a href="#" style="font-size:12.5px;color:#60A5FA;text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:8px" onclick="return false">
-                More about us
-                <svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 8h8M9 5l3 3-3 3"/></svg>
-              </a>
             </div>
 
             <!-- Business Verification -->
@@ -3923,35 +4144,35 @@ button.pub-verified-badge:active svg {
               Why Customers Trust This Business
             </div>
             <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div>
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
               <div>
                 <div class="pub-why-title">Verified Business Identity</div>
                 <div class="pub-why-sub">This business has been screened and verified by TrustCobra. True identity and information are confirmed.</div>
               </div>
             </div>
             <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div>
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div>
               <div>
                 <div class="pub-why-title">Public Business Information</div>
                 <div class="pub-why-sub">All displayed contact details, location, and business information are publicly verified and up to date.</div>
               </div>
             </div>
             <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div>
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H4z"/><path d="m8 10 2.5 2.5L16 8"/></svg></div>
               <div>
                 <div class="pub-why-title">Customer Trust Proof</div>
                 <div class="pub-why-sub">Real reviews and trust evidence uploaded by the business owner prove legitimate transactions and satisfied customers.</div>
               </div>
             </div>
             <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div>
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M7 15l3-4 2 2 2-3 3 5"/></svg></div>
               <div>
                 <div class="pub-why-title">Portfolio Available</div>
                 <div class="pub-why-sub">Recent work samples and past projects to evaluate quality and professionalism before engaging.</div>
               </div>
             </div>
             <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg></div>
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12h6M12 9v6"/></svg></div>
               <div>
                 <div class="pub-why-title">Protected by TrustCobra</div>
                 <div class="pub-why-sub">TrustCobra monitors and safeguards verified profiles, ensuring authenticity for every business on the platform.</div>
@@ -3975,6 +4196,8 @@ button.pub-verified-badge:active svg {
               </a>
             </div>
           </div>
+
+          
 
           <!-- Analytics Stats Bar -->
           <div class="pub-analytics-bar">
@@ -4793,12 +5016,12 @@ button.pub-verified-badge:active svg {
     // RENDER: SOCIAL LINKS
     // ════════════════════════════════════════════════════════════
     const SOCIAL_META = {
-      instagram: { label: 'Instagram',  color: '#E1306C', icon: `<svg viewBox="0 0 24 24" fill="none"><rect width="20" height="20" x="2" y="2" rx="5" stroke="#E1306C" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#E1306C" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1" fill="#E1306C"/></svg>` },
-      facebook:  { label: 'Facebook',   color: '#1877F2', icon: `<svg viewBox="0 0 24 24" fill="none"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>` },
-      tiktok:    { label: 'TikTok',     color: '#000000', icon: `<svg viewBox="0 0 24 24" fill="none"><path d="M9 12a4 4 0 104 4V4a5 5 0 005 5" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>` },
-      linkedin:  { label: 'LinkedIn',   color: '#0A66C2', icon: `<svg viewBox="0 0 24 24" fill="none"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z" stroke="#0A66C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><rect width="4" height="12" x="2" y="9" stroke="#0A66C2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="4" r="2" stroke="#0A66C2" stroke-width="2"/></svg>` },
-      twitter:   { label: 'X / Twitter',color: '#000000', icon: `<svg viewBox="0 0 24 24" fill="none"><path d="M4 4l16 16M4 20L20 4" stroke="#000" stroke-width="2.2" stroke-linecap="round"/></svg>` },
-      youtube:   { label: 'YouTube',    color: '#FF0000', icon: `<svg viewBox="0 0 24 24" fill="none"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" stroke="#FF0000" stroke-width="2"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" stroke="#FF0000" stroke-width="2" stroke-linejoin="round"/></svg>` },
+      instagram: { label: 'Instagram', color: '#E1306C', icon: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="igGradient" x1="3" y1="21" x2="21" y2="3"><stop stop-color="#FFDC80"/><stop offset=".45" stop-color="#E1306C"/><stop offset="1" stop-color="#833AB4"/></linearGradient></defs><rect x="2.5" y="2.5" width="19" height="19" rx="5.2" stroke="url(#igGradient)" stroke-width="3"/><circle cx="12" cy="12" r="4.2" stroke="#E1306C" stroke-width="2.4"/><circle cx="17.6" cy="6.5" r="1.3" fill="#E1306C"/></svg>` },
+      facebook:  { label: 'Facebook', color: '#1877F2', icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#1877F2"/><path d="M13.6 21v-8h2.7l.4-3.1h-3.1v-2c0-.9.3-1.5 1.6-1.5h1.7V3.6c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.5-4 4.1v2.3H8v3.1h2.5v8h3.1z" fill="#fff"/></svg>` },
+      tiktok:    { label: 'TikTok', color: '#000000', icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 3c.3 2.3 1.5 3.7 3.8 3.9v3.1c-1.4.1-2.7-.3-3.8-1v6.4c0 4.3-3.1 6.6-6.6 6.6-3.2 0-5.4-2.1-5.4-5.1 0-3.3 2.7-5.6 6.1-5.6.3 0 .6 0 .9.1v3.2c-.3-.1-.6-.2-.9-.2-1.2 0-2.3.8-2.3 2.2 0 1.2.9 2.1 2.1 2.1 1.5 0 2.5-.9 2.5-2.8V3h3.6z" fill="#111"/><path d="M14.2 3c.3 2.3 1.5 3.7 3.8 3.9v1.7c-1.4-.1-2.7-.6-3.8-1.7V3z" fill="#25F4EE"/><path d="M9.6 11.6v1.8c-.3-.1-.6-.2-.9-.2-1.2 0-2.3.8-2.3 2.2 0 .4.1.8.3 1.1-.6-.4-1-1.1-1-2 0-1.7 1.5-3 3.3-3z" fill="#FE2C55"/></svg>` },
+      linkedin:  { label: 'LinkedIn', color: '#0A66C2', icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect width="22" height="22" x="1" y="1" rx="3" fill="#0A66C2"/><path d="M6.4 8.3A1.7 1.7 0 1 0 6.4 5a1.7 1.7 0 0 0 0 3.3zM5 9.7h2.8V19H5V9.7zm4.5 0h2.7V11c.4-.8 1.4-1.6 3-1.6 3 0 3.5 2 3.5 4.7V19h-2.8v-4.3c0-1 0-2.4-1.5-2.4s-1.7 1.1-1.7 2.3V19H9.5V9.7z" fill="#fff"/></svg>` },
+      twitter:   { label: 'X / Twitter', color: '#000000', icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.2 3h4.6l3.8 5 4.3-5h2.9l-5.9 6.8L20 21h-4.6l-4.2-5.5L6.5 21H3.6l6.3-7.3L4.2 3zm3.5 2.2H6.3l9.8 13.6h1.4L7.7 5.2z" fill="#fff" stroke="#000" stroke-width="2" stroke-linejoin="round"/></svg>` },
+      youtube:   { label: 'YouTube', color: '#FF0000', icon: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 12s0-3.5-.5-5.1a2.7 2.7 0 0 0-1.9-1.9C19 4.5 12 4.5 12 4.5s-7 0-8.6.5a2.7 2.7 0 0 0-1.9 1.9C1 8.5 1 12 1 12s0 3.5.5 5.1a2.7 2.7 0 0 0 1.9 1.9c1.6.5 8.6.5 8.6.5s7 0 8.6-.5a2.7 2.7 0 0 0 1.9-1.9C23 15.5 23 12 23 12z" fill="#FF0000"/><path d="m10 8.8 6 3.2-6 3.2V8.8z" fill="#fff"/></svg>` },
     };
 
     function renderSocialLinks() {
@@ -5659,6 +5882,10 @@ button.pub-verified-badge:active svg {
     // TRUST CERTIFICATE — GENERATE PDF (jsPDF)
     // ════════════════════════════════════════════════════════════
     window.generateCertificate = async function () {
+      // Certificate generation uses the same subscription gate as copying
+      // and taking a public profile live. No PDF work happens before approval.
+      if (!requireActiveSubscription('download your certificate')) return;
+
       // Fetch latest Firestore data for most current profile info
       const snap = await getDoc(doc(db, 'users', currentUser.uid));
       const freshData = snap.exists() ? snap.data() : {};
@@ -6360,6 +6587,35 @@ window.closePubLightbox = closePubLightbox;
       ).join('');
     }
 
+    // Basic public star rating: anonymous visitors can give one rating per browser.
+    function renderPublicReviews(d) {
+      const target = $('pubReviewsContent'); if (!target) return;
+      const ratings = Array.isArray(d.starRatings) ? d.starRatings.map(Number).filter(n => n >= 1 && n <= 5) : [];
+      const total = ratings.reduce((a,n)=>a+n,0);
+      const count = ratings.length;
+      const average = count ? total / count : 0;
+      target.innerHTML = `<div class="pub-review-summary">
+        <div class="pub-review-prompt">Give this business a star</div>
+        <div class="pub-star-vote" role="radiogroup" aria-label="Rate this business from one to five stars">
+          ${[1,2,3,4,5].map(i=>`<button type="button" class="pub-vote-star" data-rating="${i}" aria-label="Give ${i} star${i>1?'s':''}">☆</button>`).join('')}
+        </div>
+        <div class="pub-rating-total"><span class="pub-rating-star">★</span> <strong>${total}</strong> star${total===1?'':'s'} given</div>
+        <div class="pub-rating-average">${count ? `Average ${average.toFixed(1)} from ${count} rating${count===1?'':'s'}` : ''}</div>
+      </div>`;
+      let selected = 0;
+      target.querySelectorAll('.pub-vote-star').forEach(btn => btn.onclick = async () => {
+        selected = Number(btn.dataset.rating);
+        target.querySelectorAll('.pub-vote-star').forEach((b,i)=>b.textContent = i < selected ? '★' : '☆');
+        const key = `cobratrust_star_${d.uid || _publicUsername}`;
+        if (localStorage.getItem(key)) return;
+        try {
+          await setDoc(doc(db,'users',d.uid||_publicUsername,'starRatings',crypto.randomUUID()), {rating:selected, createdAt:serverTimestamp(), source:'public'});
+          localStorage.setItem(key, '1');
+          btn.closest('.pub-star-vote').querySelectorAll('button').forEach(b=>b.disabled=true);
+          const status = document.createElement('div'); status.className='pub-rating-success'; status.textContent='Thanks for rating this business.'; target.appendChild(status);
+        } catch(err) { console.error(err); }
+      });
+    }
     // Public visitors do not need a CobraTrust account. Anonymous Firebase
     // identity gives each browser a Firestore-backed visitor id without using
     // browser storage directly.
@@ -6660,11 +6916,11 @@ if (photoEl) {
 
       // Social links — with per-platform click tracking
       const SOCIAL_TRACK_MAP = { instagram: 'instagramClicks', facebook: 'facebookClicks', tiktok: 'tiktokClicks', linkedin: 'linkedinClicks', twitter: 'twitterClicks', youtube: 'youtubeClicks' };
-      const socialPlatforms = Object.keys(PUB_SOCIAL_META);
+      const socialPlatforms = Object.keys(SOCIAL_META);
       const socialButtons = socialPlatforms
         .filter(p => d[p])
         .map(p => {
-          const { label, icon } = PUB_SOCIAL_META[p];
+          const { label, icon } = SOCIAL_META[p];
           const href = d[p].startsWith('http') ? d[p] : 'https://' + d[p];
           const trackKey = SOCIAL_TRACK_MAP[p] || null;
           const onclickAttr = trackKey ? ` onclick="trackAnalyticsEvent('${_tu}','${trackKey}')"` : '';
@@ -6852,6 +7108,10 @@ if (photoEl) {
           }
         }, 200);
       }
+
+      // Keep the review section directly below the QR section and show only
+      // review data that already exists on the profile record.
+      renderPublicReviews(d);
 
       // Page title
       document.title = `${d.businessName || 'Business'} — TrustCobra`;
