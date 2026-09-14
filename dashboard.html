@@ -3242,7 +3242,42 @@ button.pub-verified-badge:active svg {
       }
     }
     
-    .pub-review-prompt{font-size:13px;font-weight:700;color:#E2E8F0;margin-bottom:10px;text-align:center}.pub-star-vote{display:flex;justify-content:center;gap:8px}.pub-vote-star{background:none;border:0;color:#FBBF24;font-size:42px;line-height:1;cursor:pointer;padding:4px;transition:transform .15s}.pub-vote-star:hover{transform:scale(1.12)}.pub-vote-star:disabled{cursor:default}.pub-rating-total,.pub-rating-average,.pub-rating-success{text-align:center;color:#CBD5E1;font-size:13px;margin-top:9px}.pub-rating-star{color:#FBBF24;font-size:20px}.pub-rating-success{color:#86EFAC;font-weight:600}
+    /* Compact Firestore-backed customer reviews */
+    #pubReviewsCard { margin-top: 10px !important; margin-bottom: 10px !important; padding: 14px 16px !important; }
+    .pub-reviews-header { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    .pub-reviews-title { font-size:14px; font-weight:800; color:#F8FAFC; }
+    .pub-reviews-summary { margin-top:4px; font-size:12px; color:#CBD5E1; }
+    .pub-reviews-stars { color:#FBBF24; letter-spacing:1px; }
+    .pub-reviews-list { display:grid; gap:9px; margin-top:12px; }
+    .pub-review-row { padding:9px 0; border-top:1px solid rgba(255,255,255,.07); }
+    .pub-review-row:first-child { border-top:0; padding-top:0; }
+    .pub-review-line { display:flex; align-items:baseline; gap:7px; flex-wrap:wrap; font-size:12px; line-height:1.45; }
+    .pub-review-line-stars { color:#FBBF24; letter-spacing:.5px; white-space:nowrap; }
+    .pub-review-author { color:#F8FAFC; font-weight:700; }
+    .pub-review-text { color:#CBD5E1; }
+    .pub-review-date { color:#64748B; white-space:nowrap; }
+    .pub-review-empty { margin-top:10px; color:#94A3B8; font-size:12px; line-height:1.55; }
+    .pub-review-btn { flex:0 0 auto; border:1px solid rgba(96,165,250,.35); background:rgba(37,99,235,.16); color:#93C5FD; border-radius:7px; padding:6px 9px; font:600 11px/1.2 Inter,sans-serif; cursor:pointer; }
+    .pub-review-btn:hover { background:rgba(37,99,235,.25); }
+    .review-modal-backdrop { position:fixed; inset:0; z-index:11000; display:none; align-items:center; justify-content:center; padding:16px; background:rgba(3,7,18,.72); }
+    .review-modal-backdrop.open { display:flex; }
+    .review-modal { width:min(390px,100%); background:#fff; color:#0F172A; border-radius:14px; padding:18px; box-shadow:0 24px 80px rgba(0,0,0,.35); }
+    .review-modal-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
+    .review-modal-title { font-size:17px; font-weight:800; }
+    .review-modal-close { border:0; background:#F1F5F9; color:#64748B; width:30px; height:30px; border-radius:8px; cursor:pointer; font-size:20px; line-height:1; }
+    .review-form { display:grid; gap:12px; }
+    .review-form label { display:grid; gap:5px; font-size:12px; font-weight:700; color:#334155; }
+    .review-form input, .review-form textarea { width:100%; border:1px solid #E2E8F0; border-radius:8px; padding:9px 11px; font:14px/1.4 Inter,sans-serif; color:#0F172A; background:#F8FAFC; outline:none; }
+    .review-form input:focus, .review-form textarea:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.1); background:#fff; }
+    .review-form textarea { min-height:90px; resize:vertical; }
+    .review-rating { display:flex; gap:3px; }
+    .review-rating button { border:0; background:none; padding:1px; color:#F59E0B; font-size:29px; line-height:1; cursor:pointer; }
+    .review-rating button:focus-visible { outline:2px solid #2563EB; border-radius:4px; }
+    .review-form-message { display:none; font-size:12px; line-height:1.45; }
+    .review-form-message.error { display:block; color:#B91C1C; }
+    .review-form-message.success { display:block; color:#15803D; }
+    .review-form-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:2px; }
+    @media (max-width:540px) { .pub-review-btn { padding:6px 8px; } .review-modal { padding:16px; } }
 
     .pub-proof-badge{background:linear-gradient(135deg,#16A34A,#15803D)!important;color:#fff!important;border:1px solid rgba(134,239,172,.45)!important;box-shadow:0 3px 10px rgba(22,163,74,.22)!important}
     .pub-proof-item{border-color:var(--border)!important;box-shadow:var(--shadow-sm)!important}
@@ -4197,6 +4232,18 @@ button.pub-verified-badge:active svg {
             </div>
           </div>
 
+          <!-- Customer Reviews — directly below the QR section -->
+          <div class="pub-card" id="pubReviewsCard">
+            <div class="pub-reviews-header">
+              <div>
+                <div class="pub-reviews-title">Customer Reviews</div>
+                <div class="pub-reviews-summary" id="pubReviewsSummary">No reviews yet.</div>
+              </div>
+              <button type="button" class="pub-review-btn" onclick="openReviewModal(window._cobratrustPublicProfileId)">Leave a Review</button>
+            </div>
+            <div class="pub-reviews-list" id="pubReviewsContent" aria-live="polite"></div>
+          </div>
+
           
 
           <!-- Analytics Stats Bar -->
@@ -4275,6 +4322,38 @@ button.pub-verified-badge:active svg {
     </div>
 
   </div><!-- /publicProfileView -->
+
+  <!-- Customer review modal -->
+  <div class="review-modal-backdrop" id="reviewModal" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle" onclick="if(event.target===this)closeReviewModal()">
+    <div class="review-modal">
+      <div class="review-modal-head">
+        <div class="review-modal-title" id="reviewModalTitle">Leave a Review</div>
+        <button type="button" class="review-modal-close" aria-label="Close review form" onclick="closeReviewModal()">×</button>
+      </div>
+      <form id="customerReviewForm" class="review-form" novalidate>
+        <label>Name
+          <input id="reviewerName" name="name" type="text" maxlength="80" autocomplete="name" required />
+        </label>
+        <label>Rating
+          <div class="review-rating" id="reviewRating" role="radiogroup" aria-label="Rating from one to five stars">
+            <button type="button" data-rating="1" role="radio" aria-label="1 star">☆</button>
+            <button type="button" data-rating="2" role="radio" aria-label="2 stars">☆</button>
+            <button type="button" data-rating="3" role="radio" aria-label="3 stars">☆</button>
+            <button type="button" data-rating="4" role="radio" aria-label="4 stars">☆</button>
+            <button type="button" data-rating="5" role="radio" aria-label="5 stars">☆</button>
+          </div>
+        </label>
+        <label>Review
+          <textarea id="reviewText" name="review" maxlength="1000" required></textarea>
+        </label>
+        <div id="reviewFormMessage" class="review-form-message" role="status" aria-live="polite"></div>
+        <div class="review-form-actions">
+          <button type="button" class="btn btn-secondary btn-sm" onclick="closeReviewModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-sm" id="submitReviewBtn">Submit Review</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <!-- Verification details shown when a visitor selects the blue badge. -->
   <div class="verification-modal-backdrop" id="verificationModal" role="dialog" aria-modal="true" aria-labelledby="verificationModalTitle" onclick="if(event.target===this)closeVerificationModal()">
@@ -4834,7 +4913,7 @@ button.pub-verified-badge:active svg {
 
       // ── Render the same clean public view that visitors see ──────
       // First populate the publicProfileView elements
-      renderPublicProfileContent(d);
+      renderPublicProfileContent(d, d.username || null, currentUser?.uid || d.uid || null);
 
        // Then inject the exact visitor view with only legitimate owner controls.
       $('profileContent').innerHTML =
@@ -6587,35 +6666,172 @@ window.closePubLightbox = closePubLightbox;
       ).join('');
     }
 
-    // Basic public star rating: anonymous visitors can give one rating per browser.
-    function renderPublicReviews(d) {
-      const target = $('pubReviewsContent'); if (!target) return;
-      const ratings = Array.isArray(d.starRatings) ? d.starRatings.map(Number).filter(n => n >= 1 && n <= 5) : [];
-      const total = ratings.reduce((a,n)=>a+n,0);
-      const count = ratings.length;
-      const average = count ? total / count : 0;
-      target.innerHTML = `<div class="pub-review-summary">
-        <div class="pub-review-prompt">Give this business a star</div>
-        <div class="pub-star-vote" role="radiogroup" aria-label="Rate this business from one to five stars">
-          ${[1,2,3,4,5].map(i=>`<button type="button" class="pub-vote-star" data-rating="${i}" aria-label="Give ${i} star${i>1?'s':''}">☆</button>`).join('')}
-        </div>
-        <div class="pub-rating-total"><span class="pub-rating-star">★</span> <strong>${total}</strong> star${total===1?'':'s'} given</div>
-        <div class="pub-rating-average">${count ? `Average ${average.toFixed(1)} from ${count} rating${count===1?'':'s'}` : ''}</div>
-      </div>`;
-      let selected = 0;
-      target.querySelectorAll('.pub-vote-star').forEach(btn => btn.onclick = async () => {
-        selected = Number(btn.dataset.rating);
-        target.querySelectorAll('.pub-vote-star').forEach((b,i)=>b.textContent = i < selected ? '★' : '☆');
-        const key = `cobratrust_star_${d.uid || _publicUsername}`;
-        if (localStorage.getItem(key)) return;
-        try {
-          await setDoc(doc(db,'users',d.uid||_publicUsername,'starRatings',crypto.randomUUID()), {rating:selected, createdAt:serverTimestamp(), source:'public'});
-          localStorage.setItem(key, '1');
-          btn.closest('.pub-star-vote').querySelectorAll('button').forEach(b=>b.disabled=true);
-          const status = document.createElement('div'); status.className='pub-rating-success'; status.textContent='Thanks for rating this business.'; target.appendChild(status);
-        } catch(err) { console.error(err); }
+    // Customer Reviews — real Firestore records, no browser storage or mock data.
+    let _reviewProfileId = null;
+    let _selectedReviewRating = 0;
+
+    function reviewDateText(value) {
+      if (!value) return 'just now';
+      try {
+        const date = value.toDate ? value.toDate() : new Date(value);
+        if (Number.isNaN(date.getTime())) return 'just now';
+        const seconds = Math.round((Date.now() - date.getTime()) / 1000);
+        if (seconds < 60) return 'just now';
+        const units = [
+          ['year', 31536000], ['month', 2592000], ['week', 604800],
+          ['day', 86400], ['hour', 3600], ['minute', 60]
+        ];
+        for (const [name, size] of units) {
+          if (seconds >= size) {
+            const count = Math.floor(seconds / size);
+            return `${count} ${name}${count === 1 ? '' : 's'} ago`;
+          }
+        }
+      } catch {}
+      return 'just now';
+    }
+
+    function reviewStars(rating) {
+      const n = Math.max(0, Math.min(5, Number(rating) || 0));
+      return '★★★★★'.slice(0, n) + '☆☆☆☆☆'.slice(0, 5 - n);
+    }
+
+    function updateReviewTargets(reviews) {
+      const valid = Array.isArray(reviews) ? reviews : [];
+      const count = valid.length;
+      const average = count ? valid.reduce((sum, r) => sum + Number(r.rating), 0) / count : 0;
+      document.querySelectorAll('.pubReviewsContent, #pubReviewsContent').forEach(() => {});
+      document.querySelectorAll('#pubReviewsSummary, .pubReviewsSummary').forEach(el => {
+        el.textContent = count ? `${reviewStars(Math.round(average))} ${average.toFixed(1)}/5 ${count} ${count === 1 ? 'review' : 'reviews'}` : 'No reviews yet.';
+      });
+      document.querySelectorAll('#pubReviewsContent').forEach(target => {
+        target.innerHTML = '';
+        if (!count) {
+          target.innerHTML = '<div class="pub-review-empty">Be the first to review this business.</div>';
+          return;
+        }
+        valid.slice(0, 5).forEach(review => {
+          const row = document.createElement('div');
+          row.className = 'pub-review-row';
+          const line = document.createElement('div');
+          line.className = 'pub-review-line';
+          const stars = document.createElement('span');
+          stars.className = 'pub-review-line-stars';
+          stars.textContent = reviewStars(Number(review.rating));
+          const author = document.createElement('strong');
+          author.className = 'pub-review-author';
+          author.textContent = review.reviewerName || 'Customer';
+          const text = document.createElement('span');
+          text.className = 'pub-review-text';
+          text.textContent = review.reviewText || '';
+          const date = document.createElement('span');
+          date.className = 'pub-review-date';
+          date.textContent = reviewDateText(review.createdAt);
+          line.append(stars, author, text, date);
+          row.appendChild(line);
+          target.appendChild(row);
+        });
       });
     }
+
+    async function loadPublicReviews(profileId) {
+      if (!profileId) return;
+      const targets = document.querySelectorAll('#pubReviewsContent');
+      targets.forEach(el => { el.innerHTML = '<div class="pub-review-empty">Loading reviews…</div>'; });
+      try {
+        const reviewsRef = collection(db, 'reviews');
+        const reviewQuery = query(reviewsRef, where('businessId', '==', profileId), where('status', '==', 'published'));
+        const snap = await getDocs(reviewQuery);
+        const reviews = snap.docs.map(reviewDoc => ({ id: reviewDoc.id, ...reviewDoc.data() }));
+        reviews.sort((a, b) => {
+          const aMs = a.createdAt?.toMillis ? a.createdAt.toMillis() : (a.createdAt ? new Date(a.createdAt).getTime() : 0);
+          const bMs = b.createdAt?.toMillis ? b.createdAt.toMillis() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
+          return bMs - aMs;
+        });
+        updateReviewTargets(reviews);
+      } catch (err) {
+        console.error('[CobraTrust Reviews] Failed to load reviews:', err);
+        document.querySelectorAll('#pubReviewsContent, #pubReviewsSummary').forEach(el => {
+          el.textContent = el.id === 'pubReviewsSummary' ? 'Unable to load reviews right now.' : 'Unable to load reviews right now.';
+        });
+      }
+    }
+
+    function setReviewRating(rating) {
+      _selectedReviewRating = Number(rating);
+      document.querySelectorAll('#reviewRating button').forEach((btn, index) => {
+        const active = index < _selectedReviewRating;
+        btn.textContent = active ? '★' : '☆';
+        btn.setAttribute('aria-checked', active && index === _selectedReviewRating - 1 ? 'true' : 'false');
+      });
+    }
+
+    window.openReviewModal = function(profileId) {
+      if (!profileId) return;
+      _reviewProfileId = profileId;
+      _selectedReviewRating = 0;
+      const form = document.getElementById('customerReviewForm');
+      if (form) form.reset();
+      setReviewRating(0);
+      const message = document.getElementById('reviewFormMessage');
+      if (message) { message.textContent = ''; message.className = 'review-form-message'; }
+      const submit = document.getElementById('submitReviewBtn');
+      if (submit) { submit.disabled = false; submit.textContent = 'Submit Review'; }
+      document.getElementById('reviewModal')?.classList.add('open');
+      setTimeout(() => document.getElementById('reviewerName')?.focus(), 0);
+    };
+
+    window.closeReviewModal = function() {
+      document.getElementById('reviewModal')?.classList.remove('open');
+      _reviewProfileId = null;
+    };
+
+    async function submitCustomerReview(event) {
+      event.preventDefault();
+      const nameEl = document.getElementById('reviewerName');
+      const textEl = document.getElementById('reviewText');
+      const message = document.getElementById('reviewFormMessage');
+      const submit = document.getElementById('submitReviewBtn');
+      const name = (nameEl?.value || '').trim();
+      const reviewText = (textEl?.value || '').trim();
+      const rating = Number(_selectedReviewRating);
+      const fail = text => {
+        if (message) { message.textContent = text; message.className = 'review-form-message error'; }
+      };
+      if (!name) return fail('Please enter your name.');
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) return fail('Please select a rating from 1 to 5 stars.');
+      if (!reviewText) return fail('Please enter your review.');
+      if (!_reviewProfileId) return fail('This profile could not be identified. Please refresh and try again.');
+
+      if (submit) { submit.disabled = true; submit.textContent = 'Submitting…'; }
+      if (message) { message.textContent = ''; message.className = 'review-form-message'; }
+      try {
+        const reviewRef = doc(collection(db, 'reviews'));
+        await setDoc(reviewRef, {
+          businessId: _reviewProfileId,
+          reviewerName: name,
+          rating,
+          reviewText,
+          createdAt: serverTimestamp(),
+          status: 'published'
+        });
+        if (message) { message.textContent = 'Thank you for your review.'; message.className = 'review-form-message success'; }
+        toast('Thank you for your review.', 'success');
+        const profileId = _reviewProfileId;
+        window.closeReviewModal();
+        await loadPublicReviews(profileId);
+      } catch (err) {
+        console.error('[CobraTrust Reviews] Review submission failed:', err);
+        if (message) { message.textContent = 'We could not save your review. Please try again.'; message.className = 'review-form-message error'; }
+        if (submit) { submit.disabled = false; submit.textContent = 'Submit Review'; }
+      }
+    }
+
+    document.getElementById('reviewRating')?.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => setReviewRating(btn.dataset.rating));
+    });
+    document.getElementById('customerReviewForm')?.addEventListener('submit', submitCustomerReview);
+
     // Public visitors do not need a CobraTrust account. Anonymous Firebase
     // identity gives each browser a Firestore-backed visitor id without using
     // browser storage directly.
@@ -6731,7 +6947,7 @@ window.closePubLightbox = closePubLightbox;
 
         // ── Render the public profile ──
         const docId = snap.docs[0].id;
-        renderPublicProfileContent(d, username);
+        renderPublicProfileContent(d, username, docId);
         showPubState('ready');
 
         // Subscribe before writing events so every public card reflects the
@@ -6791,7 +7007,7 @@ window.closePubLightbox = closePubLightbox;
       }
     }
 
-    function renderPublicProfileContent(d, trackedUsername) {
+    function renderPublicProfileContent(d, trackedUsername, profileId) {
       window._cobratrustVerifiedProfile = d;
       const _tu = trackedUsername || d.username || null;
       // Business Logo
@@ -7109,9 +7325,10 @@ if (photoEl) {
         }, 200);
       }
 
-      // Keep the review section directly below the QR section and show only
-      // review data that already exists on the profile record.
-      renderPublicReviews(d);
+      // Reviews belong to the exact public users document used by this profile.
+      const resolvedProfileId = profileId || d.uid || null;
+      window._cobratrustPublicProfileId = resolvedProfileId;
+      loadPublicReviews(resolvedProfileId);
 
       // Page title
       document.title = `${d.businessName || 'Business'} — TrustCobra`;
