@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TrustCobra – Dashboard</title>
+  <title>BevoTrust – Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -1612,7 +1612,7 @@ margin-top:0;
       line-height: 1.2;
     }
 
-    /* TrustCobra verified badge — no square/container */
+    /* BevoTrust verified badge — no square/container */
 .pub-verified-badge {
   appearance: none !important;
   -webkit-appearance: none !important;
@@ -1900,7 +1900,7 @@ margin-top:0;
       padding-bottom: 24px;
     }
 
-    /* CobraTrust footer */
+    /* BevoTrust footer */
     .pub-trust-footer {
       max-width: 680px;
       margin: 24px auto 0;
@@ -2368,7 +2368,7 @@ margin-top:0;
 
 
 
-    /* CobraTrust trust-proof and review polish */
+    /* BevoTrust trust-proof and review polish */
     .pub-proof-badge { background: linear-gradient(135deg,#16A34A,#15803D) !important; border: 1px solid rgba(134,239,172,.55); box-shadow: 0 3px 12px rgba(22,163,74,.28); }
     .pub-proof-item { border: 1px solid rgba(148,163,184,.22) !important; box-shadow: 0 8px 22px rgba(2,6,23,.18) !important; }
     .pub-why-item { display:flex; align-items:flex-start; gap:12px; padding:12px 0; }
@@ -2779,10 +2779,13 @@ margin-top:0;
     }
     @media (max-width: 540px) {
       .pub-cover-title, .pub-cover-subtitle { font-size: 17px; }
-      .pub-right-col { padding: 12px; }
-      #pubProofGallery { grid-template-columns: repeat(3, 1fr) !important; gap: 6px !important; }
-      #pubPortfolioGallery { grid-template-columns: repeat(3, 1fr) !important; gap: 6px !important; }
-      .pub-analytics-bar { grid-template-columns: repeat(2, 1fr); }
+      .pub-right-col { padding: 12px; min-width: 0; }
+      .pub-card { min-width: 0; }
+      #pubProofGallery { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px !important; width: 100%; min-width: 0; }
+      #pubPortfolioGallery { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 6px !important; width: 100%; min-width: 0; }
+      .pub-proof-item, .pub-gallery-item { width: 100%; min-width: 0; min-height: 0; aspect-ratio: 4 / 5 !important; }
+      .pub-proof-item img, .pub-gallery-item img { display: block; width: 100%; height: 100%; object-fit: cover !important; }
+      .pub-analytics-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .pub-analytics-label { font-size: 9px; }
     }
 
@@ -2842,7 +2845,7 @@ margin-top:0;
     .pub-verified-badge svg { flex: 0 0 auto; }
     .pub-verified-badge-text { display: inline; }
 
-    /* Keep the full CobraTrust Verified label visible and aligned toward
+    /* Keep the full BevoTrust Verified label visible and aligned toward
        the profile identity on narrow public-profile hero layouts. */
     .pub-verified-strip {
       justify-content: flex-end !important;
@@ -2994,7 +2997,7 @@ margin-top:0;
     #mobileHeader {
       transition: transform 0.22s ease;
     }
-    /* FINAL FIX — TrustCobra verified badge must NEVER have a square background */
+    /* FINAL FIX — BevoTrust verified badge must NEVER have a square background */
 button.pub-verified-badge,
 button.pub-verified-badge:hover,
 button.pub-verified-badge:focus,
@@ -3282,7 +3285,97 @@ button.pub-verified-badge:active svg {
     .pub-proof-badge{background:linear-gradient(135deg,#16A34A,#15803D)!important;color:#fff!important;border:1px solid rgba(134,239,172,.45)!important;box-shadow:0 3px 10px rgba(22,163,74,.22)!important}
     .pub-proof-item{border-color:var(--border)!important;box-shadow:var(--shadow-sm)!important}
 
-  </style>
+    /* Dashboard-only dark theme; public profile styling remains unchanged. */
+    body.dashboard-dark {
+      color-scheme: dark;
+      --primary-light: rgba(37, 99, 235, 0.16);
+      --bg: #0B1120;
+      --card: #111827;
+      --text: #F8FAFC;
+      --text-2: #CBD5E1;
+      --text-3: #94A3B8;
+      --border: #263449;
+      --success-bg: #052E23;
+      --warning-bg: #3B2E12;
+      --error-bg: #3F1D24;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.28);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.28);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.4);
+      background: var(--bg);
+      color: var(--text);
+    }
+    body.dashboard-dark #appShell,
+    body.dashboard-dark #mainContent,
+    body.dashboard-dark #mainInner { background: var(--bg); color: var(--text); }
+    body.dashboard-dark #mobileHeader,
+    body.dashboard-dark .card,
+    body.dashboard-dark .stat-card,
+    body.dashboard-dark .analytics-card,
+    body.dashboard-dark .admin-payment-card,
+    body.dashboard-dark .payment-request-card,
+    body.dashboard-dark .payment-trust-card,
+    body.dashboard-dark .payment-rejection-note,
+    body.dashboard-dark .payment-status-banner:not(.is-active):not(.is-pending):not(.is-rejected),
+    body.dashboard-dark .modal,
+    body.dashboard-dark .auth-gate-card,
+    body.dashboard-dark .notif-panel {
+      background-color: var(--card);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    body.dashboard-dark #mobileHeader { border-bottom-color: var(--border); }
+    body.dashboard-dark .loading-overlay { background: rgba(7, 12, 22, 0.88); }
+    body.dashboard-dark input:focus,
+    body.dashboard-dark select:focus,
+    body.dashboard-dark textarea:focus { background: #172033; color: var(--text); }
+    body.dashboard-dark .btn-secondary {
+      background: var(--card);
+      border-color: var(--border);
+      color: var(--text);
+    }
+    body.dashboard-dark .btn-ghost { color: var(--text-2); }
+    body.dashboard-dark .btn-ghost:hover { background: #1B2638; color: var(--text); }
+    body.dashboard-dark .payment-status-banner.is-active { background: var(--success-bg); }
+    body.dashboard-dark .payment-status-banner.is-pending { background: var(--warning-bg); }
+    body.dashboard-dark .payment-status-banner.is-rejected { background: var(--error-bg); }
+    body.dashboard-dark .is-active .payment-status-icon { background: #064E3B; color: #86EFAC; }
+    body.dashboard-dark .is-pending .payment-status-icon { background: #5B4210; color: #FCD34D; }
+    body.dashboard-dark .is-rejected .payment-status-icon { background: #5B2028; color: #FCA5A5; }
+    body.dashboard-dark .trust-ring-svg circle:first-child { stroke: var(--border); }
+    body.dashboard-dark .payment-plan-card { color: #F8FAFC; }
+    body.dashboard-dark .trial-expiration-banner {
+      margin-bottom: 20px;
+      padding: 22px 24px;
+      border: 1px solid rgba(248, 113, 113, 0.38);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #3B1D25, #21151F);
+      color: #F8FAFC;
+      box-shadow: var(--shadow-sm);
+    }
+    body.dashboard-dark .trial-expiration-banner h2 { font-size: 18px; font-weight: 800; margin-bottom: 9px; }
+    body.dashboard-dark .trial-expiration-banner p { color: #E2E8F0; font-size: 13px; line-height: 1.65; margin-top: 7px; }
+    body.dashboard-dark .trial-expiration-banner .btn { margin-top: 15px; }
+    body.dashboard-dark .premium-benefit-list { display: grid; gap: 12px; margin-top: 16px; padding: 0; list-style: none; }
+    body.dashboard-dark .premium-benefit-list li { display: grid; gap: 3px; font-size: 12px; line-height: 1.55; color: #CBD5E1; }
+    body.dashboard-dark .premium-benefit-list strong { color: #F8FAFC; font-size: 13px; }
+    body.dashboard-dark .trial-status-card { margin-bottom: 16px; }
+    body.dashboard-dark .trial-status-card .card-title { color: var(--text); }
+    @media (max-width: 600px) {
+      body.dashboard-dark .trial-expiration-banner { padding: 18px; }
+    }
+  
+    .pub-reviews-no-rating { color: #CBD5E1; }
+    .pub-reviews-stars { color: #FBBF24; letter-spacing: 2px; white-space: nowrap; }
+
+    /* Small mobile sizing refinement for trust-proof and portfolio images; layout stays the same. */
+    @media (max-width: 480px) {
+      .image-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .image-slot, .add-slot { min-width: 0; }
+      .pub-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .pub-proof-item, .pub-gallery-item { min-width: 0; aspect-ratio: 4 / 3; }
+    }
+
+</style>
 </head>
 <body>
 
@@ -3290,7 +3383,7 @@ button.pub-verified-badge:active svg {
   <div id="authGate" style="display:none">
     <div class="auth-gate-card">
       <h2>Sign in to continue</h2>
-      <p>You need to be signed in to access your TrustCobra dashboard.</p>
+      <p>You need to be signed in to access your BevoTrust dashboard.</p>
       <a href="index.html" class="btn btn-primary btn-lg">Go to Sign In</a>
     </div>
   </div>
@@ -3326,10 +3419,10 @@ button.pub-verified-badge:active svg {
       <!-- Logo -->
       <div class="sidebar-logo">
         <a href="#" class="sidebar-logo-inner" onclick="showSection('home');return false">
-           <span class="sidebar-logo-icon" aria-label="TrustCobra logo">
-             <svg viewBox="0 0 24 24"><path d="M12 2.5 20 6v5.8c0 4.5-3.2 8.2-8 9.7-4.8-1.5-8-5.2-8-9.7V6l8-3.5Z"/><path d="M15.8 9.2a5 5 0 1 0 0 5.6"/></svg>
+           <span class="sidebar-logo-icon" aria-label="BevoTrust logo">
+             <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><path d="M16 2.5l3.1 2.1 3.7.3 1.6 3.3 3 2.2-.4 3.7 1.1 3.5-2.5 2.8-.4 3.7-3.5 1.3-2.8 2.5-3.5-1.1-3.7.4-2.2-3-3.3-1.6-.3-3.7L4.5 16l2.1-3.1-.3-3.7 3.3-1.6 1.6-3.3 3.7-.3L16 2.5z" fill="#1769E0"/><path d="M10.2 16.1l3.5 3.5 8.2-8.4" stroke="white" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </span>
-          <span class="sidebar-brand">TrustCobra</span>
+          <span class="sidebar-brand">BevoTrust</span>
         </a>
       </div>
 
@@ -3437,7 +3530,7 @@ button.pub-verified-badge:active svg {
         <button class="hamburger" id="hamburgerBtn" aria-label="Open menu">
           <span></span><span></span><span></span>
         </button>
-        <span class="mobile-brand">TrustCobra</span>
+        <span class="mobile-brand">BevoTrust</span>
         <div style="display:flex;align-items:center;gap:6px">
           <button class="notif-bell-btn" id="mobileNotifBell" onclick="toggleNotifPanel()" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg><span class="notif-count" id="notifCount"></span></button>
           <div class="mobile-avatar" id="mobileAvatar"></div>
@@ -3530,7 +3623,7 @@ button.pub-verified-badge:active svg {
         <section class="section" id="sec-launch-analytics">
           <div class="section-header">
             <div class="section-title">Launch Analysis</div>
-            <div class="section-sub">Real TrustCobra activity recorded by public profiles and existing dashboard actions.</div>
+            <div class="section-sub">Real BevoTrust activity recorded by public profiles and existing dashboard actions.</div>
           </div>
           <div id="launchAnalyticsContent"></div>
         </section>
@@ -3771,7 +3864,7 @@ button.pub-verified-badge:active svg {
       <div class="modal-header">
         <div>
           <div class="modal-title">Continue to Selar</div>
-          <div class="modal-subtitle">₦3,000 · 1 year from approval</div>
+          <div class="modal-subtitle">₦5,000 · 6 months from approval</div>
         </div>
         <button class="modal-close" onclick="closeModal('modalUpgrade')">
           <svg viewBox="0 0 14 14"><path d="M1 1l12 12M13 1L1 13"/></svg>
@@ -3779,7 +3872,7 @@ button.pub-verified-badge:active svg {
       </div>
       <div class="modal-body">
         <div class="payment-modal-intro">
-          Your verification request is recorded before you leave this page. Complete the ₦3,000 purchase on Selar, then TrustCobra will manually verify it before activating your subscription.
+          Your payment request is recorded before you leave this page. Complete the ₦5,000 BEVOTRUST PREMIUM purchase on Selar, then the BevoTrust Verification Team will manually approve it before activating your six-month subscription.
         </div>
         <div style="margin-top:18px;padding:16px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg)">
           <div style="font-size:12px;color:var(--text-3);text-transform:uppercase;letter-spacing:.6px;font-weight:700">Verification status</div>
@@ -3810,7 +3903,7 @@ button.pub-verified-badge:active svg {
         <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
       <div class="modal-title" id="paymentResultTitle">Payment details submitted successfully</div>
-      <div class="modal-subtitle" id="paymentResultMessage" style="line-height:1.7;margin-top:10px">Your payment has been received for verification. TrustCobra Verification Team is now checking your payment.</div>
+      <div class="modal-subtitle" id="paymentResultMessage" style="line-height:1.7;margin-top:10px">Your payment has been received for verification. BevoTrust Verification Team is now checking your payment.</div>
       <div class="modal-footer" style="justify-content:center;margin-top:20px">
         <button class="btn btn-primary" onclick="closeModal('modalPaymentResult')">OK</button>
       </div>
@@ -3824,7 +3917,7 @@ button.pub-verified-badge:active svg {
         <svg viewBox="0 0 24 24" width="25" height="25" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 7v5c0 4.5 3.2 7.8 8 9 4.8-1.2 8-4.5 8-9V7l-8-4Z"/><path d="M12 8v4M12 16h.01"/></svg>
       </div>
       <div class="modal-title">Unlock your public profile</div>
-       <div class="modal-subtitle" style="line-height:1.7;margin-top:10px">Your public profile is available after your TrustCobra payment has been approved. Upgrade to copy, share, or take your profile live.</div>
+       <div class="modal-subtitle" style="line-height:1.7;margin-top:10px">Your public profile is available after your BevoTrust payment has been approved. Upgrade to copy, share, or take your profile live.</div>
       <div class="modal-footer" style="justify-content:center;margin-top:20px">
         <button class="btn btn-ghost" onclick="closeModal('modalPaymentGate')">Not now</button>
          <button class="btn btn-primary" onclick="closeModal('modalPaymentGate'); showSection('subscription');">
@@ -3852,10 +3945,10 @@ button.pub-verified-badge:active svg {
         <div style="font-size:48px;margin-bottom:16px">🔍</div>
         <div style="font-size:20px;font-weight:800;margin-bottom:8px">Profile Not Found</div>
         <div style="font-size:14px;color:#94A3B8;margin-bottom:24px;line-height:1.6">
-          This TrustCobra profile doesn't exist or may have been removed. Double-check the username in the URL.
+          This BevoTrust profile doesn't exist or may have been removed. Double-check the username in the URL.
         </div>
         <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:#2563EB;color:#fff;font-size:14px;font-weight:700;border-radius:10px;text-decoration:none">
-          Return to TrustCobra
+          Return to BevoTrust
         </a>
       </div>
     </div>
@@ -3868,13 +3961,13 @@ button.pub-verified-badge:active svg {
         </div>
         <div style="font-size:18px;font-weight:800;margin-bottom:8px">Profile Temporarily Unavailable</div>
         <div style="font-size:14px;margin-bottom:6px;line-height:1.6;color:#94A3B8">
-            This verification profile is not publicly available until the business has an approved active TrustCobra subscription.
+            This trust profile is currently inactive. The profile owner needs to renew their Cobratrust Premium subscription to make it available again.
         </div>
         <div style="font-size:12px;color:#64748B;margin-bottom:28px">
-          Only active TrustCobra members can display their verified public profile.
+          Only users with an active free trial or approved Premium subscription can display their public trust profile.
         </div>
         <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:linear-gradient(135deg,#0F172A,#1E293B);color:#fff;font-size:14px;font-weight:700;border-radius:10px;text-decoration:none">
-          Return to TrustCobra
+          Return to BevoTrust
         </a>
       </div>
     </div>
@@ -3913,14 +4006,14 @@ button.pub-verified-badge:active svg {
             <div class="pub-cover-text">
               <div class="pub-cover-title">Building trust.</div>
               <div class="pub-cover-subtitle">Growing businesses.</div>
-              <div class="pub-cover-desc">TrustCobra verifies businesses and helps them build trust that converts.</div>
+              <div class="pub-cover-desc">BevoTrust verifies businesses and helps them build trust that converts.</div>
             </div>
           </div>
 
           <!-- Verified Strip -->
           <div class="pub-verified-strip">
             <svg viewBox="0 0 12 12"><path d="M2 6l3 3 5-5"/></svg>
-          TrustCobra Verified
+          BevoTrust Verified
           </div>
 
           <!-- Profile Header -->
@@ -3941,7 +4034,7 @@ button.pub-verified-badge:active svg {
               <div class="pub-name-block">
                 <div class="pub-name">
                   <span id="pubBusinessName">Business Name</span>
-                  <button type="button" class="pub-verified-badge" id="pubVerifiedBadge" style="display:none" title="See how TrustCobra verified this profile" aria-label="See how TrustCobra verified this profile" onclick="openVerificationModal()">
+                  <button type="button" class="pub-verified-badge" id="pubVerifiedBadge" style="display:none" title="See how BevoTrust verified this profile" aria-label="See how BevoTrust verified this profile" onclick="openVerificationModal()">
                     <svg
   viewBox="0 0 24 24"
   width="22"
@@ -4009,8 +4102,8 @@ button.pub-verified-badge:active svg {
                 <div id="pubMemberSinceChip" style="display:none;margin-top:8px">
                   <span class="pub-member-chip">
                     <svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="4" width="12" height="9" rx="1"/><path d="M2 7h12M5 2v2M11 2v2"/></svg>
-                    <span id="pubMemberSinceChipText"></span>
-                    <span class="pub-member-divider" aria-hidden="true">|</span>
+                    <span id="pubMemberSinceChipText" style="display:none"></span>
+                    <span class="pub-member-divider" aria-hidden="true" style="display:none">|</span>
                     <span class="pub-username-inline" id="pubUsernameInline"></span>
                   </span>
                 </div>
@@ -4047,7 +4140,7 @@ button.pub-verified-badge:active svg {
                 <svg id="pubTrustRingSvg" width="80" height="80" viewBox="0 0 120 120"></svg>
               </div>
               <div class="pub-trust-hero-info">
-                <div class="pub-trust-hero-label">TrustCobra Score</div>
+                <div class="pub-trust-hero-label">BevoTrust Score</div>
                 <div class="pub-trust-hero-score" id="pubTrustVal">&mdash;</div>
                 <div class="pub-trust-hero-sub" id="pubTrustLabel">Building reputation</div>
                 <div class="pub-trust-hero-badge">
@@ -4128,7 +4221,7 @@ button.pub-verified-badge:active svg {
                   <svg viewBox="0 0 16 16"><path d="M13 6.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/><path d="M5.5 10L4 15l4-2 4 2-1.5-5"/></svg>
                   Trust Profile Status
                 </span>
-                <span class="pub-trust-detail-value verified">TrustCobra Certified</span>
+                <span class="pub-trust-detail-value verified">BevoTrust Certified</span>
               </div>
             </div>
 
@@ -4182,7 +4275,7 @@ button.pub-verified-badge:active svg {
               <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
               <div>
                 <div class="pub-why-title">Verified Business Identity</div>
-                <div class="pub-why-sub">This business has been screened and verified by TrustCobra. True identity and information are confirmed.</div>
+                <div class="pub-why-sub">This business has been screened and verified by BevoTrust. True identity and information are confirmed.</div>
               </div>
             </div>
             <div class="pub-why-item">
@@ -4209,8 +4302,8 @@ button.pub-verified-badge:active svg {
             <div class="pub-why-item">
               <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12h6M12 9v6"/></svg></div>
               <div>
-                <div class="pub-why-title">Protected by TrustCobra</div>
-                <div class="pub-why-sub">TrustCobra monitors and safeguards verified profiles, ensuring authenticity for every business on the platform.</div>
+                <div class="pub-why-title">Protected by BevoTrust</div>
+                <div class="pub-why-sub">BevoTrust monitors and safeguards verified profiles, ensuring authenticity for every business on the platform.</div>
               </div>
             </div>
           </div>
@@ -4221,7 +4314,7 @@ button.pub-verified-badge:active svg {
               <svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="0.5"/></svg>
               Verify this Business
             </div>
-            <div class="pub-qr-sub" style="font-size:12px;color:#64748B;margin-bottom:14px">Scan this QR code to verify this TrustCobra profile.</div>
+            <div class="pub-qr-sub" style="font-size:12px;color:#64748B;margin-bottom:14px">Scan this QR code to verify this BevoTrust profile.</div>
             <div class="pub-qr-wrap">
               <div id="pubQrCodeEl" style="width:160px;height:160px;border-radius:10px;overflow:hidden;background:#fff;padding:6px"></div>
               <div class="pub-qr-url-text">trustcobra.name.ng</div>
@@ -4285,11 +4378,11 @@ button.pub-verified-badge:active svg {
           <div class="pub-right-footer">
             <div class="pub-right-footer-badge">
               <svg viewBox="0 0 16 16"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z"/></svg>
-              Published by TrustCobra
+              Published by BevoTrust
             </div>
             <div class="pub-right-footer-title">Africa's Trusted Business Verification Platform</div>
             <div class="pub-right-footer-sub">
-              This business profile is verified and secured by TrustCobra&mdash;helping customers and partners connect with trusted and reliable businesses.
+              This business profile is verified and secured by BevoTrust&mdash;helping customers and partners connect with trusted and reliable businesses.
             </div>
             <div class="pub-right-footer-links">
               <a href="about.html">About Us</a>
@@ -4298,7 +4391,7 @@ button.pub-verified-badge:active svg {
               <span>&middot;</span>
               <a href="about.html">Terms of Service</a>
               <span>&middot;</span>
-              <a href="mailto:cobratrust713@gmail.com?subject=Report%20CobraTrust%20User&body=Please%20describe%20why%20you%20are%20reporting%20this%20CobraTrust%20profile." style="color:#EF4444">Report User</a>
+              <a href="mailto:cobratrust713@gmail.com?subject=Report%20BevoTrust%20User&body=Please%20describe%20why%20you%20are%20reporting%20this%20BevoTrust%20profile." style="color:#EF4444">Report User</a>
             </div>
             <a href="index.html" class="pub-right-cta-btn">
               <svg viewBox="0 0 16 16" width="14" height="14" stroke="#fff" fill="none" stroke-width="2" stroke-linecap="round"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z"/></svg>
@@ -4362,15 +4455,15 @@ button.pub-verified-badge:active svg {
       <div class="verification-modal-badge" aria-hidden="true">
         <svg viewBox="0 0 24 24"><path d="M5 12.5l4.2 4L19 7"/></svg>
       </div>
-      <h2 id="verificationModalTitle">Verified by TrustCobra</h2>
-      <p class="verification-modal-lead" id="verificationModalLead">This profile has an active TrustCobra verification record.</p>
+      <h2 id="verificationModalTitle">Verified by BevoTrust</h2>
+      <p class="verification-modal-lead" id="verificationModalLead">This profile has an active BevoTrust verification record.</p>
       <ul class="verification-modal-list">
-        <li>TrustCobra manually reviewed the verification request and payment before approval.</li>
-        <li>This public profile is linked to the approved TrustCobra account record.</li>
+        <li>BevoTrust manually reviewed the verification request and payment before approval.</li>
+        <li>This public profile is linked to the approved BevoTrust account record.</li>
         <li>The account currently has an active verification subscription.</li>
         <li>The profile's trust details and submitted proof are available below for independent review.</li>
       </ul>
-      <div class="verification-modal-note">This badge confirms TrustCobra's verification of this profile. It is not an endorsement by Facebook, Meta, or any other social network.</div>
+      <div class="verification-modal-note">This badge confirms BevoTrust's verification of this profile. It is not an endorsement by Facebook, Meta, or any other social network.</div>
     </div>
   </div>
 
@@ -4420,14 +4513,14 @@ button.pub-verified-badge:active svg {
     const CLOUDINARY_URL    = `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD}/upload`;
 
     // ════════════════════════════════════════════════════════════
-    // COBRATRUST PAYMENT VERIFICATION CONFIGURATION
+    // BEVOTRUST PAYMENT VERIFICATION CONFIGURATION
     // ════════════════════════════════════════════════════════════
     const PAYMENT_PLAN = {
-      id: 'yearly',
-       label: 'TrustCobra 1-Year Verification',
-      amount: 3000,
-      durationLabel: '1 year',
-      durationMonths: 12,
+      id: 'premium-six-month',
+      label: 'BEVOTRUST PREMIUM',
+      amount: 5000,
+      durationLabel: '6 months',
+      durationMonths: 6,
     };
     const PUBLIC_PROFILE_ORIGIN = 'https://trustcobra.name.ng';
     const SELAR_PRODUCT_URL = 'https://selar.com/n7611oz7l6';
@@ -4470,8 +4563,8 @@ button.pub-verified-badge:active svg {
       const profile = window._cobratrustVerifiedProfile || userData || {};
       const title = $('verificationModalTitle');
       const lead = $('verificationModalLead');
-      if (title) title.textContent = (profile.businessName || 'This profile') + ' is verified by TrustCobra';
-      if (lead) lead.textContent = 'TrustCobra confirmed this profile through its manual verification process and active membership record.';
+      if (title) title.textContent = (profile.businessName || 'This profile') + ' is verified by BevoTrust';
+      if (lead) lead.textContent = 'BevoTrust confirmed this profile through its manual verification process and active membership record.';
       $('verificationModal')?.classList.add('open');
     };
     window.closeVerificationModal = function () {
@@ -4636,13 +4729,51 @@ button.pub-verified-badge:active svg {
       return Math.round((done / (required.length + 2)) * 100);
     }
 
+    const PREMIUM_TRIAL_MS = 30 * 24 * 60 * 60 * 1000;
+
+    function dateFromValue(value) {
+      if (!value) return null;
+      const date = typeof value.toDate === 'function' ? value.toDate() : new Date(value);
+      return Number.isNaN(date.getTime()) ? null : date;
+    }
+
+    function addMonthsClamped(date, months) {
+      const result = new Date(date);
+      const day = result.getDate();
+      result.setDate(1);
+      result.setMonth(result.getMonth() + months);
+      const lastDay = new Date(result.getFullYear(), result.getMonth() + 1, 0).getDate();
+      result.setDate(Math.min(day, lastDay));
+      return result;
+    }
+
+    function isPaidSubscriptionActive(d) {
+      const expiry = dateFromValue(d?.subscriptionExpiry);
+      return d?.subscription?.plan === 'premium' &&
+        d?.subscription?.status === 'active' &&
+        !!expiry && expiry.getTime() > Date.now();
+    }
+
+    function isFreeTrialActive(d) {
+      if (d?.freeTrialUsed !== true) return false;
+      const start = dateFromValue(d.freeTrialStart);
+      const expiry = dateFromValue(d.freeTrialExpiry);
+      return !!start && !!expiry &&
+        expiry.getTime() - start.getTime() === PREMIUM_TRIAL_MS &&
+        start.getTime() <= Date.now() && expiry.getTime() > Date.now();
+    }
+
+    function hasExpiredFreeTrial(d) {
+      if (d?.freeTrialUsed !== true || isPaidSubscriptionActive(d)) return false;
+      const start = dateFromValue(d.freeTrialStart);
+      const expiry = dateFromValue(d.freeTrialExpiry);
+      return !!start && !!expiry &&
+        expiry.getTime() - start.getTime() === PREMIUM_TRIAL_MS &&
+        expiry.getTime() <= Date.now();
+    }
+
     function isPremium(d) {
-      const expiry = d.subscriptionExpiry ? new Date(d.subscriptionExpiry) : null;
-      return d.subscription?.plan === 'premium' &&
-        d.subscription?.status === 'active' &&
-        expiry instanceof Date &&
-        !Number.isNaN(expiry.getTime()) &&
-        expiry.getTime() > Date.now();
+      return isSubscriptionActive(d);
     }
 
     // ════════════════════════════════════════════════════════════
@@ -4667,7 +4798,7 @@ button.pub-verified-badge:active svg {
           createdAt: serverTimestamp(),
         });
       } catch (err) {
-        console.error('[CobraTrust Analytics] Track error:', err);
+        console.error('[BevoTrust Analytics] Track error:', err);
       }
     }
     // Expose so inline onclick attributes in generated HTML can call it
@@ -4693,6 +4824,41 @@ button.pub-verified-badge:active svg {
       }
     }
 
+    async function startFreeTrialIfEligible() {
+      if (!currentUser?.uid) return;
+      const userRef = doc(db, 'users', currentUser.uid);
+      try {
+        const updatedData = await runTransaction(db, async transaction => {
+          const snapshot = await transaction.get(userRef);
+          if (!snapshot.exists()) return null;
+          const existing = snapshot.data();
+          const alreadyHasTrialRecord = existing.freeTrialUsed === true ||
+            existing.freeTrialStart != null || existing.freeTrialExpiry != null ||
+            existing.freeTrialStatus != null;
+          if (isPaidSubscriptionActive(existing) || alreadyHasTrialRecord) return existing;
+
+          const start = new Date();
+          const expiry = new Date(start.getTime() + PREMIUM_TRIAL_MS);
+          const startTimestamp = Timestamp.fromDate(start);
+          const expiryTimestamp = Timestamp.fromDate(expiry);
+          const trialFields = {
+            freeTrialUsed: true,
+            freeTrialStatus: 'active',
+            freeTrialStart: startTimestamp,
+            freeTrialExpiry: expiryTimestamp,
+            publicProfileAvailable: true,
+            publicProfileStatus: 'active',
+            lastUpdatedAt: serverTimestamp(),
+          };
+          transaction.set(userRef, trialFields, { merge: true });
+          return { ...existing, ...trialFields };
+        });
+        if (updatedData) userData = updatedData;
+      } catch (err) {
+        console.error('[BevoTrust] Could not record the free premium trial:', err);
+      }
+    }
+
     // ════════════════════════════════════════════════════════════
     // SIDEBAR / HEADER UI
     // ════════════════════════════════════════════════════════════
@@ -4701,8 +4867,11 @@ button.pub-verified-badge:active svg {
       $('sidebarName').textContent = name.length > 22 ? name.slice(0, 22) + '…' : name;
 
       const planEl = $('sidebarPlan');
-      if (isSubscriptionActive(userData)) {
+      if (isPaidSubscriptionActive(userData)) {
         planEl.textContent = 'Premium';
+        planEl.className = 'plan-badge premium';
+      } else if (isFreeTrialActive(userData)) {
+        planEl.textContent = 'Free Trial';
         planEl.className = 'plan-badge premium';
       } else {
         planEl.textContent = 'Free';
@@ -4729,12 +4898,31 @@ button.pub-verified-badge:active svg {
     // ════════════════════════════════════════════════════════════
     // RENDER: DASHBOARD HOME
     // ════════════════════════════════════════════════════════════
+    function openMyMarketHubCard() {
+      if (!userData?.username) {
+        toast('Set a username in your public profile before opening your Market Hub card.', 'error');
+        showSection('profile');
+        return;
+      }
+      const url = `index.html?marketHubUser=${encodeURIComponent(userData.username)}#market-hub`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    }
+    window.openMyMarketHubCard = openMyMarketHubCard;
+
     function renderHome() {
       const d    = userData;
       const score = calcTrustScore(d);
       const comp  = calcCompletion(d);
       const pub   = d.username ? publicProfileUrl(d.username) : '';
       const prem  = isPremium(d);
+      const paidPremium = isPaidSubscriptionActive(d);
+      const expiredTrialBanner = hasExpiredFreeTrial(d) ? `
+        <div class="trial-expiration-banner" role="alert" aria-live="assertive">
+          <h2>Your Free Premium Plan Has Expired</h2>
+          <p>Your 30-day free premium plan has expired. Your public trust profile is now inactive, and customers can no longer view your profile.</p>
+          <p>To reactivate your profile, continue sharing your trust profile with potential customers, and download your certificate, please upgrade to the ₦5,000 Premium Plan for 6 months.</p>
+          <button class="btn btn-gold" type="button" onclick="showSection('subscription')">OKAY, UPGRADE NOW</button>
+        </div>` : '';
 
       // Trust ring SVG
       const r  = 54;
@@ -4744,6 +4932,7 @@ button.pub-verified-badge:active svg {
       const ringColor = score >= 80 ? '#16A34A' : score >= 50 ? '#2563EB' : '#D97706';
 
       $('homeContent').innerHTML = `
+        ${expiredTrialBanner}
         <!-- Hero card -->
         <div class="profile-hero">
           <div class="profile-hero-logo" id="heroLogo">
@@ -4764,6 +4953,7 @@ button.pub-verified-badge:active svg {
               <svg viewBox="0 0 16 16"><path d="M10.5 1.5L14.5 5.5 6 14H2v-4L10.5 1.5z"/></svg>
               Edit Profile
             </button>
+            <button class="btn btn-ghost btn-sm" style="border-color:rgba(255,255,255,0.15);color:#94A3B8" onclick="openMyMarketHubCard()">View My Market Hub Card</button>
             <button class="btn btn-ghost btn-sm" style="border-color:rgba(255,255,255,0.15);color:#94A3B8" onclick="shareProfile()">
               <svg viewBox="0 0 16 16"><path d="M12 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM4 6.5a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM12 10a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM10.5 4.5l-5 2.5M5.5 9.5l5 2"/></svg>
               Share
@@ -4811,10 +5001,10 @@ button.pub-verified-badge:active svg {
           <div class="stat-card">
             <div class="stat-card-label">Current Plan</div>
             <div class="stat-card-value" style="font-size:22px;color:${prem ? '#D97706' : 'var(--text)'}">
-              ${prem ? 'Premium' : 'Free'}
+              ${prem ? (paidPremium ? 'Premium' : 'Premium Trial') : 'Free'}
             </div>
             ${prem
-              ? `<span class="badge badge-gold">✦ Premium Active</span>`
+              ? `<span class="badge badge-gold">✦ ${paidPremium ? 'Premium Active' : '30-day Trial Active'}</span>`
               : `<button class="btn btn-gold btn-sm" onclick="showSection('subscription')">Upgrade →</button>`
             }
           </div>
@@ -4823,7 +5013,7 @@ button.pub-verified-badge:active svg {
           <div class="stat-card">
             <div class="stat-card-label">Verification Status</div>
             <div style="margin-top:4px">
-              ${prem
+              ${paidPremium
                 ? `<span class="badge badge-success" style="font-size:14px;padding:6px 14px">
                     <svg width="12" height="12" viewBox="0 0 12 12" stroke="#16A34A" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg>
                     Verified
@@ -4831,7 +5021,7 @@ button.pub-verified-badge:active svg {
                 : `<span class="badge badge-warning" style="font-size:14px;padding:6px 14px">Unverified</span>`
               }
             </div>
-            <div class="stat-card-sub">${prem ? 'Your profile is verified' : 'Upgrade to get verified'}</div>
+            <div class="stat-card-sub">${paidPremium ? 'Your profile is verified' : prem ? 'Premium trial active; verification status is unchanged' : 'Upgrade to get verified'}</div>
           </div>
         </div>
 
@@ -5219,7 +5409,7 @@ button.pub-verified-badge:active svg {
             if (el) el.textContent = Number(data[m.key] || 0).toLocaleString();
           });
         }, (err) => {
-          console.warn('[CobraTrust Analytics] Live listener error:', err);
+          console.warn('[BevoTrust Analytics] Live listener error:', err);
           const statusEl = $('analyticsStatus');
           const cardsEl = $('analyticsCardsGrid');
           if (statusEl) {
@@ -5261,7 +5451,7 @@ button.pub-verified-badge:active svg {
         } catch (eventError) {
           // Counter documents remain the source of truth when the optional
           // collection-group history read is not enabled by Firestore rules.
-          console.warn('[CobraTrust Launch Analysis] Event history unavailable:', eventError);
+          console.warn('[BevoTrust Launch Analysis] Event history unavailable:', eventError);
         }
 
         const analyticsDocs = analyticsSnapshot.docs.map(item => ({
@@ -5372,10 +5562,10 @@ button.pub-verified-badge:active svg {
          if (!launchAnalyticsUnsubscribe) {
            launchAnalyticsUnsubscribe = onSnapshot(collection(db, 'analytics'), () => {
              if ($('sec-launch-analytics')?.classList.contains('active')) renderLaunchAnalytics();
-           }, err => console.warn('[CobraTrust Launch Analysis] Live listener error:', err));
+           }, err => console.warn('[BevoTrust Launch Analysis] Live listener error:', err));
          }
       } catch (err) {
-        console.error('[CobraTrust Launch Analysis] Load failed:', err);
+        console.error('[BevoTrust Launch Analysis] Load failed:', err);
         target.innerHTML = `
           <div class="card" style="padding:32px;text-align:center">
             <div style="font-size:16px;font-weight:800;color:var(--text)">Launch Analysis could not load</div>
@@ -5389,34 +5579,41 @@ button.pub-verified-badge:active svg {
     // RENDER: SUBSCRIPTION
     // ════════════════════════════════════════════════════════════
     function renderSubscription() {
-      const active = isSubscriptionActive(userData);
+      const paidActive = isPaidSubscriptionActive(userData);
+      const trialActive = isFreeTrialActive(userData);
+      const active = paidActive || trialActive;
       const request = latestPaymentRequest;
       const requestStatus = request?.status || '';
+      const trialExpired = hasExpiredFreeTrial(userData);
       const statusClass = active ? 'is-active' : requestStatus === 'pending' ? 'is-pending' : requestStatus === 'rejected' ? 'is-rejected' : 'is-inactive';
-      const state = active ? 'active'
+      const paidExpiryDate = dateFromValue(userData.subscriptionExpiry);
+      const state = active ? (paidActive ? 'paid' : 'trial')
         : requestStatus === 'pending' ? 'pending'
         : requestStatus === 'rejected' ? 'rejected'
-        : userData.subscription?.status === 'expired' ? 'expired'
-        : userData.subscriptionExpiry && new Date(userData.subscriptionExpiry).getTime() <= Date.now() ? 'expired'
+        : trialExpired || userData.subscription?.status === 'expired' || (!!paidExpiryDate && paidExpiryDate.getTime() <= Date.now()) ? 'expired'
         : 'inactive';
-      const statusTitle = active
-             ? 'Your TrustCobra Subscription Is Active'
-        : requestStatus === 'pending'
-          ? 'Payment Verification In Progress'
-          : requestStatus === 'rejected'
-            ? 'Payment Requires Attention'
-            : state === 'expired'
-              ? 'Your TrustCobra Subscription Has Expired'
-              : 'Your TrustCobra Subscription Is Not Active';
-      const statusCopy = active
-        ? `Your profile is visible to clients until ${formatDateValue(userData.subscriptionExpiry)}.`
-        : requestStatus === 'pending'
-          ? 'Your payment request has been recorded. Complete the Selar purchase, then the TrustCobra Verification Team will manually confirm it.'
-          : requestStatus === 'rejected'
-            ? (request.rejectionReason || 'Your payment could not currently be verified. Please submit a new payment request with the requested information.')
-            : state === 'expired'
-              ? 'Your subscription has expired. Renew your plan to make your public profile available to clients again.'
-              : 'Your public profile is not live yet. Start the annual verification plan to unlock it after approval.';
+      const statusTitle = paidActive
+        ? 'Your BEVOTRUST PREMIUM Subscription Is Active'
+        : trialActive
+          ? 'Your 30-day free premium trial is active'
+          : requestStatus === 'pending'
+            ? 'Payment Verification In Progress'
+            : requestStatus === 'rejected'
+              ? 'Payment Requires Attention'
+              : state === 'expired'
+                ? 'Your Free Premium Plan Has Expired'
+                : 'Your Premium Access Is Not Active';
+      const statusCopy = paidActive
+        ? `Your profile and premium features are active until ${formatDateValue(userData.subscriptionExpiry)}.`
+        : trialActive
+          ? `Your free premium trial keeps your public profile active through ${formatDateValue(userData.freeTrialExpiry)}. Certificate download and certificate sharing require the paid six-month plan.`
+          : requestStatus === 'pending'
+            ? 'Your payment request has been recorded. Complete the Selar purchase, then the BevoTrust Verification Team will manually confirm it.'
+            : requestStatus === 'rejected'
+              ? (request.rejectionReason || 'The payment could not be verified. Please review the update and submit a valid payment request if needed.')
+              : trialExpired
+                ? 'Your 30-day free premium plan has expired. Your public trust profile is inactive until a paid six-month plan is approved.'
+                : 'Eligible users receive one 30-day premium trial. Paid premium access begins only after payment approval.';
 
       $('subscriptionContent').innerHTML = `
         <div class="payment-status-banner ${statusClass}">
@@ -5427,7 +5624,14 @@ button.pub-verified-badge:active svg {
           </div>
         </div>
 
-        ${!active && requestStatus === 'pending' ? `
+        ${trialActive ? `
+          <div class="card trial-status-card">
+            <div class="card-title">30-day Free Premium Trial</div>
+            <div class="card-subtitle">Trial started ${formatDateValue(userData.freeTrialStart)} · Expires ${formatDateValue(userData.freeTrialExpiry)}</div>
+          </div>
+        ` : ''}
+
+        ${!paidActive && requestStatus === 'pending' ? `
           <div class="payment-request-card">
             <div class="payment-request-header">
               <div><div class="card-title">Payment Request</div><div class="card-subtitle">Your request is pending while the team confirms your Selar purchase.</div></div>
@@ -5437,32 +5641,37 @@ button.pub-verified-badge:active svg {
             <div class="payment-request-meta">Submitted ${formatDateValue(request.timestamp || request.submittedAt || request.createdAt)} · Amount ₦${Number(request.amount || PAYMENT_PLAN.amount).toLocaleString()}</div>
             <a class="btn btn-secondary btn-sm" style="display:inline-flex;margin-top:14px;text-decoration:none" href="${SELAR_PRODUCT_URL}" target="_blank" rel="noopener">Open Selar product</a>
           </div>
-        ` : !active ? `
+        ` : !paidActive ? `
           <div class="payment-plan-card">
             <div>
-              <div class="payment-plan-kicker">Annual verification plan</div>
-              <div class="payment-plan-price">₦3,000 <span>for 1 year</span></div>
-              <div class="payment-plan-copy">One manual verification unlocks your paid TrustCobra features and public profile for exactly one year from approval.</div>
+              <div class="payment-plan-kicker">BEVOTRUST PREMIUM</div>
+              <div class="payment-plan-price">₦5,000 <span>for 6 months</span></div>
+              <div class="payment-plan-copy">Keep your BevoTrust business profile active and accessible to potential customers with our six-month Premium Plan.</div>
+              <ul class="premium-benefit-list">
+                <li><strong>Visibility in BevoTrust Market Hub</strong><span>Your business trust profile can be featured in the BevoTrust Market Hub while your subscription is active.</span></li>
+                <li><strong>Active Public Trust Profile</strong><span>Keep your public trust profile accessible so potential customers can view and assess the information on your profile.</span></li>
+                <li><strong>Certificate Download and Profile Sharing</strong><span>Download your BevoTrust certificate and copy or share your public trust profile link while your paid subscription is active.</span></li>
+              </ul>
             </div>
-            <button class="btn btn-gold btn-lg" onclick="openPayment()">Upgrade Now</button>
+            <button class="btn btn-gold btn-lg" onclick="openPayment()">UPGRADE NOW — ₦5,000</button>
           </div>
         ` : `
           <div class="card" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:12px">
-            <div style="font-size:16px;font-weight:800">Your paid features are unlocked</div>
-            <div style="font-size:13px;color:var(--text-2)">Your public profile and analytics are available while your subscription remains active.</div>
+            <div style="font-size:16px;font-weight:800">${paidActive ? 'Your paid premium features are unlocked' : 'Your free premium trial is active'}</div>
+            <div style="font-size:13px;color:var(--text-2)">${paidActive ? 'Your public profile and premium features remain available while your subscription is active.' : 'Your public profile, certificate downloads, and profile sharing remain available until your trial expires.'}</div>
           </div>
         `}
 
         <div class="card payment-trust-card">
-          <div class="card-title">How TrustCobra Verifies Your Payment</div>
+          <div class="card-title">How BevoTrust Verifies Your Payment</div>
           <div class="payment-steps">
-            <div><b>1</b><span>Choose the ₦3,000 TrustCobra 1-Year Verification plan.</span></div>
+            <div><b>1</b><span>Choose the ₦5,000 BEVOTRUST PREMIUM six-month plan.</span></div>
             <div><b>2</b><span>Complete the purchase on the official Selar product page.</span></div>
-            <div><b>3</b><span>TrustCobra Verification Team checks the payment manually in Selar.</span></div>
-            <div><b>4</b><span>After approval, your subscription runs for exactly one year and your public profile becomes available.</span></div>
+            <div><b>3</b><span>The BevoTrust Verification Team checks the payment manually in Selar.</span></div>
+            <div><b>4</b><span>After approval, the paid subscription runs for six months and premium access is restored.</span></div>
           </div>
           <div class="payment-security-note"><strong>Manual verification.</strong> Clicking Upgrade Now records a pending request. Payment approval is never automatic; the team confirms the Selar purchase first.</div>
-          <a class="support-fab-inline" href="${SUPPORT_WHATSAPP_URL}" target="_blank" rel="noopener" aria-label="Contact TrustCobra support on WhatsApp" title="Contact support">
+          <a class="support-fab-inline" href="${SUPPORT_WHATSAPP_URL}" target="_blank" rel="noopener" aria-label="Contact BevoTrust support on WhatsApp" title="Contact support">
             <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.5 0 .2 5.3.2 11.9c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.7a11.8 11.8 0 0 0 5.8 1.5h.1c6.5 0 11.8-5.3 11.8-11.9 0-3.2-1.2-6.2-3.5-8.4ZM12.1 21.8h-.1a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.8 9.8 0 0 1-1.5-5.3C2.2 6.5 6.6 2.1 12.1 2.1c2.6 0 5.1 1 7 2.9 1.9 1.9 2.9 4.3 2.9 7 0 5.4-4.4 9.8-9.9 9.8Zm5.4-7.4c-.3-.1-1.8-.9-2.1-1-.3-.1-.5-.1-.7.2-.2.3-.8 1-1 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2.1-.4 0-.5-.1-.1-.7-1.6-1-2.2-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.4Z"/></svg>
           </a>
         </div>
@@ -5470,13 +5679,12 @@ button.pub-verified-badge:active svg {
       `;
       return;
     }
-
     // ════════════════════════════════════════════════════════════
     // RENDER: TRUST CERTIFICATE
     // ════════════════════════════════════════════════════════════
     function renderCertificate() {
       const d    = userData;
-      const prem = isPremium(d);
+      const prem = isPaidSubscriptionActive(d);
       const certId = generateCertId(d);
 
       $('certificateContent').innerHTML = `
@@ -5488,7 +5696,7 @@ button.pub-verified-badge:active svg {
           <div style="font-size:14px;color:#94A3B8;margin-bottom:20px">${d.businessCategory || ''} · @${d.username || 'username'}</div>
           <div class="cert-preview-badge">
             <svg width="12" height="12" viewBox="0 0 12 12" stroke="#F59E0B" fill="none" stroke-width="2.5" stroke-linecap="round"><path d="M2 6l3 3 5-5"/></svg>
-            is a registered TrustCobra member
+            is a registered BevoTrust member
           </div>
           <div style="margin-top:20px;font-size:11px;color:rgba(148,163,184,0.6)">
             Certificate ID: ${certId} · trustcobra.name.ng
@@ -5511,19 +5719,19 @@ button.pub-verified-badge:active svg {
           </div>
 
           <div style="display:flex;gap:12px;flex-wrap:wrap">
-            <button class="btn btn-primary btn-lg" onclick="generateCertificate()">
+            <button class="btn btn-primary btn-lg" type="button" onclick="generateCertificate()">
               <svg viewBox="0 0 16 16"><path d="M13 6.5a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/><path d="M5.5 10L4 15l4-2 4 2-1.5-5"/></svg>
-              Download Certificate PDF
+              ${prem ? 'Download Certificate PDF' : '🔒 Download Certificate PDF — Upgrade'}
             </button>
-            <button class="btn btn-secondary btn-lg" onclick="shareCertificate()">
+            <button class="btn btn-secondary btn-lg" type="button" onclick="shareCertificate()">
               <svg viewBox="0 0 16 16"><path d="M12 3a1.5 1.5 0 110 3 1.5 1.5 0 010-3z"/></svg>
-              Share
+              ${prem ? 'Share Certificate' : '🔒 Share Certificate — Upgrade'}
             </button>
           </div>
 
           <div style="margin-top:16px;padding:14px;background:var(--bg);border-radius:var(--radius);font-size:13px;color:var(--text-2)">
             <strong>Included in your certificate:</strong>
-            Business Name · Category · Username · Public URL · Trust Score · Business Description · Social Links · Certificate ID · Issue Date · Official TrustCobra branding
+            Business Name · Category · Username · Public URL · Trust Score · Business Description · Social Links · Certificate ID · Issue Date · Official BevoTrust branding
           </div>
         </div>
       `;
@@ -5897,13 +6105,26 @@ button.pub-verified-badge:active svg {
     // PROFILE SHARING
     // ════════════════════════════════════════════════════════════
     function showPaymentGate(action = 'use this profile feature') {
+      const title = document.querySelector('#modalPaymentGate .modal-title');
       const message = document.querySelector('#modalPaymentGate .modal-subtitle');
-      if (message) message.textContent = `Your public profile is available after your TrustCobra payment has been approved. Upgrade to ${action}.`;
+      const certificateAction = /certificate/i.test(action);
+      if (title) title.textContent = certificateAction ? 'Unlock Certificate Features' : 'Unlock your public profile';
+      if (message) {
+        message.textContent = certificateAction
+          ? `Certificate download and certificate sharing are locked during the free trial. Subscribe to the ₦5,000 six-month BevoTrust Premium plan to ${action}.`
+          : `Your free trial or approved Premium subscription must be active to ${action}.`;
+      }
       openModal('modalPaymentGate');
     }
 
     function requireActiveSubscription(action) {
       if (isSubscriptionActive(userData)) return true;
+      showPaymentGate(action);
+      return false;
+    }
+
+    function requirePaidSubscription(action) {
+      if (isPaidSubscriptionActive(userData)) return true;
       showPaymentGate(action);
       return false;
     }
@@ -5936,7 +6157,7 @@ button.pub-verified-badge:active svg {
     window.shareProfile = async function () {
       if (!requireActiveSubscription('share your profile')) return;
       const url = userData.username ? publicProfileUrl(userData.username) : window.location.href;
-      const title = userData.businessName || 'TrustCobra Profile';
+      const title = userData.businessName || 'BevoTrust Profile';
 
       if (navigator.share) {
         try {
@@ -5961,9 +6182,9 @@ button.pub-verified-badge:active svg {
     // TRUST CERTIFICATE — GENERATE PDF (jsPDF)
     // ════════════════════════════════════════════════════════════
     window.generateCertificate = async function () {
-      // Certificate generation uses the same subscription gate as copying
-      // and taking a public profile live. No PDF work happens before approval.
-      if (!requireActiveSubscription('download your certificate')) return;
+      // Certificate downloads are reserved for approved paid six-month subscriptions.
+      // No PDF work happens before payment approval.
+      if (!requirePaidSubscription('download your certificate')) return;
 
       // Fetch latest Firestore data for most current profile info
       const snap = await getDoc(doc(db, 'users', currentUser.uid));
@@ -6010,11 +6231,11 @@ button.pub-verified-badge:active svg {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(9);
       doc.setTextColor(245, 158, 11);
-      doc.text('TRUSTCOBRA', W / 2, 26, { align: 'center' });
+      doc.text('BEVOTRUST', W / 2, 26, { align: 'center' });
 
       doc.setFontSize(7);
       doc.setTextColor(148, 163, 184);
-      doc.text('trustcobra.name.ng · Verified Business Registry', W / 2, 32, { align: 'center' });
+      doc.text('trustcobra.name.ng · BevoTrust Verified Business Registry', W / 2, 32, { align: 'center' });
 
       // Divider
       doc.setDrawColor(245, 158, 11);
@@ -6029,7 +6250,7 @@ button.pub-verified-badge:active svg {
 
       doc.setFontSize(8);
       doc.setTextColor(148, 163, 184);
-      doc.text('This certificate confirms that the following business is a verified TrustCobra member', W / 2, 60, { align: 'center' });
+      doc.text('This certificate confirms that the following business is a verified BevoTrust member', W / 2, 60, { align: 'center' });
 
       // ── Business Name
       doc.setFont('helvetica', 'bold');
@@ -6119,6 +6340,7 @@ button.pub-verified-badge:active svg {
     }
 
     window.shareCertificate = function () {
+      if (!requirePaidSubscription('share your certificate')) return;
       shareProfile();
     };
 
@@ -6147,8 +6369,9 @@ button.pub-verified-badge:active svg {
         return;
       }
       trackDashboardEvent('goPayNowClicks');
-      if (isSubscriptionActive(userData)) {
-        toast('Your subscription is already active.', 'success');
+      // A free trial does not prevent users from purchasing the paid six-month plan.
+      if (isPaidSubscriptionActive(userData)) {
+        toast('Your paid subscription is already active.', 'success');
         return;
       }
       if (latestPaymentRequest?.status === 'pending') {
@@ -6160,7 +6383,7 @@ button.pub-verified-badge:active svg {
       const request = {
         paymentRequestId: requestRef.id,
         userId: currentUser.uid,
-        businessName: userData.businessName || currentUser.displayName || currentUser.email || 'TrustCobra User',
+        businessName: userData.businessName || currentUser.displayName || currentUser.email || 'BevoTrust User',
         userEmail: currentUser.email || '',
         username: userData.username || '',
         selectedPlan: PAYMENT_PLAN.label,
@@ -6182,7 +6405,7 @@ button.pub-verified-badge:active svg {
         toast('Payment request recorded. Redirecting to Selar…', 'success');
         window.location.assign(SELAR_PRODUCT_URL);
       } catch (err) {
-        console.error('[CobraTrust Payment] Request creation failed:', err);
+        console.error('[BevoTrust Payment] Request creation failed:', err);
         toast('Could not start your payment request. Please try again.', 'error');
       }
     };
@@ -6203,7 +6426,7 @@ button.pub-verified-badge:active svg {
         }
         if (previousStatus && nextRequest?.status && previousStatus !== nextRequest.status && nextRequest.status === 'approved') {
           $('paymentResultTitle').textContent = 'Payment Successfully Verified';
-          $('paymentResultMessage').textContent = 'Your payment has been successfully verified by TrustCobra Verification Team. Your subscription is now active and your public profile is available to clients.';
+          $('paymentResultMessage').textContent = 'Your payment has been successfully verified by BevoTrust Verification Team. Your subscription is now active and your public profile is available to clients.';
           openModal('modalPaymentResult');
         }
         if (previousStatus && nextRequest?.status && previousStatus !== nextRequest.status && nextRequest.status === 'rejected') {
@@ -6213,7 +6436,7 @@ button.pub-verified-badge:active svg {
         }
         renderSubscription();
         updateSidebarUI();
-      }, err => console.warn('[CobraTrust Payment] User request listener error:', err));
+      }, err => console.warn('[BevoTrust Payment] User request listener error:', err));
     }
 
     function paymentTimestamp(value) {
@@ -6235,7 +6458,7 @@ button.pub-verified-badge:active svg {
         target.innerHTML = `
           <div class="card" style="text-align:center;padding:48px 24px">
             <div style="font-size:18px;font-weight:800">Verification access restricted</div>
-            <div style="margin-top:8px;color:var(--text-2);font-size:13px">This area is available only to authorized TrustCobra Verification Team accounts.</div>
+            <div style="margin-top:8px;color:var(--text-2);font-size:13px">This area is available only to authorized BevoTrust Verification Team accounts.</div>
           </div>`;
         return;
       }
@@ -6253,7 +6476,7 @@ button.pub-verified-badge:active svg {
           <article class="admin-payment-card">
             <div class="admin-payment-top">
               <div>
-                <div style="font-size:15px;font-weight:800">${escapeHtml(request.businessName || 'TrustCobra User')}</div>
+                <div style="font-size:15px;font-weight:800">${escapeHtml(request.businessName || 'BevoTrust User')}</div>
                 <div style="font-size:12px;color:var(--text-3);margin-top:3px">${escapeHtml(request.reference || request.id)}</div>
               </div>
               <span class="badge ${statusClass}">${escapeHtml(request.status || 'pending')}</span>
@@ -6275,7 +6498,7 @@ button.pub-verified-badge:active svg {
       target.innerHTML = `
         <div class="payment-status-banner is-pending" style="margin-bottom:20px">
           <div class="payment-status-icon">${pending.length}</div>
-          <div><div class="payment-status-title">${pending.length} payment${pending.length === 1 ? '' : 's'} awaiting review</div><div class="payment-status-copy">Confirm the purchase in the official Selar dashboard before approving. Approval activates the user for exactly one year.</div></div>
+          <div><div class="payment-status-title">${pending.length} payment${pending.length === 1 ? '' : 's'} awaiting review</div><div class="payment-status-copy">Confirm a ₦5,000 BEVOTRUST PREMIUM purchase in the official Selar dashboard before approving. Approval activates the user for six months.</div></div>
         </div>
         <div class="stack">${cards || '<div class="card" style="text-align:center;padding:40px;color:var(--text-2)">No payment requests have been submitted yet.</div>'}</div>`;
     }
@@ -6296,7 +6519,7 @@ button.pub-verified-badge:active svg {
           badge.style.display = pendingCount ? 'inline-block' : 'none';
         }
         renderPaymentVerification();
-      }, err => console.warn('[CobraTrust Payment] Verification queue listener error:', err));
+      }, err => console.warn('[BevoTrust Payment] Verification queue listener error:', err));
     }
 
     window.approvePayment = async function (requestId) {
@@ -6306,26 +6529,46 @@ button.pub-verified-badge:active svg {
       }
       const request = adminPaymentRequests.find(item => item.id === requestId);
       if (!request || request.status !== 'pending') return;
-       if (!confirm('Approve only after confirming this ₦3,000 purchase in the official Selar dashboard. Continue?')) return;
+      if (Number(request.amount) !== PAYMENT_PLAN.amount || request.planId !== PAYMENT_PLAN.id) {
+        toast('This payment request does not match the active ₦5,000 six-month plan. Do not approve it; reject it and ask the user to submit a new request.', 'error');
+        return;
+      }
+      if (!request.userId) {
+        toast('This payment request has no linked user account and cannot be approved.', 'error');
+        return;
+      }
+      if (!confirm('Approve only after confirming this ₦5,000 six-month purchase in the official Selar dashboard. Continue?')) return;
+
       const approvalDate = new Date();
-      const expiryDate = new Date(approvalDate);
-      expiryDate.setFullYear(expiryDate.getFullYear() + 1);
       try {
+        const targetUserRef = doc(db, 'users', request.userId);
+        const targetUserSnap = await getDoc(targetUserRef);
+        if (!targetUserSnap.exists()) {
+          toast('The user account for this payment request could not be found.', 'error');
+          return;
+        }
+        const targetUserData = targetUserSnap.data();
+        const currentExpiry = dateFromValue(targetUserData.subscriptionExpiry);
+        const paidActive = isPaidSubscriptionActive(targetUserData);
+        const subscriptionBase = paidActive && currentExpiry && currentExpiry.getTime() > approvalDate.getTime()
+          ? currentExpiry : approvalDate;
+        const expiryDate = addMonthsClamped(subscriptionBase, PAYMENT_PLAN.durationMonths);
+
         await updateDoc(doc(db, 'paymentRequests', requestId), {
           status: 'approved',
           approvalTimestamp: serverTimestamp(),
           expirationTimestamp: expiryDate.toISOString(),
           reviewedBy: currentUser.uid,
         });
-        await setDoc(doc(db, 'users', request.userId), {
+        await setDoc(targetUserRef, {
           subscription: {
             plan: 'premium',
             status: 'active',
-            billingCycle: 'yearly',
+            billingCycle: 'six-month',
             paymentRequestId: requestId,
-             paymentReference: request.paymentRequestId || requestId,
-            startDate: serverTimestamp(),
-             subscriptionStart: serverTimestamp(),
+            paymentReference: request.paymentRequestId || requestId,
+            startDate: paidActive ? (targetUserData.subscription?.startDate || serverTimestamp()) : serverTimestamp(),
+            subscriptionStart: paidActive ? (targetUserData.subscription?.subscriptionStart || serverTimestamp()) : serverTimestamp(),
             approvalTimestamp: serverTimestamp(),
             renewalDate: expiryDate.toLocaleDateString('en-GB'),
           },
@@ -6336,9 +6579,9 @@ button.pub-verified-badge:active svg {
           verified: true,
           lastUpdatedAt: serverTimestamp(),
         }, { merge: true });
-        toast('Payment approved and subscription activated.', 'success');
+        toast('Payment approved and six-month subscription activated.', 'success');
       } catch (err) {
-        console.error('[CobraTrust Payment] Approval failed:', err);
+        console.error('[BevoTrust Payment] Approval failed:', err);
         toast('Could not approve this payment.', 'error');
       }
     };
@@ -6361,7 +6604,7 @@ button.pub-verified-badge:active svg {
         });
         toast('Payment request rejected with an explanation.', 'success');
       } catch (err) {
-        console.error('[CobraTrust Payment] Rejection failed:', err);
+        console.error('[BevoTrust Payment] Rejection failed:', err);
         toast('Could not reject this payment.', 'error');
       }
     };
@@ -6479,7 +6722,7 @@ button.pub-verified-badge:active svg {
         _notifItems = items;
         displayNotifications(items);
       }, (e) => {
-        console.warn('[CobraTrust Notifications] Live listener error:', e);
+        console.warn('[BevoTrust Notifications] Live listener error:', e);
       });
     }
 
@@ -6594,6 +6837,7 @@ button.pub-verified-badge:active svg {
     const _publicUsername = _rawPublicUsername ? _rawPublicUsername.toLowerCase().trim() : null;
     // Public profile flag
 const IS_PUBLIC_PROFILE = !!_publicUsername;
+    if (!IS_PUBLIC_PROFILE) document.body.classList.add('dashboard-dark');
 
     // Compute trust score from public data (same weights as dashboard)
     function calcPublicTrustScore(d) {
@@ -6613,12 +6857,7 @@ const IS_PUBLIC_PROFILE = !!_publicUsername;
     }
 
     function isSubscriptionActive(d) {
-      const expiry = d?.subscriptionExpiry ? new Date(d.subscriptionExpiry) : null;
-      return d?.subscription?.plan === 'premium' &&
-        d?.subscription?.status === 'active' &&
-        expiry instanceof Date &&
-        !Number.isNaN(expiry.getTime()) &&
-        expiry.getTime() > Date.now();
+      return isPaidSubscriptionActive(d) || isFreeTrialActive(d);
     }
 
     function showPubState(state) {
@@ -6702,7 +6941,11 @@ window.closePubLightbox = closePubLightbox;
       const average = count ? valid.reduce((sum, r) => sum + Number(r.rating), 0) / count : 0;
       document.querySelectorAll('.pubReviewsContent, #pubReviewsContent').forEach(() => {});
       document.querySelectorAll('#pubReviewsSummary, .pubReviewsSummary').forEach(el => {
-        el.textContent = count ? `${reviewStars(Math.round(average))} ${average.toFixed(1)}/5 ${count} ${count === 1 ? 'review' : 'reviews'}` : 'No reviews yet.';
+        if (count) {
+          el.textContent = `${reviewStars(Math.round(average))} ${average.toFixed(1)}/5 ${count} ${count === 1 ? 'review' : 'reviews'}`;
+        } else {
+          el.innerHTML = '<span class="pub-reviews-stars" aria-label="Five stars shown as a review-section cue, not a customer rating">★★★★★</span><span class="pub-reviews-no-rating"> No reviews yet</span>';
+        }
       });
       document.querySelectorAll('#pubReviewsContent').forEach(target => {
         target.innerHTML = '';
@@ -6750,7 +6993,7 @@ window.closePubLightbox = closePubLightbox;
         });
         updateReviewTargets(reviews);
       } catch (err) {
-        console.error('[CobraTrust Reviews] Failed to load reviews:', err);
+        console.error('[BevoTrust Reviews] Failed to load reviews:', err);
         document.querySelectorAll('#pubReviewsContent, #pubReviewsSummary').forEach(el => {
           el.textContent = el.id === 'pubReviewsSummary' ? 'Unable to load reviews right now.' : 'Unable to load reviews right now.';
         });
@@ -6821,7 +7064,7 @@ window.closePubLightbox = closePubLightbox;
         window.closeReviewModal();
         await loadPublicReviews(profileId);
       } catch (err) {
-        console.error('[CobraTrust Reviews] Review submission failed:', err);
+        console.error('[BevoTrust Reviews] Review submission failed:', err);
         if (message) { message.textContent = 'We could not save your review. Please try again.'; message.className = 'review-form-message error'; }
         if (submit) { submit.disabled = false; submit.textContent = 'Submit Review'; }
       }
@@ -6832,7 +7075,7 @@ window.closePubLightbox = closePubLightbox;
     });
     document.getElementById('customerReviewForm')?.addEventListener('submit', submitCustomerReview);
 
-    // Public visitors do not need a CobraTrust account. Anonymous Firebase
+    // Public visitors do not need a BevoTrust account. Anonymous Firebase
     // identity gives each browser a Firestore-backed visitor id without using
     // browser storage directly.
     async function ensurePublicVisitor() {
@@ -6841,7 +7084,7 @@ window.closePubLightbox = closePubLightbox;
         const credentials = await signInAnonymously(auth);
         return credentials.user;
       } catch (err) {
-        console.warn('[CobraTrust Analytics] Anonymous visitor setup failed:', err);
+        console.warn('[BevoTrust Analytics] Anonymous visitor setup failed:', err);
         return null;
       }
     }
@@ -6890,7 +7133,7 @@ window.closePubLightbox = closePubLightbox;
           });
         });
       }, (err) => {
-        console.warn('[CobraTrust Analytics] Public live listener error:', err);
+        console.warn('[BevoTrust Analytics] Public live listener error:', err);
         const statusEl = document.getElementById('pubAnalyticsStatus');
         const analyticsBars = document.querySelectorAll('.pub-analytics-bar');
         if (statusEl) statusEl.style.display = 'block';
@@ -6980,7 +7223,7 @@ window.closePubLightbox = closePubLightbox;
             items: arrayUnion(notification),
           }, { merge: true });
         } catch (notificationError) {
-          console.warn('[CobraTrust Notifications] Notification write failed:', notificationError);
+          console.warn('[BevoTrust Notifications] Notification write failed:', notificationError);
         }
 
         try {
@@ -6988,7 +7231,7 @@ window.closePubLightbox = closePubLightbox;
           // Local Storage as the analytics source of truth.
           await trackUniquePublicVisitor(username, visitorUser?.uid);
         } catch (visitorError) {
-          console.warn('[CobraTrust Analytics] Unique visitor write failed:', visitorError);
+          console.warn('[BevoTrust Analytics] Unique visitor write failed:', visitorError);
         }
 
         // Every successful public-profile load is exactly one real view.
@@ -7001,7 +7244,7 @@ window.closePubLightbox = closePubLightbox;
         }
 
       } catch (err) {
-        console.error('[CobraTrust] Public profile load error:', err);
+        console.error('[BevoTrust] Public profile load error:', err);
         // Treat network/Firestore errors gracefully
         showPubState('error');
       }
@@ -7091,12 +7334,7 @@ if (photoEl) {
           memberSinceText = d2.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
         } catch {}
       }
-      const msChip = $('pubMemberSinceChip');
-      const msChipText = $('pubMemberSinceChipText');
-      if (msChipText) msChipText.textContent = 'Since ' + memberSinceText;
-      const inlineUsername = $('pubUsernameInline');
-      if (inlineUsername && d.username) inlineUsername.textContent = '@' + d.username;
-      if (msChip && d.createdAt) msChip.style.display = 'block';
+      
 
       // Description — shown in header and also in About card (3-line clamp)
       if (d.businessDescription) {
@@ -7331,7 +7569,7 @@ if (photoEl) {
       loadPublicReviews(resolvedProfileId);
 
       // Page title
-      document.title = `${d.businessName || 'Business'} — TrustCobra`;
+      document.title = `${d.businessName || 'Business'} — BevoTrust`;
     }
 
 
@@ -7361,6 +7599,7 @@ if (_publicUsername) {
 
             try {
                 await loadUserData();
+                await startFreeTrialIfEligible();
             } catch {}
 
             $('globalLoader').style.display = 'none';
@@ -7370,9 +7609,10 @@ if (_publicUsername) {
             subscribeToPaymentRequest();
             subscribeToAdminPayments();
             updateSidebarUI();
-            checkAndExpireSubscription();
+            await checkAndExpireSubscription();
 
             showSection('home');
+            scheduleSubscriptionRefresh();
             openProfileAfterSetup();
             loadNotifications();
 
@@ -7388,35 +7628,70 @@ if (_publicUsername) {
 }
 
 
-    // ── Auto-expire subscriptions whose expiry date has passed ──
-    // This runs client-side on dashboard load. Server-side enforcement can
-    // be added later without changing the manual approval flow.
+    // Expiration is calculated from stored dates. This client-side refresh is UI behavior only;
+    // authoritative enforcement still requires Firebase rules or trusted backend code.
+    let subscriptionRefreshTimer = null;
+    function scheduleSubscriptionRefresh() {
+      if (subscriptionRefreshTimer) clearTimeout(subscriptionRefreshTimer);
+      if (!currentUser) return;
+      const now = Date.now();
+      const expiryDates = [dateFromValue(userData.subscriptionExpiry), dateFromValue(userData.freeTrialExpiry)]
+        .filter(date => date && date.getTime() > now)
+        .map(date => date.getTime());
+      if (!expiryDates.length) return;
+      const nextExpiry = Math.min(...expiryDates);
+      const delay = Math.min(Math.max(nextExpiry - now + 250, 1000), 2147480000);
+      subscriptionRefreshTimer = setTimeout(async () => {
+        await checkAndExpireSubscription();
+        updateSidebarUI();
+        const activeSection = document.querySelector('.section.active')?.id;
+        if (activeSection === 'sec-home') renderHome();
+        if (activeSection === 'sec-subscription') renderSubscription();
+        if (activeSection === 'sec-certificate') renderCertificate();
+        scheduleSubscriptionRefresh();
+      }, delay);
+    }
+
     async function checkAndExpireSubscription() {
       const d = userData;
-      if (!d.subscriptionExpiry) return;
-      if (d.subscription?.status !== 'active') return;
+      const now = Date.now();
+      const paidExpiry = dateFromValue(d.subscriptionExpiry);
+      const paidExpired = d.subscription?.status === 'active' && paidExpiry && paidExpiry.getTime() <= now;
+      const trialExpiry = dateFromValue(d.freeTrialExpiry);
+      const trialExpired = d.freeTrialUsed === true && trialExpiry && trialExpiry.getTime() <= now && !isPaidSubscriptionActive(d);
+      const patch = {};
 
-      const expiry = new Date(d.subscriptionExpiry);
-      if (isNaN(expiry.getTime())) return;
-
-      if (new Date() > expiry) {
-        // Subscription has expired — update Firestore
-        const patch = {
+      if (paidExpired) {
+        Object.assign(patch, {
           subscription: { ...d.subscription, status: 'expired' },
           subscriptionStatus: 'expired',
-           verified: false,
-           publicProfileAvailable: false,
-           publicProfileStatus: 'expired',
+          verified: false,
+          publicProfileAvailable: false,
+          publicProfileStatus: 'expired',
           lastUpdatedAt: serverTimestamp(),
-        };
-        try {
-          await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true });
-          Object.assign(userData, patch);
-          toast('Your TrustCobra subscription has expired. Renew to restore your verified profile.', 'error');
-          updateSidebarUI();
-        } catch (err) {
-          console.error('[CobraTrust] Expiry update failed:', err);
-        }
+        });
+      }
+      if (trialExpired) {
+        Object.assign(patch, {
+          freeTrialStatus: 'expired',
+          publicProfileAvailable: false,
+          publicProfileStatus: 'expired',
+          lastUpdatedAt: serverTimestamp(),
+        });
+      }
+      if (!Object.keys(patch).length) return;
+
+      try {
+        await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true });
+        userData = { ...d, ...patch };
+        if (paidExpired) toast('Your Cobratrust Premium subscription has expired. Renew to restore your profile.', 'error');
+        updateSidebarUI();
+        const activeSection = document.querySelector('.section.active')?.id;
+        if (activeSection === 'sec-home') renderHome();
+        if (activeSection === 'sec-subscription') renderSubscription();
+        if (activeSection === 'sec-certificate') renderCertificate();
+      } catch (err) {
+        console.error('[BevoTrust] Expiry update failed:', err);
       }
     }
 
