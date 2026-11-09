@@ -3245,42 +3245,67 @@ button.pub-verified-badge:active svg {
       }
     }
     
-    /* Compact Firestore-backed customer reviews */
-    #pubReviewsCard { margin-top: 10px !important; margin-bottom: 10px !important; padding: 14px 16px !important; }
-    .pub-reviews-header { display:flex; align-items:center; justify-content:space-between; gap:10px; }
-    .pub-reviews-title { font-size:14px; font-weight:800; color:#F8FAFC; }
-    .pub-reviews-summary { margin-top:4px; font-size:12px; color:#CBD5E1; }
+    /* Premium Firestore-backed customer reviews */
+    #pubReviewsCard { margin-top: 10px !important; margin-bottom: 10px !important; padding: 20px !important; }
+    .pub-reviews-header { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+    .pub-reviews-title { font-size:16px; font-weight:800; color:#F8FAFC; letter-spacing:-.2px; }
+    .pub-reviews-summary { margin-top:5px; font-size:12px; color:#CBD5E1; }
     .pub-reviews-stars { color:#FBBF24; letter-spacing:1px; }
-    .pub-reviews-list { display:grid; gap:9px; margin-top:12px; }
-    .pub-review-row { padding:9px 0; border-top:1px solid rgba(255,255,255,.07); }
-    .pub-review-row:first-child { border-top:0; padding-top:0; }
-    .pub-review-line { display:flex; align-items:baseline; gap:7px; flex-wrap:wrap; font-size:12px; line-height:1.45; }
-    .pub-review-line-stars { color:#FBBF24; letter-spacing:.5px; white-space:nowrap; }
-    .pub-review-author { color:#F8FAFC; font-weight:700; }
-    .pub-review-text { color:#CBD5E1; }
-    .pub-review-date { color:#64748B; white-space:nowrap; }
-    .pub-review-empty { margin-top:10px; color:#94A3B8; font-size:12px; line-height:1.55; }
-    .pub-review-btn { flex:0 0 auto; border:1px solid rgba(96,165,250,.35); background:rgba(37,99,235,.16); color:#93C5FD; border-radius:7px; padding:6px 9px; font:600 11px/1.2 Inter,sans-serif; cursor:pointer; }
-    .pub-review-btn:hover { background:rgba(37,99,235,.25); }
-    .review-modal-backdrop { position:fixed; inset:0; z-index:11000; display:none; align-items:center; justify-content:center; padding:16px; background:rgba(3,7,18,.72); }
+    .pub-reviews-list { display:grid; grid-template-columns:1fr; gap:11px; margin-top:16px; }
+    .pub-review-row { display:block; min-width:0; border:1px solid rgba(148,163,184,.18); border-radius:12px; background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.025)); overflow:hidden; transition:border-color .2s,background .2s,transform .2s; }
+    .pub-review-row:hover { border-color:rgba(96,165,250,.48); background:rgba(255,255,255,.065); transform:translateY(-1px); }
+    .pub-review-card-trigger { width:100%; display:flex; align-items:flex-start; gap:12px; padding:14px; text-align:left; border:0; background:transparent; color:inherit; cursor:pointer; font:inherit; }
+    .pub-review-avatar { width:40px; height:40px; flex:0 0 40px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1D4ED8,#4F46E5); color:#fff; font-size:14px; font-weight:800; }
+    .pub-review-card-main { flex:1; min-width:0; }
+    .pub-review-card-top { display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap; }
+    .pub-review-author { color:#F8FAFC; font-weight:800; font-size:13px; }
+    .pub-review-line-stars { color:#FBBF24; letter-spacing:.5px; white-space:nowrap; font-size:12px; }
+    .pub-review-preview { display:block; margin-top:6px; color:#CBD5E1; font-size:12px; line-height:1.6; overflow-wrap:anywhere; }
+    .pub-review-meta { display:flex; align-items:center; gap:8px; margin-top:8px; color:#94A3B8; font-size:11px; flex-wrap:wrap; }
+    .pub-review-open-hint { margin-left:auto; color:#93C5FD; font-weight:700; white-space:nowrap; }
+    .pub-review-details { display:none; padding:0 14px 14px 66px; }
+    .pub-review-row.expanded .pub-review-details { display:block; }
+    .pub-review-full-text { color:#E2E8F0; font-size:13px; line-height:1.75; white-space:pre-wrap; overflow-wrap:anywhere; }
+    .pub-review-proof { display:block; width:min(100%,360px); max-height:260px; object-fit:contain; object-position:left center; margin-top:12px; border:1px solid rgba(148,163,184,.22); border-radius:9px; background:#0F172A; cursor:zoom-in; }
+    .pub-review-social { display:inline-flex; align-items:center; gap:6px; margin-top:11px; color:#93C5FD; font-size:12px; font-weight:700; text-decoration:none; overflow-wrap:anywhere; }
+    .pub-review-social:hover { color:#BFDBFE; text-decoration:underline; }
+    .pub-review-date { color:#94A3B8; font-size:11px; }
+    .pub-review-empty { margin-top:10px; padding:18px 14px; text-align:center; border:1px dashed rgba(148,163,184,.25); border-radius:11px; color:#94A3B8; font-size:12px; line-height:1.6; }
+    .pub-review-list-actions { display:flex; justify-content:center; margin-top:12px; }
+    .pub-review-more { border:0; background:transparent; color:#93C5FD; font:700 12px Inter,sans-serif; padding:7px 12px; cursor:pointer; }
+    .pub-review-more:hover { color:#DBEAFE; text-decoration:underline; }
+    .pub-review-btn { flex:0 0 auto; border:1px solid rgba(96,165,250,.4); background:linear-gradient(135deg,#2563EB,#4F46E5); color:#fff; border-radius:8px; padding:9px 13px; font:700 11px/1.2 Inter,sans-serif; cursor:pointer; box-shadow:0 4px 12px rgba(37,99,235,.2); }
+    .pub-review-btn:hover { filter:brightness(1.08); transform:translateY(-1px); }
+    .review-modal-backdrop { position:fixed; inset:0; z-index:11000; display:none; align-items:center; justify-content:center; padding:16px; background:rgba(3,7,18,.78); backdrop-filter:blur(5px); }
     .review-modal-backdrop.open { display:flex; }
-    .review-modal { width:min(390px,100%); background:#fff; color:#0F172A; border-radius:14px; padding:18px; box-shadow:0 24px 80px rgba(0,0,0,.35); }
-    .review-modal-head { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; }
-    .review-modal-title { font-size:17px; font-weight:800; }
-    .review-modal-close { border:0; background:#F1F5F9; color:#64748B; width:30px; height:30px; border-radius:8px; cursor:pointer; font-size:20px; line-height:1; }
-    .review-form { display:grid; gap:12px; }
-    .review-form label { display:grid; gap:5px; font-size:12px; font-weight:700; color:#334155; }
-    .review-form input, .review-form textarea { width:100%; border:1px solid #E2E8F0; border-radius:8px; padding:9px 11px; font:14px/1.4 Inter,sans-serif; color:#0F172A; background:#F8FAFC; outline:none; }
+    .review-modal { width:min(510px,100%); max-height:min(92vh,850px); overflow-y:auto; background:#fff; color:#0F172A; border:1px solid rgba(255,255,255,.7); border-radius:18px; padding:24px; box-shadow:0 28px 90px rgba(0,0,0,.4); }
+    .review-modal-head { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; margin-bottom:18px; }
+    .review-modal-title { font-size:19px; font-weight:800; letter-spacing:-.4px; }
+    .review-modal-subtitle { margin-top:5px; color:#64748B; font-size:12px; line-height:1.6; font-weight:400; }
+    .review-modal-close { border:0; background:#F1F5F9; color:#64748B; width:34px; height:34px; flex:0 0 34px; border-radius:9px; cursor:pointer; font-size:21px; line-height:1; }
+    .review-form { display:grid; gap:15px; }
+    .review-form label { display:grid; gap:7px; font-size:12px; font-weight:700; color:#334155; }
+    .review-field-help { color:#64748B; font-size:11px; line-height:1.5; font-weight:400; }
+    .review-form input, .review-form textarea { width:100%; border:1px solid #DCE3ED; border-radius:9px; padding:11px 12px; font:13px/1.5 Inter,sans-serif; color:#0F172A; background:#F8FAFC; outline:none; }
     .review-form input:focus, .review-form textarea:focus { border-color:#2563EB; box-shadow:0 0 0 3px rgba(37,99,235,.1); background:#fff; }
-    .review-form textarea { min-height:90px; resize:vertical; }
+    .review-form textarea { min-height:125px; resize:vertical; }
+    .review-file-wrap { padding:12px; border:1px dashed #CBD5E1; border-radius:10px; background:#F8FAFC; }
+    .review-file-wrap input[type=file] { padding:8px; font-size:12px; background:#fff; }
+    .review-image-preview { display:none; max-width:100%; max-height:180px; object-fit:contain; margin-top:10px; border-radius:8px; border:1px solid #E2E8F0; }
     .review-rating { display:flex; gap:3px; }
     .review-rating button { border:0; background:none; padding:1px; color:#F59E0B; font-size:29px; line-height:1; cursor:pointer; }
     .review-rating button:focus-visible { outline:2px solid #2563EB; border-radius:4px; }
-    .review-form-message { display:none; font-size:12px; line-height:1.45; }
+    .review-form-message { display:none; font-size:12px; line-height:1.5; }
     .review-form-message.error { display:block; color:#B91C1C; }
     .review-form-message.success { display:block; color:#15803D; }
     .review-form-actions { display:flex; justify-content:flex-end; gap:8px; margin-top:2px; }
-    @media (max-width:540px) { .pub-review-btn { padding:6px 8px; } .review-modal { padding:16px; } }
+    @media (max-width:540px) {
+      #pubReviewsCard { padding:16px !important; }
+      .pub-review-btn { padding:8px 10px; }
+      .review-modal { padding:18px; border-radius:15px; }
+      .pub-review-details { padding-left:14px; }
+      .pub-review-card-trigger { padding:12px; }
+    }
 
     .pub-proof-badge{background:linear-gradient(135deg,#16A34A,#15803D)!important;color:#fff!important;border:1px solid rgba(134,239,172,.45)!important;box-shadow:0 3px 10px rgba(22,163,74,.22)!important}
     .pub-proof-item{border-color:var(--border)!important;box-shadow:var(--shadow-sm)!important}
@@ -3373,6 +3398,257 @@ button.pub-verified-badge:active svg {
       .image-slot, .add-slot { min-width: 0; }
       .pub-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
       .pub-proof-item, .pub-gallery-item { min-width: 0; aspect-ratio: 4 / 3; }
+    }
+
+
+    /* Public profile refinement: clearer hierarchy, restrained motion and mobile-first spacing. */
+    .pub-cover {
+      min-height: 190px;
+      height: clamp(190px, 24vw, 230px) !important;
+    }
+    .pub-cover-text {
+      top: 50% !important;
+      bottom: auto !important;
+      transform: translateY(-50%);
+      left: 0 !important;
+      right: 0 !important;
+      max-width: 100%;
+      padding: 18px 22px !important;
+      z-index: 2;
+    }
+    .pub-cover-title,
+    .pub-cover-subtitle {
+      font-size: clamp(21px, 2.4vw, 27px) !important;
+      line-height: 1.13 !important;
+      letter-spacing: -0.8px !important;
+      font-weight: 800 !important;
+      text-shadow: 0 2px 14px rgba(0,0,0,.22);
+    }
+    .pub-cover-title { color: #60A5FA !important; }
+    .pub-cover-subtitle { color: #F8FAFC !important; margin-bottom: 8px !important; }
+    .pub-cover-desc {
+      max-width: 360px;
+      color: #CBD5E1 !important;
+      font-size: 12px !important;
+      line-height: 1.65 !important;
+    }
+    .pub-cover-shield {
+      right: clamp(14px, 4vw, 30px) !important;
+      opacity: .34 !important;
+    }
+    .pub-cover-shield svg { width: clamp(68px, 10vw, 96px) !important; height: auto !important; }
+
+    .pub-card-title {
+      color: #F8FAFC !important;
+      font-size: 14px !important;
+      line-height: 1.4 !important;
+      font-weight: 750 !important;
+      letter-spacing: -.15px !important;
+    }
+    .pub-card-title svg {
+      width: 17px !important;
+      height: 17px !important;
+      stroke: #60A5FA !important;
+      stroke-width: 2 !important;
+      flex: 0 0 auto;
+    }
+    .pub-why-item {
+      align-items: flex-start !important;
+      gap: 13px !important;
+      padding: 15px 0 !important;
+      border-bottom: 1px solid rgba(148,163,184,.13) !important;
+    }
+    .pub-why-item:last-child { border-bottom: 0 !important; }
+    .pub-why-check {
+      width: 38px !important;
+      height: 38px !important;
+      min-width: 38px !important;
+      border-radius: 12px !important;
+      display: grid !important;
+      place-items: center !important;
+      margin-top: 0 !important;
+      background: linear-gradient(145deg, rgba(37,99,235,.22), rgba(79,70,229,.16)) !important;
+      border: 1px solid rgba(96,165,250,.3) !important;
+      box-shadow: 0 5px 16px rgba(2,8,23,.18) !important;
+      animation: none !important;
+    }
+    .pub-why-check svg {
+      width: 20px !important;
+      height: 20px !important;
+      stroke: #93C5FD !important;
+      stroke-width: 2 !important;
+      stroke-linecap: round !important;
+      stroke-linejoin: round !important;
+      animation: none !important;
+      transition: transform .22s ease, stroke .22s ease;
+    }
+    .pub-why-item:hover .pub-why-check {
+      transform: translateY(-2px);
+      border-color: rgba(96,165,250,.55) !important;
+      box-shadow: 0 8px 20px rgba(37,99,235,.18) !important;
+    }
+    .pub-why-item:hover .pub-why-check svg {
+      transform: scale(1.08);
+      stroke: #BFDBFE !important;
+    }
+    .pub-why-title {
+      color: #F1F5F9 !important;
+      font-size: 13.5px !important;
+      line-height: 1.45 !important;
+      font-weight: 750 !important;
+      letter-spacing: -.1px;
+    }
+    .pub-why-sub {
+      color: #AAB8CA !important;
+      font-size: 12.5px !important;
+      line-height: 1.7 !important;
+      font-weight: 400 !important;
+      margin-top: 4px !important;
+      max-width: 58ch;
+    }
+
+    /* Expanded reviews display one copy of the review, not the preview and full text together. */
+    .pub-review-row.expanded .pub-review-preview { display: none !important; }
+    .pub-review-details {
+      margin: 0 14px 14px 66px;
+      padding: 14px 16px !important;
+      border: 1px solid rgba(148,163,184,.16);
+      border-radius: 11px;
+      background: rgba(7,14,28,.48);
+    }
+    .pub-review-detail-heading {
+      color: #93C5FD;
+      font-size: 10px;
+      line-height: 1.4;
+      font-weight: 800;
+      letter-spacing: .8px;
+      text-transform: uppercase;
+      margin-bottom: 9px;
+    }
+    .pub-review-full-text {
+      color: #F1F5F9 !important;
+      font-size: 13px !important;
+      line-height: 1.8 !important;
+      font-weight: 450;
+    }
+    .pub-review-proof {
+      margin-top: 15px !important;
+      border-radius: 10px !important;
+      border-color: rgba(148,163,184,.24) !important;
+    }
+    .pub-review-social {
+      padding: 9px 11px;
+      border: 1px solid rgba(96,165,250,.24);
+      border-radius: 8px;
+      background: rgba(37,99,235,.1);
+    }
+    .pub-review-open-hint { font-size: 11px; letter-spacing: .1px; }
+    .pub-review-row.expanded { border-color: rgba(96,165,250,.45) !important; }
+    #pubReviewsCard { margin-top: 10px !important; }
+    #pubQrCard { margin-top: 10px !important; }
+
+    @media (max-width: 900px) {
+      .pub-cover { height: 205px !important; }
+      .pub-cover-text { padding: 16px 20px !important; }
+      .pub-cover-shield { right: 16px !important; opacity: .24 !important; }
+    }
+    @media (max-width: 640px) {
+      .pub-cover {
+        height: 190px !important;
+        min-height: 190px;
+      }
+      .pub-cover-text {
+        top: 50% !important;
+        padding: 14px 17px !important;
+        max-width: 82%;
+      }
+      .pub-cover-title,
+      .pub-cover-subtitle {
+        font-size: clamp(20px, 6vw, 24px) !important;
+        letter-spacing: -.65px !important;
+      }
+      .pub-cover-desc { font-size: 11px !important; line-height: 1.55 !important; }
+      .pub-cover-shield { right: 8px !important; opacity: .18 !important; }
+      .pub-cover-shield svg { width: 62px !important; }
+      .pub-why-item { gap: 11px !important; padding: 14px 0 !important; }
+      .pub-why-check { width: 34px !important; height: 34px !important; min-width: 34px !important; border-radius: 10px !important; }
+      .pub-why-check svg { width: 18px !important; height: 18px !important; }
+      .pub-why-title { font-size: 13px !important; }
+      .pub-why-sub { font-size: 12px !important; line-height: 1.65 !important; }
+      .pub-review-details {
+        margin: 0 11px 12px !important;
+        padding: 13px !important;
+      }
+      .pub-review-card-trigger { gap: 10px !important; }
+      .pub-review-avatar { width: 36px !important; height: 36px !important; flex-basis: 36px !important; }
+      .pub-review-card-top { align-items: flex-start !important; }
+      .pub-review-open-hint { margin-left: 0 !important; }
+      .pub-reviews-header { align-items: flex-start !important; }
+      .pub-review-btn { white-space: nowrap; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .pub-why-check, .pub-why-check svg { animation: none !important; transition: none !important; }
+    }
+
+
+    /* Requested public-profile refinements */
+    .pub-cover-shield {
+      right: 24px !important; top: 50% !important;
+      transform: translateY(-50%) !important; opacity: 1 !important;
+      z-index: 1 !important; width: 112px; height: 112px;
+      display: flex; align-items: center; justify-content: center;
+      filter: drop-shadow(0 0 13px rgba(59,130,246,.48)) drop-shadow(0 8px 18px rgba(0,0,0,.35));
+      animation: pubShieldFloat 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .pub-cover-shield svg { width: 100% !important; height: 100% !important; overflow: visible; }
+    .pub-cover-text { z-index: 2; right: 145px !important; padding-right: 0 !important; }
+    @keyframes pubShieldFloat {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(calc(-50% - 5px)) scale(1.035); }
+    }
+    #pubReviewsCard {
+      background: transparent !important;
+      -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: 1px solid rgba(148,163,184,.24) !important;
+      border-radius: 14px !important;
+    }
+    @media (max-width: 600px) {
+      .pub-cover-shield { width: 88px; height: 88px; right: 15px !important; }
+      .pub-cover-text { right: 105px !important; padding-left: 16px !important; }
+      .pub-cover-title, .pub-cover-subtitle { font-size: 17px !important; }
+      .pub-cover-desc { font-size: 10px !important; }
+    }
+    @media (max-width: 360px) {
+      .pub-cover-shield { width: 70px; height: 70px; right: 10px !important; }
+      .pub-cover-text { right: 82px !important; }
+      .pub-cover-title, .pub-cover-subtitle { font-size: 15px !important; }
+    }
+    @media (prefers-reduced-motion: reduce) { .pub-cover-shield { animation: none !important; } }
+
+    /* Match the single rounded outline and spacing used by Customer Reviews. */
+    #pubWhyTrustCard,
+    #pubQrCard,
+    #pubReviewsCard {
+      background: transparent !important;
+      -webkit-backdrop-filter: none !important;
+      backdrop-filter: none !important;
+      box-shadow: none !important;
+      border: 1px solid rgba(148,163,184,.24) !important;
+      border-radius: 14px !important;
+      padding: 20px !important;
+      margin: 10px 0 !important;
+      width: 100%;
+      min-width: 0;
+    }
+    @media (max-width: 540px) {
+      #pubWhyTrustCard,
+      #pubQrCard,
+      #pubReviewsCard {
+        padding: 16px !important;
+        margin: 10px 0 !important;
+      }
     }
 
 </style>
@@ -3998,9 +4274,19 @@ button.pub-verified-badge:active svg {
             <div class="pub-cover-pattern"></div>
             <div class="pub-cover-shield">
               <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M40 6L68 18v22C68 55 56 68 40 74 24 68 12 55 12 40V18L40 6z" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
-                <path d="M40 14L62 24v18C62 53 52 63 40 68 28 63 18 53 18 42V24L40 14z" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
-                <path d="M28 41l9 9 15-16" stroke="rgba(34,197,94,0.7)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <defs>
+                  <linearGradient id="pubCoverShieldFill" x1="12" y1="6" x2="68" y2="74" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#60A5FA"/>
+                    <stop offset="1" stop-color="#1D4ED8"/>
+                  </linearGradient>
+                  <linearGradient id="pubCoverCheck" x1="28" y1="34" x2="52" y2="54" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#ECFDF5"/>
+                    <stop offset="1" stop-color="#4ADE80"/>
+                  </linearGradient>
+                </defs>
+                <path d="M40 6L68 18v22C68 55 56 68 40 74 24 68 12 55 12 40V18L40 6z" fill="url(#pubCoverShieldFill)" stroke="#BFDBFE" stroke-width="2.5"/>
+                <path d="M40 14L62 24v18C62 53 52 63 40 68 28 63 18 53 18 42V24L40 14z" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.5"/>
+                <path d="M27 40l10 10 17-19" stroke="url(#pubCoverCheck)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
             <div class="pub-cover-text">
@@ -4265,67 +4551,7 @@ button.pub-verified-badge:active svg {
             <div id="pubPortfolioGallery"></div>
           </div>
 
-          <!-- Why Customers Trust This Business -->
-          <div class="pub-card">
-            <div class="pub-card-title">
-              <svg viewBox="0 0 16 16"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z"/></svg>
-              Why Customers Trust This Business
-            </div>
-            <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
-              <div>
-                <div class="pub-why-title">Verified Business Identity</div>
-                <div class="pub-why-sub">This business has been screened and verified by BevoTrust. True identity and information are confirmed.</div>
-              </div>
-            </div>
-            <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div>
-              <div>
-                <div class="pub-why-title">Public Business Information</div>
-                <div class="pub-why-sub">All displayed contact details, location, and business information are publicly verified and up to date.</div>
-              </div>
-            </div>
-            <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H4z"/><path d="m8 10 2.5 2.5L16 8"/></svg></div>
-              <div>
-                <div class="pub-why-title">Customer Trust Proof</div>
-                <div class="pub-why-sub">Real reviews and trust evidence uploaded by the business owner prove legitimate transactions and satisfied customers.</div>
-              </div>
-            </div>
-            <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M7 15l3-4 2 2 2-3 3 5"/></svg></div>
-              <div>
-                <div class="pub-why-title">Portfolio Available</div>
-                <div class="pub-why-sub">Recent work samples and past projects to evaluate quality and professionalism before engaging.</div>
-              </div>
-            </div>
-            <div class="pub-why-item">
-              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12h6M12 9v6"/></svg></div>
-              <div>
-                <div class="pub-why-title">Protected by BevoTrust</div>
-                <div class="pub-why-sub">BevoTrust monitors and safeguards verified profiles, ensuring authenticity for every business on the platform.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- QR Verification -->
-          <div class="pub-card" id="pubQrCard">
-            <div class="pub-card-title">
-              <svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="0.5"/></svg>
-              Verify this Business
-            </div>
-            <div class="pub-qr-sub" style="font-size:12px;color:#64748B;margin-bottom:14px">Scan this QR code to verify this BevoTrust profile.</div>
-            <div class="pub-qr-wrap">
-              <div id="pubQrCodeEl" style="width:160px;height:160px;border-radius:10px;overflow:hidden;background:#fff;padding:6px"></div>
-              <div class="pub-qr-url-text">trustcobra.name.ng</div>
-              <a href="#" class="pub-qr-dl-btn" onclick="return false">
-                <svg viewBox="0 0 16 16"><path d="M8 3v8M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
-                Download QR Code
-              </a>
-            </div>
-          </div>
-
-          <!-- Customer Reviews — directly below the QR section -->
+          <!-- Customer Reviews — directly below the portfolio gallery -->
           <div class="pub-card" id="pubReviewsCard">
             <div class="pub-reviews-header">
               <div>
@@ -4337,7 +4563,72 @@ button.pub-verified-badge:active svg {
             <div class="pub-reviews-list" id="pubReviewsContent" aria-live="polite"></div>
           </div>
 
+
+            <div class="pub-qr-sub" style="font-size:12px;color:#64748B;margin-bottom:14px">Scan this QR code to verify this BevoTrust profile.</div>
+            <div class="pub-qr-wrap">
+              <div id="pubQrCodeEl" style="width:160px;height:160px;border-radius:10px;overflow:hidden;background:#fff;padding:6px"></div>
+              <div class="pub-qr-url-text">trustcobra.name.ng</div>
+              <a href="#" class="pub-qr-dl-btn" onclick="return false">
+                <svg viewBox="0 0 16 16"><path d="M8 3v8M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
+                Download QR Code
+              </a>
+            </div>
+          </div>
+
+
+          <!-- Why Customers Trust This Business -->
+          <div class="pub-card" id="pubWhyTrustCard">
+            <div class="pub-card-title">
+              <svg viewBox="0 0 16 16"><path d="M8 2L14 5.5V10.5L8 14L2 10.5V5.5L8 2Z"/></svg>
+              Why Customers Trust This Business
+            </div>
+            <div class="pub-why-item">
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="m8.5 12 2.2 2.2 4.8-5"/></svg></div>
+              <div>
+                <div class="pub-why-title">Verified Business Identity</div>
+                <div class="pub-why-sub">BevoTrust has reviewed this business identity as part of its profile verification process.</div>
+              </div>
+            </div>
+            <div class="pub-why-item">
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M8 9h8M8 13h5"/></svg></div>
+              <div>
+                <div class="pub-why-title">Public Business Information</div>
+                <div class="pub-why-sub">Business details and contact options are displayed openly, making it easier to review the information and reach the business.</div>
+              </div>
+            </div>
+            <div class="pub-why-item">
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v12H4z"/><path d="m8 10 2.5 2.5L16 8"/></svg></div>
+              <div>
+                <div class="pub-why-title">Customer Trust Proof</div>
+                <div class="pub-why-sub">Customer feedback and supporting materials can help visitors understand other customers’ experiences.</div>
+              </div>
+            </div>
+            <div class="pub-why-item">
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M7 15l3-4 2 2 2-3 3 5"/></svg></div>
+              <div>
+                <div class="pub-why-title">Portfolio Available</div>
+                <div class="pub-why-sub">Explore examples of the business’s work before deciding whether its services are right for you.</div>
+              </div>
+            </div>
+            <div class="pub-why-item">
+              <div class="pub-why-check"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z"/><path d="M9 12h6M12 9v6"/></svg></div>
+              <div>
+                <div class="pub-why-title">Protected by BevoTrust</div>
+                <div class="pub-why-sub">This profile brings key business information together in one place, with verification details provided by BevoTrust.</div>
+              </div>
+            </div>
+          </div>
+
+
           
+
+          <!-- QR Verification — placed after Why Customers Trust This Business -->
+          <!-- QR Verification -->
+          <div class="pub-card" id="pubQrCard">
+            <div class="pub-card-title">
+              <svg viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5" rx="1"/><rect x="9" y="2" width="5" height="5" rx="1"/><rect x="2" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="0.5"/></svg>
+              Verify this Business
+            </div>
 
           <!-- Analytics Stats Bar -->
           <div class="pub-analytics-bar">
@@ -4416,18 +4707,21 @@ button.pub-verified-badge:active svg {
 
   </div><!-- /publicProfileView -->
 
-  <!-- Customer review modal -->
+  <!-- Customer review form -->
   <div class="review-modal-backdrop" id="reviewModal" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle" onclick="if(event.target===this)closeReviewModal()">
     <div class="review-modal">
       <div class="review-modal-head">
-        <div class="review-modal-title" id="reviewModalTitle">Leave a Review</div>
+        <div>
+          <div class="review-modal-title" id="reviewModalTitle">Share your experience</div>
+          <div class="review-modal-subtitle">Help others make an informed decision by sharing an honest account of your experience.</div>
+        </div>
         <button type="button" class="review-modal-close" aria-label="Close review form" onclick="closeReviewModal()">×</button>
       </div>
       <form id="customerReviewForm" class="review-form" novalidate>
-        <label>Name
-          <input id="reviewerName" name="name" type="text" maxlength="80" autocomplete="name" required />
+        <label for="reviewerName">Your name
+          <input id="reviewerName" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Enter your full name" required />
         </label>
-        <label>Rating
+        <label>Overall rating
           <div class="review-rating" id="reviewRating" role="radiogroup" aria-label="Rating from one to five stars">
             <button type="button" data-rating="1" role="radio" aria-label="1 star">☆</button>
             <button type="button" data-rating="2" role="radio" aria-label="2 stars">☆</button>
@@ -4436,8 +4730,17 @@ button.pub-verified-badge:active svg {
             <button type="button" data-rating="5" role="radio" aria-label="5 stars">☆</button>
           </div>
         </label>
-        <label>Review
-          <textarea id="reviewText" name="review" maxlength="1000" required></textarea>
+        <label for="reviewText">Tell us about your experience
+          <textarea id="reviewText" name="review" maxlength="2000" placeholder="Describe the service you received, what went well, and your overall experience..." required></textarea>
+        </label>
+        <label for="reviewProofImage">Add a photo that supports your review <span class="review-field-help">Optional — upload a relevant image of the work, product, or service you received (JPG, PNG or WEBP, up to 10 MB).</span>
+          <div class="review-file-wrap">
+            <input id="reviewProofImage" name="proofImage" type="file" accept="image/jpeg,image/png,image/webp" />
+            <img id="reviewImagePreview" class="review-image-preview" alt="Selected review proof preview" />
+          </div>
+        </label>
+        <label for="reviewSocialLink">Your social profile link <span class="review-field-help">Optional — add a public social media profile so readers can learn more about the reviewer.</span>
+          <input id="reviewSocialLink" name="socialLink" type="url" maxlength="500" placeholder="https://instagram.com/yourprofile" />
         </label>
         <div id="reviewFormMessage" class="review-form-message" role="status" aria-live="polite"></div>
         <div class="review-form-actions">
@@ -6938,42 +7241,131 @@ window.closePubLightbox = closePubLightbox;
     function updateReviewTargets(reviews) {
       const valid = Array.isArray(reviews) ? reviews : [];
       const count = valid.length;
-      const average = count ? valid.reduce((sum, r) => sum + Number(r.rating), 0) / count : 0;
-      document.querySelectorAll('.pubReviewsContent, #pubReviewsContent').forEach(() => {});
+      const average = count ? valid.reduce((sum, r) => sum + (Number(r.rating) || 0), 0) / count : 0;
       document.querySelectorAll('#pubReviewsSummary, .pubReviewsSummary').forEach(el => {
-        if (count) {
-          el.textContent = `${reviewStars(Math.round(average))} ${average.toFixed(1)}/5 ${count} ${count === 1 ? 'review' : 'reviews'}`;
-        } else {
-          el.innerHTML = '<span class="pub-reviews-stars" aria-label="Five stars shown as a review-section cue, not a customer rating">★★★★★</span><span class="pub-reviews-no-rating"> No reviews yet</span>';
-        }
+        el.textContent = count
+          ? `${average.toFixed(1)} out of 5 · ${count} ${count === 1 ? 'review' : 'reviews'}`
+          : 'No reviews yet. Be the first to share your experience.';
       });
+
       document.querySelectorAll('#pubReviewsContent').forEach(target => {
         target.innerHTML = '';
         if (!count) {
-          target.innerHTML = '<div class="pub-review-empty">Be the first to review this business.</div>';
+          const empty = document.createElement('div');
+          empty.className = 'pub-review-empty';
+          empty.textContent = 'No customer reviews have been shared yet. If you have worked with this business, your honest feedback can help others decide with confidence.';
+          target.appendChild(empty);
           return;
         }
-        valid.slice(0, 5).forEach(review => {
-          const row = document.createElement('div');
+
+        const showAll = target.dataset.showAll === 'true';
+        const visible = showAll ? valid : valid.slice(0, 3);
+        visible.forEach((review, index) => {
+          const row = document.createElement('article');
           row.className = 'pub-review-row';
-          const line = document.createElement('div');
-          line.className = 'pub-review-line';
-          const stars = document.createElement('span');
-          stars.className = 'pub-review-line-stars';
-          stars.textContent = reviewStars(Number(review.rating));
+          row.dataset.reviewId = review.id || String(index);
+
+          const trigger = document.createElement('button');
+          trigger.type = 'button';
+          trigger.className = 'pub-review-card-trigger';
+          trigger.setAttribute('aria-expanded', 'false');
+
+          const avatar = document.createElement('span');
+          avatar.className = 'pub-review-avatar';
+          avatar.textContent = (review.reviewerName || 'C').trim().charAt(0).toUpperCase();
+
+          const main = document.createElement('span');
+          main.className = 'pub-review-card-main';
+          const top = document.createElement('span');
+          top.className = 'pub-review-card-top';
           const author = document.createElement('strong');
           author.className = 'pub-review-author';
           author.textContent = review.reviewerName || 'Customer';
-          const text = document.createElement('span');
-          text.className = 'pub-review-text';
-          text.textContent = review.reviewText || '';
+          const stars = document.createElement('span');
+          stars.className = 'pub-review-line-stars';
+          stars.textContent = reviewStars(Number(review.rating));
+          stars.setAttribute('aria-label', `${Number(review.rating) || 0} out of 5 stars`);
+          top.append(author, stars);
+
+          const fullText = String(review.reviewText || '');
+          const preview = document.createElement('span');
+          preview.className = 'pub-review-preview';
+          preview.textContent = fullText.length > 125 ? `${fullText.slice(0, 125).trim()}…` : fullText;
+
+          const meta = document.createElement('span');
+          meta.className = 'pub-review-meta';
           const date = document.createElement('span');
           date.className = 'pub-review-date';
           date.textContent = reviewDateText(review.createdAt);
-          line.append(stars, author, text, date);
-          row.appendChild(line);
+          const hint = document.createElement('span');
+          hint.className = 'pub-review-open-hint';
+          hint.textContent = 'View full review  ↗';
+          meta.append(date, hint);
+          main.append(top, preview, meta);
+          trigger.append(avatar, main);
+
+          const details = document.createElement('div');
+          details.className = 'pub-review-details';
+          const detailHeading = document.createElement('div');
+          detailHeading.className = 'pub-review-detail-heading';
+          detailHeading.textContent = 'Full customer experience';
+          const full = document.createElement('div');
+          full.className = 'pub-review-full-text';
+          full.textContent = fullText;
+          details.append(detailHeading, full);
+
+          const proofUrl = typeof review.proofImageUrl === 'string' ? review.proofImageUrl : '';
+          if (proofUrl && /^https:\/\//i.test(proofUrl)) {
+            const proof = document.createElement('img');
+            proof.className = 'pub-review-proof';
+            proof.src = proofUrl;
+            proof.alt = `Review proof shared by ${review.reviewerName || 'the customer'}`;
+            proof.loading = 'lazy';
+            proof.addEventListener('click', () => {
+              if (typeof window.openPubLightbox === 'function') window.openPubLightbox(proofUrl);
+            });
+            details.appendChild(proof);
+          }
+
+          const socialUrl = typeof review.socialLink === 'string' ? review.socialLink.trim() : '';
+          if (socialUrl) {
+            try {
+              const parsed = new URL(socialUrl);
+              if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+                const social = document.createElement('a');
+                social.className = 'pub-review-social';
+                social.href = parsed.href;
+                social.target = '_blank';
+                social.rel = 'noopener noreferrer';
+                social.textContent = 'View reviewer’s social profile ↗';
+                details.appendChild(social);
+              }
+            } catch {}
+          }
+
+          trigger.addEventListener('click', () => {
+            const expanded = row.classList.toggle('expanded');
+            trigger.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            hint.textContent = expanded ? 'Show less  ↑' : 'View full review  ↗';
+          });
+          row.append(trigger, details);
           target.appendChild(row);
         });
+
+        if (count > 3) {
+          const actions = document.createElement('div');
+          actions.className = 'pub-review-list-actions';
+          const toggle = document.createElement('button');
+          toggle.type = 'button';
+          toggle.className = 'pub-review-more';
+          toggle.textContent = showAll ? 'Show less ↑' : `See all ${count} reviews ↓`;
+          toggle.addEventListener('click', () => {
+            target.dataset.showAll = showAll ? 'false' : 'true';
+            updateReviewTargets(valid);
+          });
+          actions.appendChild(toggle);
+          target.appendChild(actions);
+        }
       });
     }
 
@@ -6991,6 +7383,7 @@ window.closePubLightbox = closePubLightbox;
           const bMs = b.createdAt?.toMillis ? b.createdAt.toMillis() : (b.createdAt ? new Date(b.createdAt).getTime() : 0);
           return bMs - aMs;
         });
+        document.querySelectorAll('#pubReviewsContent').forEach(el => { el.dataset.showAll = 'false'; });
         updateReviewTargets(reviews);
       } catch (err) {
         console.error('[BevoTrust Reviews] Failed to load reviews:', err);
@@ -7015,6 +7408,9 @@ window.closePubLightbox = closePubLightbox;
       _selectedReviewRating = 0;
       const form = document.getElementById('customerReviewForm');
       if (form) form.reset();
+      const preview = document.getElementById('reviewImagePreview');
+      if (preview) { preview.removeAttribute('src'); preview.style.display = 'none'; }
+      document.querySelectorAll('#pubReviewsContent').forEach(el => { el.dataset.showAll = 'false'; });
       setReviewRating(0);
       const message = document.getElementById('reviewFormMessage');
       if (message) { message.textContent = ''; message.className = 'review-form-message'; }
@@ -7033,42 +7429,85 @@ window.closePubLightbox = closePubLightbox;
       event.preventDefault();
       const nameEl = document.getElementById('reviewerName');
       const textEl = document.getElementById('reviewText');
+      const proofEl = document.getElementById('reviewProofImage');
+      const socialEl = document.getElementById('reviewSocialLink');
       const message = document.getElementById('reviewFormMessage');
       const submit = document.getElementById('submitReviewBtn');
       const name = (nameEl?.value || '').trim();
       const reviewText = (textEl?.value || '').trim();
       const rating = Number(_selectedReviewRating);
+      const proofFile = proofEl?.files?.[0] || null;
+      const rawSocialLink = (socialEl?.value || '').trim();
+      let socialLink = '';
+
       const fail = text => {
         if (message) { message.textContent = text; message.className = 'review-form-message error'; }
       };
       if (!name) return fail('Please enter your name.');
       if (!Number.isInteger(rating) || rating < 1 || rating > 5) return fail('Please select a rating from 1 to 5 stars.');
-      if (!reviewText) return fail('Please enter your review.');
+      if (!reviewText) return fail('Please describe your experience.');
       if (!_reviewProfileId) return fail('This profile could not be identified. Please refresh and try again.');
+      if (proofFile && !['image/jpeg', 'image/png', 'image/webp'].includes(proofFile.type)) return fail('Please choose a JPG, PNG or WEBP image.');
+      if (proofFile && proofFile.size > 10 * 1024 * 1024) return fail('The proof image must be 10 MB or smaller.');
+      if (rawSocialLink) {
+        try {
+          const parsed = new URL(rawSocialLink);
+          if (!['http:', 'https:'].includes(parsed.protocol)) throw new Error('Invalid protocol');
+          socialLink = parsed.href;
+        } catch {
+          return fail('Please enter a valid social profile URL beginning with https:// or http://.');
+        }
+      }
 
-      if (submit) { submit.disabled = true; submit.textContent = 'Submitting…'; }
+      if (submit) { submit.disabled = true; submit.textContent = proofFile ? 'Uploading image…' : 'Submitting…'; }
       if (message) { message.textContent = ''; message.className = 'review-form-message'; }
       try {
+        let proofImageUrl = '';
+        if (proofFile) {
+          proofImageUrl = await uploadToCloudinary(proofFile);
+          if (submit) submit.textContent = 'Submitting review…';
+        }
         const reviewRef = doc(collection(db, 'reviews'));
         await setDoc(reviewRef, {
           businessId: _reviewProfileId,
           reviewerName: name,
           rating,
           reviewText,
+          proofImageUrl,
+          socialLink,
           createdAt: serverTimestamp(),
           status: 'published'
         });
-        if (message) { message.textContent = 'Thank you for your review.'; message.className = 'review-form-message success'; }
         toast('Thank you for your review.', 'success');
         const profileId = _reviewProfileId;
         window.closeReviewModal();
         await loadPublicReviews(profileId);
       } catch (err) {
         console.error('[BevoTrust Reviews] Review submission failed:', err);
-        if (message) { message.textContent = 'We could not save your review. Please try again.'; message.className = 'review-form-message error'; }
+        if (message) {
+          message.textContent = 'We could not submit your review. Please check your connection and try again.';
+          message.className = 'review-form-message error';
+        }
         if (submit) { submit.disabled = false; submit.textContent = 'Submit Review'; }
       }
     }
+
+    document.getElementById('reviewProofImage')?.addEventListener('change', event => {
+      const file = event.target.files?.[0];
+      const preview = document.getElementById('reviewImagePreview');
+      if (!preview) return;
+      if (!file) { preview.removeAttribute('src'); preview.style.display = 'none'; return; }
+      if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 10 * 1024 * 1024) {
+        event.target.value = '';
+        preview.removeAttribute('src');
+        preview.style.display = 'none';
+        toast('Choose a JPG, PNG or WEBP image up to 10 MB.', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => { preview.src = reader.result; preview.style.display = 'block'; };
+      reader.readAsDataURL(file);
+    });
 
     document.getElementById('reviewRating')?.querySelectorAll('button').forEach(btn => {
       btn.addEventListener('click', () => setReviewRating(btn.dataset.rating));
