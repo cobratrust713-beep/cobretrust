@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CobraTrust — Sign In</title>
+  <title>BevoTrust — Sign In</title>
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,7 +67,7 @@
       display:flex;
       flex-direction:column;
       align-items:center;
-      padding:52px 20px 32px;
+      padding:34px 18px 24px;
     }
 
     /* subtle dot fields */
@@ -88,19 +88,19 @@
       align-items:center;
       text-decoration:none;
       color:#fff;
-      margin-bottom:48px;
+      margin-bottom:32px;
     }
     .brand-row{display:flex;align-items:center;gap:20px}
     .brand-mark{
-      width:82px;height:82px;
+      width:64px;height:64px;
       display:grid;place-items:center;
       border-radius:20px;
       background:linear-gradient(145deg,#10a5ff,#0b66ed);
       box-shadow:0 16px 34px rgba(0,123,255,.32),inset 0 1px 0 rgba(255,255,255,.25);
     }
-    .brand-mark svg{width:54px;height:54px}
+    .brand-mark svg{width:42px;height:42px}
     .brand-name{
-      font-size:48px;
+      font-size:38px;
       line-height:1;
       font-weight:800;
       letter-spacing:-2px;
@@ -108,7 +108,7 @@
     .brand-name .trust{color:#2492ff}
     .brand-tag{
       margin-top:13px;
-      font-size:17px;
+      font-size:14px;
       color:#b5cdf4;
       letter-spacing:.1px;
     }
@@ -122,18 +122,18 @@
     }
 
     .auth-card{
-      width:min(660px,100%);
+      width:min(560px,100%);
       border:1px solid rgba(39,148,255,.82);
-      border-radius:28px;
+      border-radius:22px;
       background:linear-gradient(180deg,rgba(7,48,117,.48),rgba(3,31,86,.40));
       box-shadow:var(--shadow),inset 0 1px 0 rgba(255,255,255,.04);
-      padding:52px 58px 48px;
+      padding:38px 42px 36px;
       backdrop-filter:blur(9px);
     }
 
     .card-header{margin-bottom:38px}
     .card-headline{
-      font-size:42px;
+      font-size:34px;
       line-height:1.14;
       font-weight:800;
       letter-spacing:-1.6px;
@@ -143,7 +143,7 @@
     .card-sub{
       margin-top:19px;
       max-width:560px;
-      font-size:20px;
+      font-size:16px;
       line-height:1.48;
       color:#bdd1f2;
     }
@@ -152,9 +152,9 @@
 
     .btn,.submit-btn{
       width:100%;
-      min-height:64px;
+      min-height:52px;
       border-radius:15px;
-      font:600 18px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font:600 15px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       cursor:pointer;
       transition:.18s ease;
     }
@@ -168,23 +168,24 @@
       color:#fff;
     }
     .google-btn:hover{background:rgba(25,102,190,.28);transform:translateY(-1px)}
-    .google-btn img{width:27px;height:27px;flex:none}
+    .google-btn:disabled{opacity:.65;cursor:wait;transform:none}
+    .google-btn img{width:21px;height:21px;flex:none}
 
     .divider{
       display:flex;align-items:center;gap:22px;
-      margin:34px 0 31px;
+      margin:25px 0 23px;
       color:#bdd0f0;
-      font-size:17px;
+      font-size:14px;
       justify-content:center;
     }
     .divider::before,.divider::after{
       content:"";height:1px;flex:1;background:rgba(55,150,246,.66)
     }
 
-    .auth-form{display:flex;flex-direction:column;gap:25px}
+    .auth-form{display:flex;flex-direction:column;gap:18px}
     .field-group{display:flex;flex-direction:column;gap:10px}
     .field-label{
-      font-size:17px;
+      font-size:14px;
       font-weight:700;
       color:#fff;
     }
@@ -198,14 +199,14 @@
     }
     .auth-form input{
       width:100%;
-      height:64px;
+      height:52px;
       padding:0 20px 0 64px;
       border:1.5px solid rgba(53,144,237,.72);
       border-radius:15px;
       outline:none;
       background:var(--field);
       color:#fff;
-      font:500 18px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      font:500 15px Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
       transition:.18s ease;
     }
     .auth-form input::placeholder{color:#91b3e4}
@@ -254,7 +255,7 @@
       text-align:center;
       margin-top:31px;
       color:#a9c5eb;
-      font-size:18px;
+      font-size:15px;
     }
     .switch-copy button{
       border:0;background:none;color:#258fff;
@@ -309,10 +310,10 @@
     .footer-links{display:none}
 
     @media(max-width:720px){
-      .page{padding:30px 14px 24px}
+      .page{padding:24px 12px 18px}
       .dots-top{display:none}
       .dots-bottom{left:4px;bottom:25px;transform:scale(.7)}
-      .brand{margin-bottom:28px}
+      .brand{margin-bottom:20px}
       .brand-row{gap:11px}
       .brand-mark{width:54px;height:54px;border-radius:14px}
       .brand-mark svg{width:37px;height:37px}
@@ -321,24 +322,38 @@
       .brand-tag span{margin:0 7px}
       .auth-card{
         border-radius:21px;
-        padding:30px 20px 29px;
+        padding:24px 17px 22px;
       }
-      .card-header{margin-bottom:26px}
-      .card-headline{font-size:29px;letter-spacing:-1px}
-      .card-sub{font-size:15px;line-height:1.5;margin-top:12px}
-      .btn,.submit-btn{min-height:54px;border-radius:12px;font-size:15px}
+      .card-header{margin-bottom:20px}
+      .card-headline{font-size:25px;letter-spacing:-.7px}
+      .card-sub{font-size:14px;line-height:1.45;margin-top:9px}
+      .btn,.submit-btn{min-height:46px;border-radius:10px;font-size:14px}
       .google-btn{gap:11px}
       .google-btn img{width:21px;height:21px}
       .divider{margin:24px 0 22px;font-size:13px;gap:14px}
-      .auth-form{gap:18px}
-      .field-group{gap:7px}
-      .field-label{font-size:14px}
-      .auth-form input{height:54px;border-radius:12px;font-size:15px;padding-left:50px}
+      .auth-form{gap:15px}
+      .field-group{gap:6px}
+      .field-label{font-size:13px}
+      .auth-form input{height:46px;border-radius:10px;font-size:14px;padding-left:50px}
       .input-icon{left:15px;width:20px;height:20px}
       .password-row input{padding-right:52px}
       .forgot{font-size:14px;margin-top:-5px}
-      .switch-copy{font-size:14px;margin-top:23px}
-      footer{padding-top:23px;font-size:12px}
+      .switch-copy{font-size:13px;margin-top:18px}
+      footer{padding-top:17px;font-size:11px}
+    }
+
+
+    @media(max-width:380px){
+      .page{padding-left:10px;padding-right:10px}
+      .brand-name{font-size:27px}
+      .brand-mark{width:48px;height:48px}
+      .brand-mark svg{width:33px;height:33px}
+      .auth-card{padding:19px 13px}
+      .card-headline{font-size:23px}
+      .google-btn{gap:8px}
+    }
+    @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
     }
 
     @media(max-height:760px) and (min-width:721px){
@@ -357,7 +372,7 @@
   <span class="dots dots-top" aria-hidden="true"></span>
   <span class="dots dots-bottom" aria-hidden="true"></span>
 
-  <a href="index.html" class="brand" aria-label="CobraTrust home">
+  <a href="index.html" class="brand" aria-label="BevoTrust home">
     <span class="brand-row">
       <span class="brand-mark" aria-hidden="true">
         <svg viewBox="0 0 64 64" fill="none">
@@ -367,15 +382,15 @@
           <path d="M28.4 27.5h8.4" stroke="#0878F4" stroke-width="4.5" stroke-linecap="round"/>
         </svg>
       </span>
-      <span class="brand-name">Cobra<span class="trust">Trust</span></span>
+      <span class="brand-name">Bevo<span class="trust">Trust</span></span>
     </span>
     <span class="brand-tag">Build Trust <span>•</span> Grow Faster</span>
   </a>
 
   <main class="main">
-    <section class="auth-card" aria-label="CobraTrust account access">
+    <section class="auth-card" aria-label="BevoTrust account access">
       <div class="card-header" id="card-header">
-        <h1 class="card-headline">Welcome to <span class="accent">CobraTrust</span></h1>
+        <h1 class="card-headline">Welcome to <span class="accent">BevoTrust</span></h1>
         <p class="card-sub">Create your account and start building your professional trust profile with powerful tools.</p>
       </div>
       <div id="main-container"></div>
@@ -383,7 +398,7 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 CobraTrust. All rights reserved.</p>
+    <p>&copy; 2026 BevoTrust. All rights reserved.</p>
   </footer>
 </div>
 
@@ -402,6 +417,8 @@ import {
   getAuth,
   GoogleAuthProvider,
   signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
@@ -431,6 +448,19 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+// Complete Google sign-in when the browser returns from Firebase's redirect flow.
+getRedirectResult(auth).catch((err) => {
+  hideLoading();
+  if (err) {
+    const message = formatAuthError(err);
+    const messageEl = document.getElementById("form-message");
+    if (messageEl) {
+      messageEl.textContent = message;
+      messageEl.style.display = "block";
+    }
+  }
+});
+
 const mainContainer = document.getElementById("main-container");
 const cardHeader = document.getElementById("card-header");
 const loading = document.getElementById("loading");
@@ -448,15 +478,7 @@ onAuthStateChanged(auth, async (user) => {
     return;
   }
 
-  const userRef = doc(db, "users", user.uid);
-  const snap = await getDoc(userRef);
-
-  // If no profile OR not completed → setup
-  if (!snap.exists() || snap.data().profileCompleted !== true) {
-    window.location.replace("profile-setup.html");
-  } else {
-    window.location.replace("dashboard.html");
-  }
+  await routeAuthenticatedUser(user);
 });
 
 // =====================
@@ -570,7 +592,12 @@ function formatAuthError(err) {
     "auth/invalid-credential": "The email or password is incorrect.",
     "auth/user-not-found": "No account was found with this email.",
     "auth/wrong-password": "The email or password is incorrect.",
-    "auth/popup-closed-by-user": "The Google sign-in window was closed."
+    "auth/popup-closed-by-user": "The Google sign-in window was closed. Please try again.",
+    "auth/popup-blocked": "Your browser blocked the Google sign-in window. Trying a secure redirect instead.",
+    "auth/unauthorized-domain": "This website domain is not authorized for Google sign-in. Please contact the site administrator.",
+    "auth/operation-not-allowed": "Google sign-in is not enabled for this project yet. Please contact the site administrator.",
+    "auth/network-request-failed": "A network problem interrupted sign-in. Check your connection and try again.",
+    "auth/cancelled-popup-request": "Another sign-in window is already open. Please finish that sign-in first."
   };
   return messages[code] || err?.message || "Something went wrong. Please try again.";
 }
@@ -686,19 +713,47 @@ function showForm(type) {
 // GOOGLE LOGIN FIXED
 // =====================
 async function googleSignIn() {
+  const button = document.getElementById("google-btn");
   try {
     showLoading();
+    if (button) button.disabled = true;
 
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
+    provider.setCustomParameters({ prompt: "select_account" });
 
-    await saveUser(result.user);
-
-    window.location.href = "profile-setup.html";
-
+    // Popups are convenient on desktop. On mobile browsers or when popups
+    // are blocked, fall back to Firebase's redirect-based Google flow.
+    try {
+      const result = await signInWithPopup(auth, provider);
+      await saveUser(result.user);
+      await routeAuthenticatedUser(result.user);
+    } catch (popupError) {
+      const fallbackCodes = [
+        "auth/popup-blocked",
+        "auth/operation-not-supported-in-this-environment",
+        "auth/web-storage-unsupported"
+      ];
+      if (fallbackCodes.includes(popupError?.code)) {
+        await signInWithRedirect(auth, provider);
+        return;
+      }
+      throw popupError;
+    }
   } catch (err) {
     hideLoading();
+    if (button) button.disabled = false;
     showFormMessage(formatAuthError(err));
+  }
+}
+
+// Send existing users to their dashboard and new/incomplete users to setup.
+async function routeAuthenticatedUser(user) {
+  const userRef = doc(db, "users", user.uid);
+  const snap = await getDoc(userRef);
+  if (!snap.exists() || snap.data().profileCompleted !== true) {
+    window.location.replace("profile-setup.html");
+  } else {
+    window.location.replace("dashboard.html");
   }
 }
 
