@@ -4534,7 +4534,7 @@ button.pub-verified-badge:active svg {
                 <svg viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 10l4-3 3 2.5 2-1.5 3 3"/></svg>
                 Trust Proof
               </div>
-              <a href="#" class="pub-view-all-link" onclick="return false">View all</a>
+              <a href="#" class="pub-view-all-link" role="button">View all</a>
             </div>
             <div id="pubProofGallery"></div>
           </div>
@@ -4546,7 +4546,7 @@ button.pub-verified-badge:active svg {
                 <svg viewBox="0 0 16 16"><rect x="1" y="3" width="6" height="5" rx="1"/><rect x="9" y="3" width="6" height="5" rx="1"/><rect x="1" y="10" width="6" height="3" rx="1"/><rect x="9" y="10" width="6" height="3" rx="1"/></svg>
                 Portfolio
               </div>
-              <a href="#" class="pub-view-all-link" onclick="return false">View all</a>
+              <a href="#" class="pub-view-all-link" role="button">View all</a>
             </div>
             <div id="pubPortfolioGallery"></div>
           </div>
@@ -7131,6 +7131,26 @@ button.pub-verified-badge:active svg {
 
 
     // ════════════════════════════════════════════════════════════
+    // Delegated gallery expansion works on both the live public profile and
+    // the owner's preview clone. Event handlers assigned to the original
+    // elements are not copied when that preview is recreated with innerHTML.
+    document.addEventListener('click', function(event) {
+      const link = event.target.closest('.pub-view-all-link');
+      if (!link) return;
+      event.preventDefault();
+
+      const card = link.closest('#pubProofCard, #pubPortfolioCard');
+      if (!card) return;
+
+      const gallery = card.querySelector('#pubProofGallery, #pubPortfolioGallery');
+      if (!gallery) return;
+
+      gallery.querySelectorAll('.pub-proof-item, .pub-gallery-item').forEach(function(item) {
+        item.style.display = '';
+      });
+      link.style.display = 'none';
+    });
+
     // PUBLIC PROFILE ROUTING
     // Detect ?u=username in URL and render public profile instead
     // of the dashboard. This runs before auth state is checked.
@@ -7944,17 +7964,10 @@ if (photoEl) {
         const pc = $('pubProofCard');
         if (pg) pg.innerHTML = proofHTML;
         if (pc) pc.style.display = 'block';
-        // Wire up "View All" link for proof
+        // The View all click is handled by one delegated listener so it also
+        // works in the owner-preview HTML clone (innerHTML does not copy handlers).
         const proofViewAll = pc ? pc.querySelector('.pub-view-all-link') : null;
-        if (proofViewAll && proofArr.length > 3) {
-          proofViewAll.onclick = function(e) {
-            e.preventDefault();
-            pg.querySelectorAll('.pub-proof-item[style*="display:none"]').forEach(el => el.style.display = '');
-            this.style.display = 'none';
-          };
-        } else if (proofViewAll) {
-          proofViewAll.style.display = 'none';
-        }
+        if (proofViewAll) proofViewAll.style.display = proofArr.length > 3 ? '' : 'none';
       }
 
 
@@ -7972,17 +7985,10 @@ if (photoEl) {
         const ppc = $('pubPortfolioCard');
         if (ppg) ppg.innerHTML = portHTML;
         if (ppc) ppc.style.display = 'block';
-        // Wire up "View All" link for portfolio
+        // The View all click is handled by one delegated listener so it also
+        // works in the owner-preview HTML clone (innerHTML does not copy handlers).
         const portViewAll = ppc ? ppc.querySelector('.pub-view-all-link') : null;
-        if (portViewAll && portArr.length > 3) {
-          portViewAll.onclick = function(e) {
-            e.preventDefault();
-            ppg.querySelectorAll('.pub-gallery-item[style*="display:none"]').forEach(el => el.style.display = '');
-            this.style.display = 'none';
-          };
-        } else if (portViewAll) {
-          portViewAll.style.display = 'none';
-        }
+        if (portViewAll) portViewAll.style.display = portArr.length > 3 ? '' : 'none';
       }
 
       // ── QR Code ───────────────────────────────────────────────────
