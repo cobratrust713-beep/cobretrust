@@ -37,6 +37,11 @@
 .market-status-badge{font-size:10px;font-weight:850;color:#17824a;background:#e9f9ef;padding:6px 8px;border-radius:999px;white-space:nowrap}
 .market-view{font-size:11px;color:#fff;background:#0b43b8;border-radius:8px;padding:10px 13px;font-weight:850;white-space:nowrap}
 .market-empty{grid-column:1/-1;padding:35px 20px;border:1px dashed #cbd8e9;border-radius:14px;background:#fff;text-align:center;color:#64748b;font-size:13px}
+.market-more-wrap{grid-column:1/-1;display:flex;justify-content:center;padding-top:8px}
+.market-more-btn{min-height:46px;padding:0 25px;border:0;border-radius:9px;background:#0b43b8;color:#fff;font:850 13px Inter,ui-sans-serif,system-ui,sans-serif;cursor:pointer;box-shadow:0 8px 20px rgba(11,67,184,.16);transition:background .18s,transform .18s}
+.market-more-btn:hover{background:#083894;transform:translateY(-1px)}
+.market-more-btn:focus-visible{outline:3px solid rgba(23,105,224,.3);outline-offset:3px}
+
 .market-hub-note{max-width:780px;margin:24px auto 0;text-align:center;color:#75839a;font-size:11px}
 .market-card.market-highlight{outline:3px solid #1769e0;box-shadow:0 0 0 7px rgba(23,105,224,.12)}
 @media(max-width:900px){.market-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -107,12 +112,44 @@ function dateValue(v){if(!v)return null;if(typeof v.toDate==='function')return v
 function isLive(d){const now=Date.now();const paidExpiry=dateValue(d.subscriptionExpiry);const paid= d.subscription?.plan==='premium'&&d.subscription?.status==='active'&&paidExpiry&&paidExpiry.getTime()>now;const start=dateValue(d.freeTrialStart),trialExpiry=dateValue(d.freeTrialExpiry);const trial=d.freeTrialUsed===true&&start&&trialExpiry&&trialExpiry.getTime()-start.getTime()===30*24*60*60*1000&&start.getTime()<=now&&trialExpiry.getTime()>now;return d.publicProfileAvailable===true&&d.publicProfileStatus==='active'&&(!!paid||!!trial);}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 let profiles=[];
-function render(){const term=(searchEl.value||'').trim().toLowerCase(),cat=categoryEl.value;const filtered=profiles.filter(p=>{const d=p.data;const hay=[d.businessName,d.username,d.businessCategory,d.businessDescription].join(' ').toLowerCase();return (!term||hay.includes(term))&&(!cat||String(d.businessCategory||'').toLowerCase()===cat);});statusEl.textContent=`${filtered.length} public ${filtered.length===1?'profile':'profiles'} available`;
-if(!filtered.length){grid.innerHTML='<div class="market-empty">No matching public profiles found. Try another search or category.</div>';return;}
-grid.innerHTML=filtered.map(({data:d})=>{const name=esc(d.businessName||'BevoTrust member'),catText=esc(d.businessCategory||'Business / service'),username=String(d.username||'').trim();const image=d.logoURL||d.photoURL||'';const avatar=image?`<img src="${esc(image)}" alt="${name}" loading="lazy" referrerpolicy="no-referrer">`:esc((d.businessName||d.username||'B').trim().charAt(0).toUpperCase());const description=esc((d.businessDescription||'Open this profile to view the business information and proof shared by its owner.').slice(0,150));return `<article class="market-card" data-username="${esc(username.toLowerCase())}"><div class="market-card-top"></div><div class="market-card-main"><div class="market-avatar">${avatar}</div><div style="min-width:0"><div class="market-name">${name}</div><div class="market-category">${catText}</div></div></div><div class="market-description">${description}${(d.businessDescription||'').length>150?'…':''}</div><div class="market-card-bottom"><span class="market-status-badge">Public profile</span><a class="market-view" href="${profileUrl(username)}" target="_blank" rel="noopener noreferrer">View profile ↗</a></div></article>`;}).join('');
-const target=new URLSearchParams(location.search).get('marketHubUser');if(target){const card=[...grid.querySelectorAll('.market-card')].find(el=>el.dataset.username===target.toLowerCase());if(card){card.classList.add('market-highlight');card.scrollIntoView({behavior:'smooth',block:'center'});}}
+let showAllProfiles=false;
+function render(){
+ const term=(searchEl.value||'').trim().toLowerCase(),cat=categoryEl.value;
+ const filtered=profiles.filter(p=>{
+  const d=p.data;
+  const hay=[d.businessName,d.username,d.businessCategory,d.businessDescription].join(' ').toLowerCase();
+  return (!term||hay.includes(term))&&(!cat||String(d.businessCategory||'').toLowerCase()===cat);
+ });
+ statusEl.textContent=`${filtered.length} public ${filtered.length===1?'profile':'profiles'} available`;
+ if(!filtered.length){
+  grid.innerHTML='<div class="market-empty">No matching public profiles found. Try another search or category.</div>';
+  return;
+ }
+ const visible=showAllProfiles?filtered:filtered.slice(0,5);
+ const cards=visible.map(({data:d})=>{
+  const name=esc(d.businessName||'BevoTrust member'),catText=esc(d.businessCategory||'Business / service'),username=String(d.username||'').trim();
+  const image=d.logoURL||d.photoURL||'';
+  const avatar=image?`<img src="${esc(image)}" alt="${name}" loading="lazy" referrerpolicy="no-referrer">`:esc((d.businessName||d.username||'B').trim().charAt(0).toUpperCase());
+  const description=esc((d.businessDescription||'Open this profile to view the business information and proof shared by its owner.').slice(0,150));
+  return `<article class="market-card" data-username="${esc(username.toLowerCase())}"><div class="market-card-top"></div><div class="market-card-main"><div class="market-avatar">${avatar}</div><div style="min-width:0"><div class="market-name">${name}</div><div class="market-category">${catText}</div></div></div><div class="market-description">${description}${(d.businessDescription||'').length>150?'…':''}</div><div class="market-card-bottom"><span class="market-status-badge">Public profile</span><a class="market-view" href="${profileUrl(username)}" target="_blank" rel="noopener noreferrer">View profile ↗</a></div></article>`;
+ }).join('');
+ const toggle=filtered.length>5
+  ? `<div class="market-more-wrap"><button type="button" class="market-more-btn" id="marketMoreBtn" aria-expanded="${showAllProfiles}">${showAllProfiles?'Show less…':'See more…'}</button></div>`
+  : '';
+ grid.innerHTML=cards+toggle;
+ const moreBtn=document.getElementById('marketMoreBtn');
+ moreBtn?.addEventListener('click',()=>{
+  showAllProfiles=!showAllProfiles;
+  render();
+  if(!showAllProfiles) document.getElementById('market-hub')?.scrollIntoView({behavior:'smooth',block:'start'});
+ });
+ const target=new URLSearchParams(location.search).get('marketHubUser');
+ if(target){
+  const card=[...grid.querySelectorAll('.market-card')].find(el=>el.dataset.username===target.toLowerCase());
+  if(card){card.classList.add('market-highlight');card.scrollIntoView({behavior:'smooth',block:'center'});}
+ }
 }
-searchEl.addEventListener('input',render);categoryEl.addEventListener('change',render);
+searchEl.addEventListener('input',()=>{showAllProfiles=false;render();});categoryEl.addEventListener('change',()=>{showAllProfiles=false;render();});
 try{const snap=await getDocs(query(collection(db,'users'),where('publicProfileAvailable','==',true)));const seen=new Set();profiles=snap.docs.map(doc=>({id:doc.id,data:doc.data()})).filter(p=>{const d=p.data;const key=String(d.username||'').toLowerCase();if(!key||seen.has(key)||!isLive(d))return false;seen.add(key);return true;}).sort((a,b)=>String(a.data.businessName||'').localeCompare(String(b.data.businessName||'')));
 const categories=[...new Set(profiles.map(p=>String(p.data.businessCategory||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));categoryEl.innerHTML='<option value="">All categories</option>'+categories.map(c=>`<option value="${esc(c.toLowerCase())}">${esc(c)}</option>`).join('');render();
 }catch(err){console.error('BevoTrust Market Hub could not load profiles:',err);statusEl.textContent='The Market Hub could not load profiles.';grid.innerHTML='<div class="market-empty">Profiles could not be loaded right now. This may be due to Firestore access rules. Please try again later.</div>';}
