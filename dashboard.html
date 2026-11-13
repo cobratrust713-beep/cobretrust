@@ -3649,6 +3649,24 @@ button.pub-verified-badge:active svg {
         padding: 16px !important;
         margin: 10px 0 !important;
       }
+
+      #pubQrCard .pub-qr-sub {
+        line-height: 1.55;
+        text-align: center;
+      }
+
+      #pubQrCard #pubQrCodeEl {
+        width: min(160px, 100%) !important;
+        height: auto !important;
+        aspect-ratio: 1;
+      }
+
+      #pubQrCard #pubQrCodeEl canvas,
+      #pubQrCard #pubQrCodeEl img {
+        display: block;
+        max-width: 100%;
+        height: auto !important;
+      }
     }
 
 </style>
@@ -3670,11 +3688,27 @@ button.pub-verified-badge:active svg {
     <div id="globalLoaderText" style="font-size:13px;font-weight:600;color:var(--text-2)">Loading…</div>
   </div>
   <script>
-    // Immediately detect ?user= param and hide loader / skip dashboard init
+    // Public profile URLs use BevoTrust's clean /username format.
+    // Legacy TrustCobra profile URLs redirect visitors to the matching BevoTrust URL.
     (function() {
       var p = new URLSearchParams(window.location.search);
-      var pub = p.get('user') || p.get('u') || p.get('username') || p.get('profile');
-      if (pub) {
+      var queryUser = p.get('user') || p.get('u') || p.get('username') || p.get('profile');
+      var parts = window.location.pathname.split('/').filter(Boolean);
+      var reserved = ['dashboard.html', 'index.html'];
+      var pathUser = parts.length === 1 && !reserved.includes(parts[0].toLowerCase())
+        ? decodeURIComponent(parts[0]) : '';
+      var username = String(queryUser || pathUser || '').trim().toLowerCase();
+      var host = window.location.hostname.toLowerCase();
+      var isLegacyHost = host === 'trustcobra.name.ng' || host === 'www.trustcobra.name.ng';
+
+      if (isLegacyHost && username) {
+        var destination = 'https://bevotrust.com.ng/' + encodeURIComponent(username);
+        if (p.has('ref')) destination += '?ref=' + encodeURIComponent(p.get('ref'));
+        window.location.replace(destination);
+        return;
+      }
+
+      if (username) {
         var loader = document.getElementById('globalLoader');
         if (loader) loader.style.display = 'none';
       } else {
@@ -4564,10 +4598,11 @@ button.pub-verified-badge:active svg {
           </div>
 
 
+          <div class="pub-card" id="pubQrCard" aria-label="BevoTrust profile verification QR code">
             <div class="pub-qr-sub" style="font-size:12px;color:#64748B;margin-bottom:14px">Scan this QR code to verify this BevoTrust profile.</div>
             <div class="pub-qr-wrap">
               <div id="pubQrCodeEl" style="width:160px;height:160px;border-radius:10px;overflow:hidden;background:#fff;padding:6px"></div>
-              <div class="pub-qr-url-text">trustcobra.name.ng</div>
+              <div class="pub-qr-url-text">bevotrust.com.ng</div>
               <a href="#" class="pub-qr-dl-btn" onclick="return false">
                 <svg viewBox="0 0 16 16"><path d="M8 3v8M4 8l4 4 4-4"/><path d="M2 13h12"/></svg>
                 Download QR Code
@@ -4825,10 +4860,10 @@ button.pub-verified-badge:active svg {
       durationLabel: '6 months',
       durationMonths: 6,
     };
-    const PUBLIC_PROFILE_ORIGIN = 'https://trustcobra.name.ng';
+    const PUBLIC_PROFILE_ORIGIN = 'https://bevotrust.com.ng';
     const SELAR_PRODUCT_URL = 'https://selar.com/n7611oz7l6';
     const SUPPORT_WHATSAPP_URL = 'https://wa.me/2349045913993';
-    const publicProfileUrl = username => `${PUBLIC_PROFILE_ORIGIN}/dashboard.html?user=${encodeURIComponent(username)}`;
+    const publicProfileUrl = username => `${PUBLIC_PROFILE_ORIGIN}/${encodeURIComponent(String(username).trim().toLowerCase())}`;
     const AUTHORIZED_VERIFICATION_UIDS = new Set([
       'LVztGT3NkMWhOJYyl8j0hS5yCcB2',
       'SqypVFjvf8hPp2WB9sIHrgM81Qj1',
@@ -6002,7 +6037,7 @@ button.pub-verified-badge:active svg {
             is a registered BevoTrust member
           </div>
           <div style="margin-top:20px;font-size:11px;color:rgba(148,163,184,0.6)">
-            Certificate ID: ${certId} · trustcobra.name.ng
+            Certificate ID: ${certId} · bevotrust.com.ng
           </div>
         </div>
 
@@ -6538,7 +6573,7 @@ button.pub-verified-badge:active svg {
 
       doc.setFontSize(7);
       doc.setTextColor(148, 163, 184);
-      doc.text('trustcobra.name.ng · BevoTrust Verified Business Registry', W / 2, 32, { align: 'center' });
+      doc.text('bevotrust.com.ng · BevoTrust Verified Business Registry', W / 2, 32, { align: 'center' });
 
       // Divider
       doc.setDrawColor(245, 158, 11);
@@ -6579,7 +6614,7 @@ button.pub-verified-badge:active svg {
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8);
       doc.setTextColor(96, 165, 250);
-      if (d.username) doc.text(`${PUBLIC_PROFILE_ORIGIN.replace(/^https?:\/\//, '')}/dashboard.html?user=${d.username}`, W / 2, 112, { align: 'center' });
+      if (d.username) doc.text(publicProfileUrl(d.username).replace(/^https?:\/\//, ''), W / 2, 112, { align: 'center' });
 
       // ── Social links
       const socialLinks = [d.instagram, d.facebook, d.tiktok, d.linkedin, d.twitter, d.youtube].filter(Boolean);
@@ -6612,7 +6647,7 @@ button.pub-verified-badge:active svg {
       doc.setTextColor(100, 116, 139);
       doc.text(`Certificate ID: ${certId}`, 40, 170);
       doc.text(`Issued: ${issueDate}`, W / 2, 170, { align: 'center' });
-      doc.text('trustcobra.name.ng', W - 40, 170, { align: 'right' });
+      doc.text('bevotrust.com.ng', W - 40, 170, { align: 'right' });
 
       // ── Try to embed logo image (if available)
       if (d.logoURL) {
@@ -7156,7 +7191,12 @@ button.pub-verified-badge:active svg {
     // of the dashboard. This runs before auth state is checked.
     // ════════════════════════════════════════════════════════════
     const _urlParams = new URLSearchParams(window.location.search);
-    const _rawPublicUsername = _urlParams.get('user') || _urlParams.get('u') || _urlParams.get('username') || _urlParams.get('profile');
+    const _urlPathParts = window.location.pathname.split('/').filter(Boolean);
+    const _urlPathUsername = _urlPathParts.length === 1 &&
+      !['dashboard.html', 'index.html'].includes(_urlPathParts[0].toLowerCase())
+        ? decodeURIComponent(_urlPathParts[0]) : null;
+    const _rawPublicUsername = _urlParams.get('user') || _urlParams.get('u') ||
+      _urlParams.get('username') || _urlParams.get('profile') || _urlPathUsername;
     const _publicUsername = _rawPublicUsername ? _rawPublicUsername.toLowerCase().trim() : null;
     // Public profile flag
 const IS_PUBLIC_PROFILE = !!_publicUsername;
@@ -7992,7 +8032,10 @@ if (photoEl) {
       }
 
       // ── QR Code ───────────────────────────────────────────────────
-      const profileUrl = `${publicProfileUrl(d.username)}&ref=qr`;
+      const cleanProfileUrl = publicProfileUrl(d.username);
+      const qrUrlLabel = document.querySelector('.pub-qr-url-text');
+      if (qrUrlLabel) qrUrlLabel.textContent = cleanProfileUrl.replace(/^https?:\/\//, '');
+      const profileUrl = `${cleanProfileUrl}?ref=qr`;
       if (window.QRCode) {
         setTimeout(() => {
           const qrEl = $('pubQrCodeEl');
