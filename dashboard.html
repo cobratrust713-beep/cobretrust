@@ -3801,6 +3801,16 @@ button.pub-verified-badge:active svg {
           Subscription
         </button>
 
+        <button class="nav-item" data-section="professionals-dashboard" id="professionalsDashboardNav" style="display:none">
+          <svg viewBox="0 0 16 16"><rect x="1.5" y="2" width="5.5" height="5" rx="1"/><rect x="9" y="2" width="5.5" height="5" rx="1"/><rect x="1.5" y="9" width="5.5" height="5" rx="1"/><rect x="9" y="9" width="5.5" height="5" rx="1"/></svg>
+          Professionals Dashboard
+        </button>
+
+        <button class="nav-item" data-section="profile-creation" id="adminProfileCreationNav" style="display:none">
+          <svg viewBox="0 0 16 16"><circle cx="6" cy="5" r="3"/><path d="M1 14c0-2.5 2-4 5-4s5 1.5 5 4M12 5v6M9 8h6"/></svg>
+          Create Professional Profile
+        </button>
+
         <button class="nav-item" data-section="payment-verification" id="paymentVerificationNav" style="display:none">
           <svg viewBox="0 0 16 16"><path d="M8 1.5l5 2v3.8c0 3.2-2.1 5.9-5 7.2-2.9-1.3-5-4-5-7.2V3.5l5-2z"/><path d="M5.5 8l1.7 1.7L10.8 6"/></svg>
           Payment Verification
@@ -3958,6 +3968,26 @@ button.pub-verified-badge:active svg {
             <div class="section-sub">Review transfer evidence before activating a subscription.</div>
           </div>
           <div id="paymentVerificationContent"></div>
+        </section>
+
+        <!-- ADMIN: Independent professional profile directory. -->
+        <section class="section" id="sec-professionals-dashboard">
+          <div class="section-header">
+            <div class="section-title">Professionals Dashboard</div>
+            <div class="section-sub">Select a professional to open and manage only that professional’s BevoTrust profile.</div>
+          </div>
+          <div id="professionalsDashboardContent"></div>
+        </section>
+
+        <!-- ADMIN: Create independent professional profiles using the existing full setup form. -->
+        <section class="section" id="sec-profile-creation">
+          <div class="section-header">
+            <div class="section-title">Create Professional Profile</div>
+            <div class="section-sub">Create a separate BevoTrust profile for a professional. Each profile receives its own public URL and a 30-day free trial.</div>
+          </div>
+          <div class="card" style="padding:0;overflow:hidden">
+            <iframe id="adminProfileCreatorFrame" title="Professional profile creation form" src="profile-setup.html?adminCreate=1" style="display:block;width:100%;height:calc(100vh - 190px);min-height:850px;border:0;background:transparent" loading="lazy"></iframe>
+          </div>
         </section>
 
         <!-- ════════════════════════════════════════════
@@ -4895,6 +4925,13 @@ button.pub-verified-badge:active svg {
     const $   = id => document.getElementById(id);
     const val = id => $( id) ? $(id).value.trim() : '';
 
+    // In administrator-managed mode, every profile edit targets the selected
+    // professional document, never the administrator's own users/{uid} record.
+    function getActiveUserDocRef() {
+      return doc(db, 'users', activeManagedProfileId || currentUser.uid);
+    }
+    function isManagingProfessional() { return Boolean(activeManagedProfileId); }
+
     // Verification badge disclosure. Keep the explanation visible and
     // specific instead of making the badge a decorative, non-functional icon.
     window.openVerificationModal = function () {
@@ -4959,7 +4996,55 @@ button.pub-verified-badge:active svg {
       window.history.replaceState({}, document.title, window.location.pathname);
     }
 
+    async function renderProfessionalsDashboard() {
+      const target = $('professionalsDashboardContent');
+      if (!target) return;
+      if (!isAuthorizedVerificationUser()) {
+        target.innerHTML = '<div class="card" style="padding:28px;text-align:center">Access restricted to authorised administrators.</div>';
+        return;
+      }
+      target.innerHTML = '<div class="card" style="padding:28px;text-align:center">Loading professional profiles…</div>';
+      try {
+        const q = query(collection(db, 'users'), where('createdByAdminUid', '==', currentUser.uid));
+        const snap = await getDocs(q);
+        const profiles = snap.docs.map(item => ({ id: item.id, ...item.data() }))
+          .filter(profile => profile.managedByAdmin === true)
+          .sort((a,b) => (b.profileCreatedAt?.seconds || 0) - (a.profileCreatedAt?.seconds || 0));
+        if (!profiles.length) {
+          target.innerHTML = `<div class="card" style="padding:34px;text-align:center"><div style="font-size:17px;font-weight:800">No professional profiles yet</div><p style="color:var(--text-2);font-size:13px">Profiles you create using “Create Professional Profile” will appear here automatically.</p><button class="btn btn-primary" onclick="showSection('profile-creation')">Create a professional profile</button></div>`;
+          return;
+        }
+        target.innerHTML = `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px">${profiles.map(profile => {
+          const name = escapeHtml(profile.businessName || 'Unnamed professional');
+          const category = escapeHtml(profile.businessCategory || 'Professional');
+          const username = String(profile.username || '').replace(/^@/, '');
+          const url = publicProfileUrl(username);
+          const avatar = profile.logoURL || profile.photoURL || '';
+          const image = avatar ? `<img src="${escapeHtml(avatar)}" alt="" style="width:58px;height:58px;object-fit:cover;border-radius:16px">` : `<div style="width:58px;height:58px;border-radius:16px;background:var(--surface-2);display:grid;place-items:center;font-size:22px;font-weight:800">${name.charAt(0)}</div>`;
+          const status = profile.freeTrialStatus === 'active' ? '30-day trial' : (profile.publicProfileStatus || 'Profile');
+          return `<article class="card" style="padding:18px;display:flex;flex-direction:column;gap:12px;cursor:pointer" role="button" tabindex="0" onclick="openManagedProfessional('${profile.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openManagedProfessional('${profile.id}')}" aria-label="Open ${name} dashboard"><div style="display:flex;align-items:center;gap:12px">${image}<div style="min-width:0"><div style="font-weight:800;font-size:15px;overflow-wrap:anywhere">${name}</div><div style="font-size:12px;color:var(--text-2)">${category}</div></div></div><div style="font-size:12px;color:var(--text-2);overflow-wrap:anywhere">${username ? '@'+escapeHtml(username) : 'No username set'}</div><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="badge badge-warning">${escapeHtml(status)}</span><span style="font-size:12px;font-weight:700;color:var(--accent)">Open dashboard →</span></div><a href="${escapeHtml(url)}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="font-size:12px;overflow-wrap:anywhere">View public profile</a></article>`;
+        }).join('')}</div>`;
+      } catch (err) {
+        console.error('[BevoTrust] Could not load managed professionals:', err);
+        target.innerHTML = `<div class="card" style="padding:24px;color:var(--danger)">Could not load professional profiles. Check Firestore permissions and try again.</div>`;
+      }
+    }
+
+    window.openManagedProfessional = function(profileId) {
+      if (!isAuthorizedVerificationUser()) { toast('Administrator access required.', 'error'); return; }
+      window.location.href = `dashboard.html?managedProfile=${encodeURIComponent(profileId)}`;
+    };
+
+    function showProfessionalsDirectoryButton() {
+      const nav = $('professionalsDashboardNav');
+      if (nav) nav.style.display = 'flex';
+    }
+
     function showSection(id) {
+      if ((id === 'profile-creation' || id === 'professionals-dashboard') && !isAuthorizedVerificationUser()) {
+        toast('Professional profile creation access denied.', 'error');
+        return;
+      }
       if (id === 'launch-analytics' && !isAuthorizedVerificationUser()) {
         toast('Launch Analysis access denied.', 'error');
         return;
@@ -4989,6 +5074,12 @@ button.pub-verified-badge:active svg {
           break;
         case 'subscription': renderSubscription();  break;
         case 'payment-verification': renderPaymentVerification(); break;
+        case 'profile-creation':
+          if (!isAuthorizedVerificationUser()) { toast('Professional profile creation access denied.', 'error'); return; }
+          break;
+        case 'professionals-dashboard':
+          renderProfessionalsDashboard();
+          break;
         case 'settings':     renderSettings();      break;
       }
 
@@ -5153,7 +5244,7 @@ button.pub-verified-badge:active svg {
     // ════════════════════════════════════════════════════════════
     async function loadUserData() {
       try {
-        const snap = await getDoc(doc(db, 'users', currentUser.uid));
+        const snap = await getDoc(getActiveUserDocRef());
         userData = snap.exists() ? snap.data() : {};
       } catch (err) {
         console.error('Error loading user data:', err);
@@ -5163,8 +5254,8 @@ button.pub-verified-badge:active svg {
     }
 
     async function startFreeTrialIfEligible() {
-      if (!currentUser?.uid) return;
-      const userRef = doc(db, 'users', currentUser.uid);
+      if (!currentUser?.uid || isManagingProfessional()) return;
+      const userRef = getActiveUserDocRef();
       try {
         const updatedData = await runTransaction(db, async transaction => {
           const snapshot = await transaction.get(userRef);
@@ -5441,7 +5532,10 @@ button.pub-verified-badge:active svg {
 
       // ── Render the same clean public view that visitors see ──────
       // First populate the publicProfileView elements
-      renderPublicProfileContent(d, d.username || null, currentUser?.uid || d.uid || null);
+      // In managed-professional mode, render the selected professional's own
+      // profile document (not the administrator's UID) so reviews and other
+      // profile-specific data remain isolated between professionals.
+      renderPublicProfileContent(d, d.username || null, activeManagedProfileId || currentUser?.uid || d.uid || null);
 
        // Then inject the exact visitor view with only legitimate owner controls.
       $('profileContent').innerHTML =
@@ -5471,11 +5565,11 @@ button.pub-verified-badge:active svg {
 
   '<button type="button" class="btn btn-sm" ' +
     'style="flex:0 0 auto;white-space:nowrap;padding:6px 9px;font-size:11px;line-height:1.2;min-height:32px;background:rgba(255,255,255,0.1);color:#fff;border:1px solid rgba(255,255,255,0.15)" ' +
-    'onclick="window.location.href=\'profile-setup.html\'">' +
+    'onclick="' + (isManagingProfessional() ? "showSection('settings')" : "window.location.href='profile-setup.html'") + '">' +
       '<svg viewBox="0 0 16 16" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">' +
         '<path d="M10.5 1.5L14.5 5.5 6 14H2v-4L10.5 1.5z"/>' +
       '</svg>' +
-      'Edit Pro.' +
+      (isManagingProfessional() ? 'Edit Dashboard' : 'Edit Pro.') +
   '</button>' +
 
 '</div>' +
@@ -6267,7 +6361,7 @@ button.pub-verified-badge:active svg {
           lastUpdatedAt: serverTimestamp(),
         };
 
-        await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true });
+        await setDoc(getActiveUserDocRef(), patch, { merge: true });
         Object.assign(userData, patch);
         closeModal('modalEditBusiness');
         toast('Business info saved!', 'success');
@@ -6294,7 +6388,7 @@ button.pub-verified-badge:active svg {
           website:      val('ec-website'),
           lastUpdatedAt: serverTimestamp(),
         };
-        await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true });
+        await setDoc(getActiveUserDocRef(), patch, { merge: true });
         Object.assign(userData, patch);
         closeModal('modalEditContact');
         toast('Contact info saved!', 'success');
@@ -6319,7 +6413,7 @@ button.pub-verified-badge:active svg {
           youtube:   val('es-youtube'),
           lastUpdatedAt: serverTimestamp(),
         };
-        await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true });
+        await setDoc(getActiveUserDocRef(), patch, { merge: true });
         Object.assign(userData, patch);
         closeModal('modalEditSocial');
         toast('Social links saved!', 'success');
@@ -6357,7 +6451,7 @@ button.pub-verified-badge:active svg {
         const proofArr = [...(userData.trustProof || [])];
         proofArr[idx] = url;
 
-        await setDoc(doc(db, 'users', currentUser.uid), { trustProof: proofArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
+        await setDoc(getActiveUserDocRef(), { trustProof: proofArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
         userData.trustProof = proofArr;
         toast('Proof image uploaded!', 'success');
         renderTrustProof();
@@ -6372,7 +6466,7 @@ button.pub-verified-badge:active svg {
       const proofArr = [...(userData.trustProof || [])];
       proofArr.splice(idx, 1);
       try {
-        await setDoc(doc(db, 'users', currentUser.uid), { trustProof: proofArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
+        await setDoc(getActiveUserDocRef(), { trustProof: proofArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
         userData.trustProof = proofArr;
         toast('Proof deleted.', 'success');
         renderTrustProof();
@@ -6407,7 +6501,7 @@ button.pub-verified-badge:active svg {
         const portArr = [...(userData.portfolio || [])];
         portArr[idx] = url;
 
-        await setDoc(doc(db, 'users', currentUser.uid), { portfolio: portArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
+        await setDoc(getActiveUserDocRef(), { portfolio: portArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
         userData.portfolio = portArr;
         toast('Portfolio image uploaded!', 'success');
         renderPortfolio();
@@ -6422,7 +6516,7 @@ button.pub-verified-badge:active svg {
       const portArr = [...(userData.portfolio || [])];
       portArr.splice(idx, 1);
       try {
-        await setDoc(doc(db, 'users', currentUser.uid), { portfolio: portArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
+        await setDoc(getActiveUserDocRef(), { portfolio: portArr, lastUpdatedAt: serverTimestamp() }, { merge: true });
         userData.portfolio = portArr;
         toast('Portfolio image deleted.', 'success');
         renderPortfolio();
@@ -6525,7 +6619,7 @@ button.pub-verified-badge:active svg {
       if (!requirePaidSubscription('download your certificate')) return;
 
       // Fetch latest Firestore data for most current profile info
-      const snap = await getDoc(doc(db, 'users', currentUser.uid));
+      const snap = await getDoc(getActiveUserDocRef());
       const freshData = snap.exists() ? snap.data() : {};
 
       // Merge fresh data
@@ -6991,6 +7085,7 @@ button.pub-verified-badge:active svg {
     // SETTINGS — DELETE ACCOUNT
     // ════════════════════════════════════════════════════════════
     window.deleteAccount = async function () {
+      if (isManagingProfessional()) { toast('Account deletion is unavailable while managing another professional profile.', 'error'); return; }
       const pw = $('del-password').value;
       if (!pw) { alert('Enter your password to confirm deletion.'); return; }
 
@@ -7191,6 +7286,8 @@ button.pub-verified-badge:active svg {
     // of the dashboard. This runs before auth state is checked.
     // ════════════════════════════════════════════════════════════
     const _urlParams = new URLSearchParams(window.location.search);
+    const _managedProfileId = _urlParams.get('managedProfile') || null;
+    let activeManagedProfileId = null;
     const _urlPathParts = window.location.pathname.split('/').filter(Boolean);
     const _urlPathUsername = _urlPathParts.length === 1 &&
       !['dashboard.html', 'index.html'].includes(_urlPathParts[0].toLowerCase())
@@ -8085,24 +8182,57 @@ if (_publicUsername) {
 
             currentUser = user;
 
+            if (_managedProfileId) {
+              if (!isAuthorizedVerificationUser()) {
+                $('globalLoader').style.display = 'none';
+                $('authGate').style.display = 'flex';
+                toast('Administrator access required to manage professional profiles.', 'error');
+                return;
+              }
+              activeManagedProfileId = _managedProfileId;
+            }
+
             try {
                 await loadUserData();
+                if (isManagingProfessional() && !userData.managedByAdmin) throw new Error('This profile is not an administrator-managed professional profile.');
                 await startFreeTrialIfEligible();
-            } catch {}
+            } catch (loadErr) {
+                console.error('[BevoTrust] Dashboard profile load failed:', loadErr);
+                if (isManagingProfessional()) {
+                  $('globalLoader').style.display = 'none';
+                  $('authGate').style.display = 'flex';
+                  toast('Could not open this professional profile. Check access permissions.', 'error');
+                  return;
+                }
+            }
 
             $('globalLoader').style.display = 'none';
             $('appShell').style.display = 'block';
 
             attachEventListeners();
-            subscribeToPaymentRequest();
-            subscribeToAdminPayments();
+            if (isAuthorizedVerificationUser()) {
+              $('adminProfileCreationNav').style.display = 'flex';
+              showProfessionalsDirectoryButton();
+            }
+            if (isManagingProfessional()) {
+              document.title = `${userData.businessName || 'Professional'} Dashboard — BevoTrust`;
+              const name = $('sidebarName');
+              if (name) name.textContent = userData.businessName || 'Professional';
+              // The administrator is managing this profile; do not attach their personal billing or notification streams.
+              $('adminProfileCreationNav').style.display = 'none';
+              $('professionalsDashboardNav').style.display = 'flex';
+              $('professionalsDashboardNav').onclick = null;
+            } else {
+              subscribeToPaymentRequest();
+              subscribeToAdminPayments();
+              loadNotifications();
+            }
             updateSidebarUI();
             await checkAndExpireSubscription();
 
             showSection('home');
             scheduleSubscriptionRefresh();
             openProfileAfterSetup();
-            loadNotifications();
 
         } else {
 
@@ -8170,7 +8300,7 @@ if (_publicUsername) {
       if (!Object.keys(patch).length) return;
 
       try {
-        await setDoc(doc(db, 'users', currentUser.uid), patch, { merge: true });
+        await setDoc(getActiveUserDocRef(), patch, { merge: true });
         userData = { ...d, ...patch };
         if (paidExpired) toast('Your Cobratrust Premium subscription has expired. Renew to restore your profile.', 'error');
         updateSidebarUI();
