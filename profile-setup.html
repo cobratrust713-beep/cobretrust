@@ -1590,7 +1590,23 @@
       }
     }
 
-</style>
+
+    /* Compact, readable logo/profile upload controls on phones */
+    .upload-pair { align-items: stretch; }
+    .upload-zone { min-width: 0; }
+    .upload-zone-label { line-height: 1.3; overflow-wrap: anywhere; }
+    .upload-zone-hint { line-height: 1.35; }
+    @media (max-width: 560px) {
+      .upload-pair { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+      .upload-zone { min-height: 104px; padding: 12px 5px; border-radius: 11px; }
+      .upload-zone-icon { width: 29px; height: 29px; margin-bottom: 7px; }
+      .upload-zone-icon svg { width: 15px; height: 15px; }
+      .upload-zone-label { font-size: 11px; margin-bottom: 3px; }
+      .upload-zone-hint { font-size: 9px; }
+      .upload-preview { object-fit: contain !important; background: #fff; padding: 5px; }
+    }
+
+  </style>
 </head>
 <body>
 
@@ -1908,7 +1924,7 @@
             First Trust Proof
           </div>
           <p class="field-hint" style="margin-bottom:14px">
-            Upload your first customer reviews, delivery confirmations, or payment confirmations.
+            Upload up to 5 items of trust evidence, such as customer reviews, delivery confirmations, or payment confirmations.
           </p>
           <span class="field-error" id="err-proof" style="display:none;margin-bottom:10px;display:none"></span>
           <div class="multi-upload-grid" id="proofGrid">
@@ -1961,7 +1977,7 @@
             </span>
             Portfolio
           </div>
-          <p class="field-hint" style="margin-bottom:14px">Show your best work. Upload up to 3 portfolio images.</p>
+          <p class="field-hint" style="margin-bottom:14px">Show your best work. Upload up to 7 portfolio images.</p>
           <span class="field-error" id="err-portfolio" style="display:none;margin-bottom:10px"></span>
           <div class="multi-upload-grid" id="portfolioGrid">
 
@@ -2073,8 +2089,8 @@
   <div class="loading-overlay" id="loadingOverlay" aria-live="polite" aria-busy="true">
     <div class="setup-progress-card">
       <div class="setup-progress-mark" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 4 40 11v11c0 10-6.5 17-16 22C14.5 39 8 32 8 22V11z"/><path d="m16 24 5 5 11-12"/></svg></div>
-      <div class="setup-progress-eyebrow">BEVOTRUST PROFILE SETUP</div>
-      <div class="loading-text" id="loadingText">Preparing your profile…</div>
+      <div class="setup-progress-eyebrow">BEVOTRUST SECURE SUBMISSION</div>
+      <div class="loading-text" id="loadingText">Submitting your information…</div>
       <div class="setup-progress-track" role="progressbar" aria-label="Profile setup progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="setupProgressTrack"><div class="setup-progress-fill" id="setupProgressFill"></div></div>
       <div class="setup-progress-meta"><span id="setupProgressStage">Checking profile details</span><strong id="setupProgressPercent">0%</strong></div>
       <p class="setup-progress-note">Please keep this window open while your profile setup is completed.</p>
@@ -2122,6 +2138,7 @@
     ]);
     const isAllowedReviewer = user => !!user && ADMIN_UIDS.has(user.uid);
     const isAdminRoute = new URLSearchParams(window.location.search).get('admin') === '1';
+    const isAdminCreateRoute = new URLSearchParams(window.location.search).get('adminCreate') === '1';
     let adminSubmissions = [];
 
     // ── Cloudinary config ────────────────────────────────────────────────────
@@ -2145,8 +2162,8 @@
     const slots = {
       logo:      { url: '', uploading: false },
       photo:     { url: '', uploading: false },
-      proof:     [{url:'',uploading:false},{url:'',uploading:false},{url:'',uploading:false}],
-      portfolio: [{url:'',uploading:false},{url:'',uploading:false},{url:'',uploading:false}],
+      proof:     Array.from({length:5}, () => ({url:'',uploading:false})),
+      portfolio: Array.from({length:7}, () => ({url:'',uploading:false})),
     };
 
     // ── Helpers: DOM shortcuts ───────────────────────────────────────────────
@@ -2446,6 +2463,35 @@
       }
     }
 
+    // Add only the next available tile after the previous image has uploaded.
+    const SLOT_LIMITS = { proof: 5, portfolio: 7 };
+    function appendUploadSlot(group, idx) {
+      const grid = $(`${group}Grid`);
+      if (!grid || $(`${group}Slot${idx}`) || idx >= SLOT_LIMITS[group]) return;
+      const label = group === 'proof' ? `Screenshot ${idx + 1}` : `Image ${idx + 1}`;
+      const slot = document.createElement('div');
+      slot.className = 'multi-upload-slot';
+      slot.id = `${group}Slot${idx}`;
+      slot.setAttribute('ondragover', "event.preventDefault();this.classList.add('drag-over')");
+      slot.setAttribute('ondragleave', "this.classList.remove('drag-over')");
+      slot.setAttribute('ondrop', `event.preventDefault();this.classList.remove('drag-over');handleSlotDrop(event,'${group}',${idx})`);
+      slot.innerHTML = `
+        <input type="file" accept=".png,.jpg,.jpeg" onchange="handleSlotFileChange(this,'${group}',${idx})" />
+        <img id="${group}Img${idx}" style="display:none" alt="${label}" />
+        <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        <span>${label}</span>
+        <div class="slot-uploading" id="${group}Uploading${idx}" style="display:none">Uploading…</div>
+        <div class="slot-error" id="${group}Error${idx}" style="display:none"></div>`;
+      grid.appendChild(slot);
+    }
+
+    function revealNextUploadSlot(group) {
+      const nextIndex = slots[group].findIndex((slot, index) =>
+        index < SLOT_LIMITS[group] && !slot.url && !slot.uploading
+      );
+      if (nextIndex >= 0) appendUploadSlot(group, nextIndex);
+    }
+
     // ── Multi-slot upload (proof / portfolio) ────────────────────────────────
     window.handleSlotFileChange = function (input, group, idx) {
       const file = input.files[0];
@@ -2480,6 +2526,7 @@
       try {
         const url = await uploadToCloudinary(file);
         slots[group][idx].url = url;
+        revealNextUploadSlot(group);
       } catch {
         $(`${group}Error${idx}`).textContent = 'Upload failed';
         $(`${group}Error${idx}`).style.display = 'block';
@@ -2492,7 +2539,7 @@
 
     // ── Auto-save ────────────────────────────────────────────────────────────
     function scheduleAutosave() {
-      if (!currentUser) return;
+      if (!currentUser || isAdminCreateRoute) return;
       if (autosaveTimer) clearTimeout(autosaveTimer);
       if (autosaveHideTimer) clearTimeout(autosaveHideTimer);
 
@@ -2574,58 +2621,40 @@
       `).join('');
     }
 
-    // Premium 10-second profile-setup progress. This is not a claim that the
-    // business has been verified or that an actual verification process ran.
+    // Submission confirmation: profile details are queued for manual trust review.
     function showSetupComplete() {
       const overlay = $('loadingOverlay');
-      const text = $('loadingText');
-      const fill = $('setupProgressFill');
-      const percent = $('setupProgressPercent');
-      const stage = $('setupProgressStage');
-      const track = $('setupProgressTrack');
-      const stages = [
-        { at: 0,  label: 'Checking profile details', title: 'Preparing your profile…' },
-        { at: 25, label: 'Organising profile information', title: 'Organising your business details…' },
-        { at: 50, label: 'Preparing your public profile', title: 'Preparing your BevoTrust profile…' },
-        { at: 75, label: 'Finishing setup', title: 'Finishing the final setup steps…' },
-        { at: 100,label: 'Setup complete', title: 'Your profile is ready' }
-      ];
-      // Reset and reveal the overlay before starting the clock so the first
-      // visible frame already shows 0%, without waiting for a delayed animation frame.
-      fill.style.width = '0%';
-      percent.textContent = '0%';
-      track.setAttribute('aria-valuenow', '0');
-      stage.textContent = stages[0].label;
-      text.textContent = stages[0].title;
-      overlay.classList.add('active');
-      overlay.setAttribute('aria-busy', 'true');
-      void overlay.offsetHeight; // flush layout so the 0% state paints immediately
-      const began = performance.now();
-      const duration = 10000;
-      let lastStage = 0;
-      function tick(now) {
-        const elapsed = Math.min(duration, Math.max(0, now - began));
-        const value = Math.min(100, Math.floor((elapsed / duration) * 100));
-        fill.style.width = value + '%';
-        percent.textContent = value + '%';
-        track.setAttribute('aria-valuenow', String(value));
-        let current = 0;
-        for (let i = 0; i < stages.length; i++) if (value >= stages[i].at) current = i;
-        if (current !== lastStage) {
-          text.textContent = stages[current].title;
-          stage.textContent = stages[current].label;
-          lastStage = current;
-        }
-        if (elapsed < duration) {
-          requestAnimationFrame(tick);
-          return;
-        }
-        overlay.classList.remove('active');
-        overlay.setAttribute('aria-busy', 'false');
-        const main = $('mainApp');
-        main.innerHTML = `<div class="page-wrapper"><div class="section-card" style="text-align:center;padding:38px 26px"><div style="width:68px;height:68px;border-radius:22px;display:grid;place-items:center;margin:0 auto 19px;background:rgba(53,208,127,.12);border:1px solid rgba(53,208,127,.3);color:#65E6A1;font-size:30px">✓</div><div class="step-label">PROFILE SETUP COMPLETE</div><h1 class="page-title" style="margin:12px 0">Your profile is ready</h1><p class="page-sub">Your business details have been saved and your BevoTrust profile setup is complete. Completing setup does not itself confirm business verification.</p><button class="btn-submit" style="margin:24px auto 0;max-width:320px;width:100%" onclick="window.location.href='dashboard.html?openProfile=1'">Continue to dashboard →</button></div></div>`;
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-busy', 'false');
+      const main = $('mainApp');
+      main.innerHTML = `<div class="page-wrapper">
+        <div class="section-card" style="text-align:center;padding:34px 24px">
+          <div style="width:64px;height:64px;border-radius:18px;display:grid;place-items:center;margin:0 auto 18px;background:rgba(47,128,255,.14);border:1px solid rgba(105,177,255,.32);color:#8ec2ff;font-size:27px">✓</div>
+          <div class="step-label">SUBMISSION RECEIVED</div>
+          <h1 class="page-title" style="margin:12px 0">Your profile is under review</h1>
+          <p class="page-sub" style="margin:0 auto 14px">Thank you for submitting your business information. BevoTrust will manually review your details and supporting evidence to help protect customers and prevent fraudulent profiles.</p>
+          <p class="page-sub" style="margin:0 auto 22px">Your profile has not yet been verified and will not be marked as trusted until our review is complete. We will notify you by email when a decision has been made.</p>
+          <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border:1px solid rgba(105,177,255,.28);border-radius:999px;background:rgba(47,128,255,.10);color:#b9d8ff;font-size:12px;font-weight:700">MANUAL VERIFICATION PENDING</div>
+          <button class="btn-submit" id="continueToDashboardBtn" style="margin:24px auto 0;max-width:320px;width:100%" type="button">Continue to dashboard →</button>
+          <p class="page-sub" style="margin:12px auto 0;font-size:12px">Taking you to your dashboard…</p>
+        </div></div>`;
+
+      // Route the signed-in owner to dashboard home. Do not include the
+      // submitted username in the URL; username query parameters are used
+      // by dashboard.html to display public profiles.
+      const dashboardUrl = new URL('dashboard.html', window.location.href).href;
+      const goToDashboard = () => window.location.replace(dashboardUrl);
+      if (isAdminCreateRoute) {
+        main.querySelector('h1').textContent = 'Professional profile created';
+        main.querySelector('.page-sub').textContent = 'The independent profile has been saved and its 30-day free trial is active. It is publicly visible, but remains pending manual verification.';
+        const extra = main.querySelectorAll('.page-sub')[1];
+        if (extra) extra.textContent = 'You can return to the dashboard and create another professional profile.';
+        $('continueToDashboardBtn').textContent = 'Return to dashboard';
+        $('continueToDashboardBtn')?.addEventListener('click', goToDashboard);
+        return;
       }
-      tick(performance.now());
+      $('continueToDashboardBtn')?.addEventListener('click', goToDashboard);
+      window.setTimeout(goToDashboard, 2200);
     }
 
     // ── Final save ───────────────────────────────────────────────────────────
@@ -2654,22 +2683,23 @@
 
       try {
         const username   = val('username');
-        const publicURL  = `BevoTrust.app/${username}`;
+        const publicURL  = isAdminCreateRoute ? `https://bevotrust.com.ng/${username}` : `BevoTrust.app/${username}`;
         const proofURLs  = slots.proof.filter(s => s.url).map(s => s.url);
         const portURLs   = slots.portfolio.filter(s => s.url).map(s => s.url);
 
-        // Reserve / update username
-        if (username !== originalUsername) {
-          if (originalUsername) {
-            await setDoc(doc(db, 'usernames', originalUsername), { deleted: true }, { merge: true });
-          }
-          await setDoc(doc(db, 'usernames', username), {
-            uid: currentUser.uid,
-            username,
-            createdAt: serverTimestamp(),
-          });
-        }
+        // Admin-created profiles receive their own Firestore document ID; they
+        // never reuse or overwrite the administrator's personal user document.
+        const profileRef = isAdminCreateRoute ? doc(collection(db, 'users')) : doc(db, 'users', currentUser.uid);
+        const profileId = profileRef.id;
+        await setDoc(doc(db, 'usernames', username), {
+          uid: profileId,
+          profileId,
+          username,
+          createdAt: serverTimestamp(),
+        });
 
+        const trialStart = new Date();
+        const trialExpiry = new Date(trialStart.getTime() + 30 * 24 * 60 * 60 * 1000);
         const profileData = {
           businessName:        val('businessName'),
           businessCategory:    val('businessCategory'),
@@ -2693,24 +2723,38 @@
           trustProof:          proofURLs,
           portfolio:           portURLs,
           bio:                 $('businessDescription').value,
-          email:               currentUser.email,
+          email:               isAdminCreateRoute ? (val('contactEmail') || '') : currentUser.email,
           profileCompleted:    true,
+          verificationStatus:  'pending_review',
+          profileReviewStatus: 'submitted',
           profileCreatedAt:    serverTimestamp(),
           lastUpdatedAt:       serverTimestamp(),
+          ...(isAdminCreateRoute ? {
+            managedByAdmin: true,
+            createdByAdminUid: currentUser.uid,
+            profileOwnerUid: null,
+            freeTrialUsed: true,
+            freeTrialStatus: 'active',
+            freeTrialStart: trialStart.toISOString(),
+            freeTrialExpiry: trialExpiry.toISOString(),
+            publicProfileAvailable: true,
+            publicProfileStatus: 'active',
+          } : {}),
         };
 
-        await setDoc(doc(db, 'users', currentUser.uid), profileData, { merge: true });
+        await setDoc(profileRef, profileData, { merge: !isAdminCreateRoute });
 
-        // Create/update a separate submission record for the private admin queue.
-        // The status describes the submission workflow; it is not a claim of independent verification.
-        const submissionRef = doc(db, 'businessSubmissions', currentUser.uid);
+        // Keep a separate review-queue record keyed to this independent profile.
+        const submissionRef = doc(db, 'businessSubmissions', profileId);
         const existingSubmissionSnap = await getDoc(submissionRef);
         const existingSubmission = existingSubmissionSnap.exists() ? existingSubmissionSnap.data() : {};
         const submissionData = {
           ...profileData,
-          uid: currentUser.uid,
-          ownerEmail: currentUser.email || '',
-          submissionStatus: existingSubmission.submissionStatus || 'submitted',
+          uid: profileId,
+          profileId,
+          createdByAdminUid: isAdminCreateRoute ? currentUser.uid : null,
+          ownerEmail: isAdminCreateRoute ? (val('contactEmail') || '') : (currentUser.email || ''),
+          submissionStatus: existingSubmission.submissionStatus === 'approved' ? 'approved' : 'submitted',
           submittedAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         };
@@ -2795,23 +2839,27 @@
         // Proof images
         if (Array.isArray(d.trustProof)) {
           d.trustProof.forEach((url, i) => {
-            if (!url || i >= 3) return;
+            if (!url || i >= SLOT_LIMITS.proof) return;
+            if (!$(`proofSlot${i}`)) appendUploadSlot('proof', i);
             slots.proof[i].url = url;
             const img = $(`proofImg${i}`);
             img.src = url;
             img.style.display = 'block';
           });
+          revealNextUploadSlot('proof');
         }
 
         // Portfolio images
         if (Array.isArray(d.portfolio)) {
           d.portfolio.forEach((url, i) => {
-            if (!url || i >= 3) return;
+            if (!url || i >= SLOT_LIMITS.portfolio) return;
+            if (!$(`portfolioSlot${i}`)) appendUploadSlot('portfolio', i);
             slots.portfolio[i].url = url;
             const img = $(`portfolioImg${i}`);
             img.src = url;
             img.style.display = 'block';
           });
+          revealNextUploadSlot('portfolio');
         }
       } catch (err) {
         console.error('Error loading profile:', err);
@@ -2914,7 +2962,7 @@
       setLoading(false);
       if (user) {
         currentUser = user;
-        if (isAdminRoute) {
+        if (isAdminRoute || isAdminCreateRoute) {
           const allowed = isAllowedReviewer(user);
           if (!allowed) {
             $('notLoggedIn').style.display = 'flex';
@@ -2924,8 +2972,17 @@
             $('notLoggedIn').querySelector('a').href = 'dashboard.html';
             return;
           }
-          $('adminApp').style.display = 'block';
-          await loadAdminSubmissions();
+          if (isAdminCreateRoute) {
+            $('mainApp').style.display = 'block';
+            const heading = document.querySelector('.page-title');
+            if (heading) heading.textContent = 'Create a professional profile';
+            const sub = document.querySelector('.page-sub');
+            if (sub) sub.textContent = 'Enter the professional’s real business details and upload their supporting images. This profile will be independent of your administrator account.';
+            document.title = 'Create Professional Profile — BevoTrust';
+          } else {
+            $('adminApp').style.display = 'block';
+            await loadAdminSubmissions();
+          }
         } else {
           $('mainApp').style.display = 'block';
           if (isAllowedReviewer(user) && $('adminAccessButton')) $('adminAccessButton').style.display = 'inline-flex';
